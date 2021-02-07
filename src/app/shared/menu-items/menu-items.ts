@@ -44,7 +44,7 @@ const MENUITEMS = [
           {
             state: 'simple-page',
             short_label: 'S',
-            name: 'Sample Page',
+            name: 'sSample Page',
             type: 'link',
             icon: 'icon-watch'
           },
