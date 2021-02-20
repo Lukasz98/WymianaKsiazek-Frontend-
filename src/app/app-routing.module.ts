@@ -10,12 +10,20 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'other/simple-page',
+        redirectTo: 'book-search',
         pathMatch: 'full'
+      },
+      {
+        path: 'book-search',
+        loadChildren: () => import('./theme/book-search/book-search.module').then(m => m.BookSearchModule)
       },
       {
         path: 'other/simple-page',
         loadChildren: () => import('./theme/simple-page/simple-page.module').then(m => m.SimplePageModule)
+      },
+      {
+        path: 'form',
+        loadChildren: () => import('./theme/forms/forms.module').then(m => m.FormsModule)
       }
     ]
   },
@@ -29,6 +37,9 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'home/dashboard/default'
   }
+
+
+
 ];
 
 @NgModule({
@@ -36,3 +47,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+

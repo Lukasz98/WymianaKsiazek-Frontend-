@@ -1,0 +1,203 @@
+<style>
+
+.card {
+  font-family: sans-serif;
+  font-size: 18px;
+  background: #D2D2D2;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.search-bar {
+  height: 50px;
+  float: left;
+  text-indent: 10px !important;
+  border-style: none;
+}
+
+.search-button {
+  height: 50px;
+  border-style: none;
+}
+
+.search-button:hover {
+  cursor: pointer;
+}
+
+.search-icon {
+  background-color: white; 
+  color: black; 
+  width: 50px; 
+  border-radius: 0px;
+  border-style: none;
+  border-left-style: solid;
+}
+
+.search-icon:hover {
+  background-color: rgb(200, 200, 200);
+}
+
+.search-drop-down {
+  position: absolute;
+  width: 50%;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 10;
+  background-color: #F6F6F6;
+  font-family: sans-serif;
+  opacity: 0.98;
+}
+
+.search-results {
+ padding: 10px;
+}
+
+.search-results:hover {
+ background: #707070;
+}
+
+</style>
+
+<div class="card">
+  <div class="card-block">
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+        <h1 class="txt-highlight text-center m-t-20">
+          Wyszukiwarka
+        </h1>
+      </div>
+    </div>
+    <div class="row search-header">
+      <div class="col-sm-12">
+        <div class="col-sm-6 offset-sm-3" >
+          <form  [formGroup]='stateForm' autocomplete="new-password" novalidate>
+            <input id='search' autocomplete="off"  placeholder="tytuł, autor" formControlName='search' (keyup.enter)="onEnterSearch($event)"  (click)=' openDropDown() ' (keyup)="onStrokeSearch($event)" class=' input-underline search-bar col-sm-11 col-md-11 col-10 ' type='text'>
+            <span class="input-group-append search-btn search-button " (click)="onSubmit()" ><i class="icon-search input-group-text search-icon" ></i></span>
+          </form>
+          <div clickOutside (clickOutside)="closeDropDown()">
+            <div *ngIf='showDropDown' class='search-drop-down '>
+              <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of states | searchFilter: getSearchValue()">
+                <a [innerHTML]="s | letterBold: getSearchValue()">
+                  {{s}}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- dalej tylko komentarze -->
+<ul *ngIf="dds$ | async as dds ">
+  <li *ngFor="let d of dds">
+    {{ d.id  + '  :  ' +   d.title}}
+    <ng-template #noData>No Data Available</ng-template>
+  </li> 
+</ul>
+
+    <!-- <div class="col-lg-4 offset-lg-4 offset-sm-3 col-sm-6 offset-sm-1 col-xs-12"> -->
+
+<!--
+  <label for="search">
+    <i class='fa fa-search icon-pos color-purple'></i>
+  </label>
+-->
+
+<!--
+<input id='search' placeholder="Search for a state" formControlName='search' (click)=' openDropDown() ' class=' input-underline search-bar ' type='text'>
+-->
+<!--
+<div class="col-sm-10 " style="background-color: pink; display: inline-block">
+</div>
+-->
+<!--
+  <button type="submit" class="btn btn-primary waves-effect waves-light search-button"    (click)="mouseClickSearch()" style="margin-left: 10px;">Search</button>
+<div class="col-xs-1 " style="display: inline-block">
+</div>
+-->
+ 
+
+
+<!--
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="form-material">
+        <div class="col-sm-12 col-xl-4">
+          <h4 class="sub-title">Multi Select</h4>
+          <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="true"></ng-select>
+          <p class="m-t-10">The ng-select above is declared with the <code>multiple</code> attribute</p>
+        </div>
+            <button type="submit" class="btn btn-primary waves-effect waves-light" [disabled]="!myForm.valid" useup="mouseClickSearch()">Search</button>
+
+        <div class="md-group-add-on form-group form-primary">
+          <div class="md-input-file col-sm-6 offset-sm-3" style="float: left">
+            <input type="text" class="md-form-control md-form-file form-control js-example-basic-hide-search" placeholder="Search here..." id="bookName" formControlName="bookName">
+            <tag-input type="text"  (keyup)="onKeyUpEvent($event)"  class="md-form-control md-form-file form-control js-example-basic-hide-search" placeholder="Search here..." id="bookName" formControlName="bookName">
+            <tag-input type="text"  (keyup.enter)="onEnterSearch($event)" (keyup)="onStrokeSearch($event)" class="md-form-control md-form-file form-control js-example-basic-hide-search" placeholder="Search here..." id="bookName" formControlName="bookName">
+
+            <tag-input type="text"  (keyup.enter)="onEnterSearch($event)" (keyup)="onStrokeSearch($event)" class="md-form-control md-form-file form-control " placeholder="Search here..." id="bookName" formControlName="bookName">
+            <tag-input-dropdown [autocompleteItems]="autocompleteItems"></tag-input-dropdown>
+
+            </tag-input>
+            <span class="form-bar"></span>
+            <div class="messages text-danger" *ngIf="myForm.controls.bookName.errors?.required">Name can't be blank</div>
+          </div>
+          <span class="md-add-on-file">
+            <button type="submit" class="btn btn-primary waves-effect waves-light"   (mouseover)="mouseClickSearch()" (click)="mouseClickSearch()">Search</button>
+          </span>
+  <div class='width-25'></div>
+    <div class="width-half">
+ 
+      <form [formGroup]='stateForm' autocomplete="new-password" novalidate>
+        <input id='search' placeholder="Search for a state" formControlName='search' (click)=' openDropDown() ' (keyup)="onStrokeSearch($event)" class=' input-underline search-bar ' type='text'>
+        <button type="submit" class="btn btn-primary waves-effect waves-light"    (click)="mouseClickSearch()">Search</button>
+      </form>
+      <div clickOutside (clickOutside)="ccloseDropDown()">
+        <div *ngIf='showDropDown' class='search-drop-down '>
+          <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of states | searchFilter: getSearchValue()">
+            <a [innerHTML]="s | letterBold: getSearchValue()">
+              {{s}}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+
+<!--
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="'Basic Inputs Validation'" [headerContent]="'Lorem ipsum dolor sit amet, consectetur adipisicing elit'" [cardOptionBlock]="true">
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Simple Input</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="bookName" placeholder="Text Input Validation" formControlName="bookName">
+            <div class="messages text-danger" *ngIf="myForm.controls.bookName.errors?.required">Name can't be blank</div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2"></label>
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary m-b-0 ripple light" [disabled]="!myForm.valid">Submit</button>
+          </div>
+        </div>
+      </form>
+ 
+
+    </app-card>
+  </div>
+</div>
+-->
+
+
+<!--
+<div *ngFor="let item of dds$ | keyvalue">
+    Key: <b>{{item.key}}</b> and Value: <b>{{item.value}}</b>
+ </div>
+-->
+
+
