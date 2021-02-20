@@ -23,6 +23,10 @@ const routes: Routes = [
     path: '',
     component: AuthComponent,
     children: [
+      {
+        path: 'auth',
+        loadChildren: () => import('./theme/auth/auth.module').then(m => m.AuthModule)
+      }
     ]
   },
   {
