@@ -1,0 +1,54 @@
+<section class="login-block">
+    <!-- Container-fluid starts -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <!-- Authentication card start -->
+  
+          <form class="md-float-material form-material" #validationForm="ngForm" novalidate action="javascript:">
+            <div class="text-center">
+              <img src="assets/images/logo.png" alt="logo.png">
+            </div>
+            <div class="auth-box card">
+              <div class="card-block">
+                <div class="row m-b-20">
+                  <div class="col-md-12">
+                    <h3 class="text-center">Wpisz nowe hasło</h3>
+                  </div>
+                </div>
+  
+                <div class="form-group form-primary">
+                    <input type="password" name="password" class="form-control"
+                    [ngClass]="{'is-invalid': !password.valid && (password.dirty || password.touched || submit)}" 
+                    #password="ngModel" required [(ngModel)]="formInput.password">
+                    <span class="form-bar"></span>
+                    <label class="float-label form-control-label" for="password">Hasło</label>
+                    <label *ngIf="!password.valid && (password.dirty || password.touched || submit)" id="validation-password-error" 
+                    class="error jquery-validation-error small form-text invalid-feedback">Niepoprawne hasło!</label>
+                </div>
+                <div class="form-group form-primary">
+                    <input type="password" name="confirmPassword" class="form-control"
+                    [ngClass]="{'is-invalid': !confirmPassword.valid && (confirmPassword.dirty || confirmPassword.touched || submit)}" 
+                    #confirmPassword="ngModel" required rpassword [(ngModel)]="formInput.confirmPassword" >
+                    <span class="form-bar"></span>
+                    <label class="float-label form-control-label" for="confirmPassword">Powtórz hasło</label>
+                    <label *ngIf="!confirmPassword.valid && (confirmPassword.dirty || confirmPassword.touched || submit)" id="vvalidation-password-confirm-error" 
+                    class="error jquery-validation-error small form-text invalid-feedback">Hasła nie są takie same!</label>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <button type="button" class="btn btn-success btn-md btn-block waves-light text-center m-b-20 ripple" (click)='changeButtonClicked(validationForm)'>Zmień</button>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- end of col-sm-12 -->
+      </div>
+      <!-- end of row -->
+    </div>
+    <!-- end of container-fluid -->
+  </section>
+  

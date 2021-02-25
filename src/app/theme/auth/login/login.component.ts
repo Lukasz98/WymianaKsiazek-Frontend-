@@ -4,6 +4,11 @@ import {environment} from '../../../../environments/environment';
 declare var FB:any;
 declare const gapi: any;
 
+export class FormInput {
+  email: any;
+  password: any;
+}
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,21 +16,22 @@ declare const gapi: any;
 })
 export class LoginComponent implements OnInit {
 
-  email:string;
-  password:string;
   auth2: any;
+  public submit : boolean;
+  formInput:FormInput;
+  form:any;
 
-  constructor() {}
+  constructor() {
+    this.submit = false;
+    
+  }
 
   ngOnInit(): void {
+    document.querySelector('body').setAttribute('themebg-pattern', 'theme6');
 
-    window['fbAsyncInit'] = function () {
-      FB.init({
-          appId: environment.facebookAppId,
-          cookie: true,
-          xfbml: true,
-          version: 'v9.0'
-      });
+    this.formInput = {
+      email: '',
+      password : ''
     };
 
     (function (d, s, id) {
@@ -54,9 +60,9 @@ export class LoginComponent implements OnInit {
           +"&response_type="+encodeURIComponent("token");
 
         const urlParams = new URLSearchParams(window.location.search);
-        const myParam = urlParams.get('access_token');
+        const access_token = urlParams.get('access_token');
         // send token to server
-        // service.http.post<any>("faccebook", {myParam})
+        // service.http.post<any>("faccebook", {access_token})
       }
     });
   }
@@ -66,10 +72,18 @@ export class LoginComponent implements OnInit {
        
   }
 
-  logInButtonClicked():void {  
+  logInButtonClicked(form: any):void { 
+    this.submit = true;
+    if(!form.valid) {
+      return;
+    } 
+    else
+    {
+      // service.http.post<any>("login", {form.email, form.password};)
+    }
   }
 
-  public googleInit() {
+  googleInit() {
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({
         client_id: '278922565702-pf3rbcsfd8hrai4imcjp8rbtfot79vp1.apps.googleusercontent.com',
@@ -80,7 +94,18 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  public attachSignin(element) {
+  facebookInit() {
+    window['fbAsyncInit'] = function () {
+      FB.init({
+          appId: environment.facebookAppId,
+          cookie: true,
+          xfbml: true,
+          version: 'v9.0'
+      });
+    };
+  }
+
+  attachSignin(element) {
     this.auth2.attachClickHandler(element, {},
       (googleUser) => {
 
@@ -94,6 +119,8 @@ export class LoginComponent implements OnInit {
 
   ngAfterViewInit(){
     this.googleInit();
+    this.facebookInit();
+    
   }
 
 }

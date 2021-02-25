@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LoginRoutingModule } from './login-routing.module';
-import { LoginComponent } from './login.component';
+import { ChangeRoutingModule } from './change-routing.module';
+import { ChangeComponent } from './change.component';
 
 import {CustomFormsModule} from 'ngx-custom-validators';
 import {SharedModule} from '../../../shared/shared.module';
@@ -10,14 +10,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [ChangeComponent],
   imports: [
     CommonModule,
-    LoginRoutingModule,
-    CustomFormsModule,
+    ChangeRoutingModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CustomFormsModule
   ]
 })
-export class LoginModule { }
+export class ChangeModule { }
