@@ -20,7 +20,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/first';
 //import { TestService} from '../../services/test.service'; 
 import 'rxjs/add/operator/map'; 
-//import {HttpModule} from '@angular/http';
+////import {HttpModule} from '@angular/http';
 import {serialize} from 'json-typescript-mapper';
 
 import { Router } from '@angular/router';
@@ -34,17 +34,20 @@ body: string
 }
 
 @Component({
-  selector: 'app-book-search',
-  templateUrl: './book-search.component.html',
-  styleUrls: ['./book-search.component.scss'],
+  selector: 'app-add-book',
+  templateUrl: './add-book.component.html',
+  styleUrls: ['./add-book.component.scss'],
 
 })
-export class BookSearchComponent implements OnInit {
+export class AddBookComponent implements OnInit {
 
   public dds$ : Observable<DD[]>;
   stateForm: FormGroup;
+  stateForm2: FormGroup;
+  restForm : FormGroup;
 
   showDropDown = false;
+  showDropDown2 = false;
       states = ['Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado',
         'Connecticut', 'Delaware', 'District of Columbia', 'Florida'
           , 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky'
@@ -54,32 +57,56 @@ export class BookSearchComponent implements OnInit {
                   'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington',
                      'West Virginia', 'Wisconsin', 'Wyoming'];
 
+  states2 = [ 'Hawaje' ];
 
   myForm: FormGroup;
   submitted: boolean;
   
   opened : number;
+  opened2 : number;
+
+  imageSrc : string;
 
   constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
     const bookName = new FormControl('', Validators.required);
     this.myForm = new FormGroup({
       bookName: new FormControl()
     });
+    this.restForm = new FormGroup({
+      description: new FormControl()
+    });
     this.initForm();
+    this.initForm2();
   }
  
   initForm(): FormGroup {
     return this.stateForm = this.fb.group({ search: [null] });
+  }
+ 
+  initForm2(): FormGroup {
+    return this.stateForm2 = this.fb.group({ search2: [null] });
   }
   
   getSearchValue() {
     return this.stateForm.value.search;
   }
 
+  getSearchValue2() {
+    return this.stateForm2.value.search;
+  }
+
+
+
   openDropDown() {
     console.log("showDropDown");
     this.showDropDown = true;
     this.opened = 2;
+  }
+ 
+  openDropDown2() {
+    console.log("showDropDown2");
+    this.showDropDown2 = true;
+    this.opened2 = 2;
   }
   
   closeDropDown() {
@@ -89,19 +116,29 @@ export class BookSearchComponent implements OnInit {
       this.showDropDown = false;
   }
 
+  closeDropDown2() {
+    if (this.opened2)
+      this.opened2 = this.opened2 - 1;
+    else
+      this.showDropDown2 = false;
+  }
+
+
   ngOnInit() {
     //const url = 'http://ip.jsontest.com/';
     //const url = 'http://date.jsontest.com'; 
     const url = 'https://jsonplaceholder.typicode.com/posts'
-    this.dds$ = this.http.get<DD[]>(url)
-               .do(console.log)
-               .map(data => _.values(data));
+    //this.dds$ = this.http.get<DD[]>(url)
+    //           .do(console.log)
+    //           .map(data => _.values(data));
     //.map(data =>data)
-    console.log(this.dds$);
+    //console.log(this.dds$);
   }
 
   onSubmit() {
     console.log(this.stateForm.value.search);
+    console.log(this.stateForm2.value.search2);
+    console.log(this.restForm.value.description);
     this.submitted = true;
     //this.http.get('http://ip.jsontest.com/?callback=showMyIP').map(res =>res.json());
     //console.log(this.myForm);
@@ -127,6 +164,12 @@ export class BookSearchComponent implements OnInit {
   this.showDropDown = false;
  }
 
+ selectValue2(value) {
+  this.stateForm2.patchValue({"search2": value});
+  console.log("select value");
+  this.showDropDown2 = false;
+ }
+
   onStrokeSearch(event: any) {
     //if (event.target.value) { 
     console.log("onstroke");
@@ -136,24 +179,36 @@ export class BookSearchComponent implements OnInit {
     //}
   }
 
-  onEnterSearch(event:  KeyboardEvent) {
-    //const inputChar = String.fromCharCode(event).charCode;
-    //console.log(inputChar);
-    //console.log(event.charCode);
-    //console.log(event.target);
-    //console.log(parseInt(event.target.value));
-    //if (event.target.value == 0x0d) {
-    //    console.log("enter");
+  onStrokeSearch2(event: any) {
+    //if (event.target.value) { 
+    console.log("onstroke2");
+    //console.log(event.target.value);
+    this.states2 = [];
+    this.states2.push(event.target.value);
     //}
-    this.onSubmit();
   }
-  
+
+ 
   //mouseClickSearch(event : MouseEvent) {
   mouseClickSearch() {
     console.log('mouse click');
     this.onSubmit();
   }
 
+  onFileChange(event) {
+    if(event.target.files && event.target.files.length) {
+      const reader = new FileReader();
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+    
+      reader.onload = () => {
+        this.imageSrc = reader.result as string;
+        //this.myForm.patchValue({
+        //  fileSource: reader.result
+        //});                                                                  
+      };
+    }
+  }
 }
 
 

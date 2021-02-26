@@ -18,6 +18,10 @@ const routes: Routes = [
         loadChildren: () => import('./theme/book-search/book-search.module').then(m => m.BookSearchModule)
       },
       {
+        path: 'add-book',
+        loadChildren: () => import('./theme/add-book/add-book.module').then(m => m.AddBookModule)
+      },
+      {
         path: 'other/simple-page',
         loadChildren: () => import('./theme/simple-page/simple-page.module').then(m => m.SimplePageModule)
       },
