@@ -27,12 +27,12 @@
                     class="error jquery-validation-error small form-text invalid-feedback">Niepoprawne hasło!</label>
                 </div>
                 <div class="form-group form-primary">
-                    <input type="password" name="confirmPassword" class="form-control"
-                    [ngClass]="{'is-invalid': !confirmPassword.valid && (confirmPassword.dirty || confirmPassword.touched || submit)}" 
-                    #confirmPassword="ngModel" required rpassword [(ngModel)]="formInput.confirmPassword" >
+                    <input type="password" name="rpassword" class="form-control"
+                    [ngClass]="{'is-invalid': !rpassword.valid && (rpassword.dirty || rpassword.touched || submit)}" 
+                    #rpassword="ngModel" required rpassword [(ngModel)]="formInput.rpassword">
                     <span class="form-bar"></span>
-                    <label class="float-label form-control-label" for="confirmPassword">Powtórz hasło</label>
-                    <label *ngIf="!confirmPassword.valid && (confirmPassword.dirty || confirmPassword.touched || submit)" id="vvalidation-password-confirm-error" 
+                    <label class="float-label form-control-label" for="rpassword">Powtórz hasło</label>
+                    <label *ngIf="!rpassword.valid && (rpassword.dirty || rpassword.touched || submit)" id="validation-password-confirm-error" 
                     class="error jquery-validation-error small form-text invalid-feedback">Hasła nie są takie same!</label>
                 </div>
                 <div class="row">

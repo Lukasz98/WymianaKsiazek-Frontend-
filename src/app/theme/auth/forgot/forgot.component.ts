@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import { AccountService } from '@app/_services/account.service';
+import { first } from 'rxjs/operators';
 
 export class FormInput {
   email: any;
@@ -17,7 +19,8 @@ export class ForgotComponent implements OnInit {
   form:any;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private accountService: AccountService
   ) { 
     this.submit = false;
   }
@@ -36,12 +39,17 @@ export class ForgotComponent implements OnInit {
     if(!form.valid) {
       return;
     } 
-    else
-    {
-      // send mail (service)
+    
+    this.accountService.forgotPassword(form.value.email)
+    .pipe(first())
+    .subscribe({
+      next: () => {
 
-      this.router.navigate(['login']);
-    }
+      },
+      error: error => {
+
+      }
+    });
   }
 
 }

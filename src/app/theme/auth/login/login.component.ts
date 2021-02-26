@@ -1,5 +1,8 @@
-import { Component, OnInit} from '@angular/core';
-import {environment} from '../../../../environments/environment';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AccountService } from '@app/_services/account.service';
+import { first } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
 declare var FB:any;
 declare const gapi: any;
@@ -21,7 +24,11 @@ export class LoginComponent implements OnInit {
   formInput:FormInput;
   form:any;
 
-  constructor() {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private accountService: AccountService,
+  ) {
     this.submit = false;
     
   }
@@ -47,8 +54,16 @@ export class LoginComponent implements OnInit {
   checkLoginState():void {
     FB.getLoginStatus(function(response) {
       if (response.status === 'connected') {   
-        // send token to server
-        // service.http.post<any>("facebook", {response.accessToken})
+        this.accountService.facebookLogin(response.accessToken)
+        .pipe(first())
+        .subscribe({
+          next: () => {
+            // navigate to profile page probably
+          },
+          error: error => {
+            // logowanie nie powiodło się alert
+          }
+        });
       }
       else {
         var redirect_uri = window.location.href.replace(window.location.hash,'');
@@ -61,8 +76,17 @@ export class LoginComponent implements OnInit {
 
         const urlParams = new URLSearchParams(window.location.search);
         const access_token = urlParams.get('access_token');
-        // send token to server
-        // service.http.post<any>("faccebook", {access_token})
+
+        this.accountService.facebookLogin(access_token)
+        .pipe(first())
+        .subscribe({
+          next: () => {
+            // navigate to profile page probably
+          },
+          error: error => {
+            // logowanie nie powiodło się alert
+          }
+        });
       }
     });
   }
@@ -76,11 +100,18 @@ export class LoginComponent implements OnInit {
     this.submit = true;
     if(!form.valid) {
       return;
-    } 
-    else
-    {
-      // service.http.post<any>("login", {form.email, form.password};)
     }
+
+    this.accountService.login(form.value.email, form.value.password)
+            .pipe(first())
+            .subscribe({
+                next: () => {
+                  // navigate to profile page probably
+                },
+                error: error => {
+                  // logowanie nie powiodło się (zły email albo hasło) alert
+                }
+            });
   }
 
   googleInit() {
@@ -109,18 +140,22 @@ export class LoginComponent implements OnInit {
     this.auth2.attachClickHandler(element, {},
       (googleUser) => {
 
-        // send token to server
-        // service.http.post<any>("google", {profile.getAuthResponse().id_token})
+        this.accountService.googleLogin(googleUser.getAuthResponse().id_token)
+        .pipe(first())
+        .subscribe({
+          next: () => {
+            // navigate to profile page probably
+          }
+        })
 
-      }, (error) => {
-      
+      }, error => {
+        // logowanie nie powiodło się  alert
     });
   }
 
   ngAfterViewInit(){
     this.googleInit();
     this.facebookInit();
-    
   }
 
 }

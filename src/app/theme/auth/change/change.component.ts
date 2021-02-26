@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 export class FormInput {
   password: any;
-  confirmPassword: any;
+  rpassword: any;
 }
 
 @Component({
@@ -24,7 +24,7 @@ export class ChangeComponent implements OnInit {
 
     this.formInput = {
       password: '',
-      confirmPassword: ''
+      rpassword: ''
     };
   }
 
