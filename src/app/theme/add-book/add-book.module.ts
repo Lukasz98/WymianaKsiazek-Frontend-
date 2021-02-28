@@ -18,6 +18,8 @@ import { ApiService } from './api.service';
 import { LetterBoldPipe } from './letter-bold.pipe';
 import { ClickOutsideDirective } from './dropdown.directive';
 
+import { TextMaskModule } from 'angular2-text-mask';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { ClickOutsideDirective } from './dropdown.directive';
     //BrowserModule,
     HttpClientModule,
     SelectModule,
-    TagInputModule
+    TagInputModule,
+    TextMaskModule
   ],
   providers: [ApiService],
   declarations: [

@@ -26,6 +26,8 @@ import {serialize} from 'json-typescript-mapper';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 
+import {createAutoCorrectedDatePipe, createNumberMask, emailMask} from 'text-mask-addons/dist/textMaskAddons';
+
 interface DD {
 userId: string,
 id: string,
@@ -42,13 +44,13 @@ body: string
 export class AddBookComponent implements OnInit {
 
   public dds$ : Observable<DD[]>;
-  stateForm: FormGroup;
-  stateForm2: FormGroup;
-  restForm : FormGroup;
+  form: FormGroup;
+  //stateForm2: FormGroup;
+  //restForm : FormGroup;
 
   showDropDown = false;
   showDropDown2 = false;
-      states = ['Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado',
+  titles = ['Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado',
         'Connecticut', 'Delaware', 'District of Columbia', 'Florida'
           , 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky'
             , 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
@@ -57,7 +59,7 @@ export class AddBookComponent implements OnInit {
                   'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington',
                      'West Virginia', 'Wisconsin', 'Wyoming'];
 
-  states2 = [ 'Hawaje' ];
+  authors = [ 'Hawaje' ];
 
   myForm: FormGroup;
   submitted: boolean;
@@ -65,34 +67,33 @@ export class AddBookComponent implements OnInit {
   opened : number;
   opened2 : number;
 
-  imageSrc : string;
+  imageSrc1 : string;
+  imageSrc2 : string;
+  imageSrc3 : string;
 
   constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
-    const bookName = new FormControl('', Validators.required);
-    this.myForm = new FormGroup({
-      bookName: new FormControl()
-    });
-    this.restForm = new FormGroup({
-      description: new FormControl()
-    });
     this.initForm();
-    this.initForm2();
   }
  
   initForm(): FormGroup {
-    return this.stateForm = this.fb.group({ search: [null] });
+    return this.form = this.fb.group({ 
+                               title: [null], author: [null], description: [null], 
+                               fileSource1: [null],
+                               fileSource2: [null], 
+                               fileSource3: [null],
+                               exchange: [null],
+                               price: [null]
+                       
+                       });
   }
  
-  initForm2(): FormGroup {
-    return this.stateForm2 = this.fb.group({ search2: [null] });
-  }
   
   getSearchValue() {
-    return this.stateForm.value.search;
+    return this.form.value.title;
   }
 
   getSearchValue2() {
-    return this.stateForm2.value.search;
+    return this.form.value.author;
   }
 
 
@@ -129,19 +130,16 @@ export class AddBookComponent implements OnInit {
     //const url = 'http://date.jsontest.com'; 
     const url = 'https://jsonplaceholder.typicode.com/posts'
     //this.dds$ = this.http.get<DD[]>(url)
-    //           .do(console.log)
+     //          .do(console.log)
     //           .map(data => _.values(data));
     //.map(data =>data)
     //console.log(this.dds$);
   }
 
   onSubmit() {
-    console.log(this.stateForm.value.search);
-    console.log(this.stateForm2.value.search2);
-    console.log(this.restForm.value.description);
+    console.log(this.form.value);
     this.submitted = true;
     //this.http.get('http://ip.jsontest.com/?callback=showMyIP').map(res =>res.json());
-    //console.log(this.myForm);
     console.log('sumbit');
     //if (this.myForm.value.bookName) {
     //if( this.myForm.value.bookName[0].value)
@@ -158,38 +156,31 @@ export class AddBookComponent implements OnInit {
     //}
   }
 
- selectValue(value) {
-  this.stateForm.patchValue({"search": value});
-  console.log("select value");
-  this.showDropDown = false;
- }
+  selectValue(value) {
+    this.form.patchValue({"title": value});
+    this.showDropDown = false;
+  }
 
- selectValue2(value) {
-  this.stateForm2.patchValue({"search2": value});
-  console.log("select value");
-  this.showDropDown2 = false;
- }
+  selectValue2(value) {
+    this.form.patchValue({"author": value});
+    this.showDropDown2 = false;
+  }
 
   onStrokeSearch(event: any) {
     //if (event.target.value) { 
-    console.log("onstroke");
+    //console.log("onstroke");
     //console.log(event.target.value);
-    this.states = [];
-    this.states.push(event.target.value);
+    this.titles = [];
+    this.titles.push(event.target.value);
     //}
   }
 
   onStrokeSearch2(event: any) {
-    //if (event.target.value) { 
-    console.log("onstroke2");
-    //console.log(event.target.value);
-    this.states2 = [];
-    this.states2.push(event.target.value);
-    //}
+    this.authors = [];
+    this.authors.push(event.target.value);
   }
 
  
-  //mouseClickSearch(event : MouseEvent) {
   mouseClickSearch() {
     console.log('mouse click');
     this.onSubmit();
@@ -201,14 +192,48 @@ export class AddBookComponent implements OnInit {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
     
-      reader.onload = () => {
-        this.imageSrc = reader.result as string;
-        //this.myForm.patchValue({
-        //  fileSource: reader.result
-        //});                                                                  
-      };
+      if (!this.imageSrc1) {
+      console.log("tutej");
+        reader.onload = () => {
+          this.imageSrc1 = reader.result as string;
+          this.form.patchValue({
+            fileSource1: reader.result
+          });                                                                  
+        };
+      }
+      else if (!this.imageSrc2) {
+        reader.onload = () => {
+          this.imageSrc2 = reader.result as string;
+          this.form.patchValue({
+            fileSource2: reader.result
+          });                                                                  
+        };
+      }
+      else if (!this.imageSrc3) {
+        reader.onload = () => {
+          this.imageSrc3 = reader.result as string;
+          this.form.patchValue({
+            fileSource3: reader.result
+          });                                                                  
+        };
+      }
     }
   }
+
+
+  delImg1() {
+    this.imageSrc1 = "";
+    this.form.value.fileSource1 = "";
+  }
+  delImg2() {
+    this.imageSrc2 = "";
+    this.form.value.fileSource2 = "";
+  }
+  delImg3() {
+    this.imageSrc3 = "";
+    this.form.value.fileSource3 = "";
+  }
+
 }
 
 
