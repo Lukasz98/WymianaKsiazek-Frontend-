@@ -93,9 +93,9 @@ export class BookSearchComponent implements OnInit {
     //const url = 'http://ip.jsontest.com/';
     //const url = 'http://date.jsontest.com'; 
     const url = 'https://jsonplaceholder.typicode.com/posts'
-    //this.dds$ = this.http.get<DD[]>(url)
-    //           .do(console.log)
-    //           .map(data => _.values(data));
+    this.dds$ = this.http.get<DD[]>(url)
+               .do(console.log)
+               .map(data => _.values(data));
     //.map(data =>data)
     console.log(this.dds$);
   }

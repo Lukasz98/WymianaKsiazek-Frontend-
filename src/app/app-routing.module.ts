@@ -25,6 +25,12 @@ const routes: Routes = [
         path: 'other/simple-page',
         loadChildren: () => import('./theme/simple-page/simple-page.module').then(m => m.SimplePageModule)
       },
+
+      {
+        path: 'search-listing',
+        loadChildren: () => import('./theme/search-listing/search-listing.module').then(m => m.SearchListingModule)
+      },
+ 
       {
         path: 'form',
         loadChildren: () => import('./theme/forms/forms.module').then(m => m.FormsModule)
