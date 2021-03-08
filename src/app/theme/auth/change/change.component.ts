@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from '@app/_services/account.service';
+import {Router} from '@angular/router';
+import { first } from 'rxjs/operators';
+import { environment } from "../../../../environments/environment";
 
 export class FormInput {
   password: any;
@@ -16,7 +20,12 @@ export class ChangeComponent implements OnInit {
   public submit : boolean;
   form:any;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private accountService: AccountService
+  ) { 
+    this.submit = false;
+  }
 
   ngOnInit(): void {
 
@@ -33,10 +42,21 @@ export class ChangeComponent implements OnInit {
     if(!form.valid) {
       return;
     } 
-    else
-    {
-      // change password maybe idk.
-    }
+    
+    this.accountService.resetPassword(form.value.password)
+    .pipe(first())
+    .subscribe({
+      next: () => {
+          
+        // back to login and alert
+
+        //this.router.navigateByUrl(environment.apiUrl + "/auth/login");
+      },
+      error: error => {
+        
+          // invalid email alert
+      }
+    });
   }
 
 }

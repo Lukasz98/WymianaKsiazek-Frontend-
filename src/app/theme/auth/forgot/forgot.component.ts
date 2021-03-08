@@ -47,7 +47,7 @@ export class ForgotComponent implements OnInit {
 
       },
       error: error => {
-
+          // invalid email alert
       }
     });
   }
