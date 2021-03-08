@@ -1,0 +1,200 @@
+  #table-luk {
+    //width: 100%;
+    background-color: pink;
+  }
+  .table-item-luk {
+    width: 100%;
+    //height: 116px;
+    padding: 1px;
+    background-color: white;
+    border: solid;
+    border-width: 2px;
+    margin-bottom: 5px;
+  }
+  .table-img-luk {
+    width:100px; 
+    height: 100px;
+    //background-color: yellow;
+    float: left;
+    //display: inline-block;
+  }
+  .table-img-luk > img {
+    width: 100%;
+    height: 110px;
+    object-fit: contain;  
+  }
+
+  .table-mid-luk {
+    //width: 500px;
+    height: 100%;
+    //padding: 10px;
+    //background-color: red;
+    float: left;
+    //display: inline-block;
+  }
+
+  .table-mid-top-luk {
+    //width: 100%;
+    height: 80%;
+    //background-color: pink;
+   //line-height: 30px;
+  }
+
+  .table-mid-top-luk > .book-title {
+    width: 100%;
+    height: 50%;
+    border-bottom-style: solid;
+    border-color: rgb(200, 200, 200);
+    border-width: 1px;
+    padding: 0px;
+    font-size: 25px;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+    //background-color: blue;
+ }
+
+  .table-mid-top-luk > .book-desc {
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+    background-color: orange;
+  }
+  
+  .table-mid-bottom-luk {
+    bakcround-color: lime;
+    height: 20%;
+    width: 100%;
+    //text-align: center;
+  }
+  .table-mid-bottom-luk > span {
+    display: inline-block;
+    //line-height: 50px;
+  }
+
+  .table-mid-bottom-luk > .city{
+    //float: left; 
+    padding-left: 5px; 
+    padding-right: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+
+  .table-mid-bottom-luk > .exchange {
+    //float: left;
+  }
+  .table-mid-bottom-luk > .price {
+    //float: left;
+  }
+
+  @media screen and (min-width: 0px) {
+    #table-luk {
+      width: 320px;
+    }
+    .table-mid-luk {
+      width: 210px;
+    }
+    .table-item-luk {
+      height: 200px;
+    }
+    .table-mid-top-luk > .book-title {
+      height: 40%;
+      color: red;
+    }
+    .table-mid-bottom-luk > .city {
+      width: 250px;
+      display: inline-block;
+      float: left;
+    }
+    .table-mid-bottom-luk > .exchange {
+      width: 100px;
+      background-color: red;
+      //display: block;
+      display: inline-block;
+    }
+    .table-mid-bottom-luk > .price {
+      width: 50px;
+      display: inline-block;
+      background-color: pink;
+    }
+  }
+ 
+  @media screen and (min-width: 576px) {
+    #table-luk {
+      width: 570px;
+    }
+    .table-mid-luk {
+      width: 460px;
+    }
+    .table-item-luk {
+      height: 116px;
+    }
+    .table-mid-bottom-luk > .city {
+      width: 250px;
+      display: inline-block;
+      float: left;
+    }
+    .table-mid-bottom-luk > .exchange {
+      width: 100px;
+      background-color: red;
+      //display: block;
+      display: inline-block;
+    }
+    .table-mid-bottom-luk > .price {
+      width: 50px;
+      display: inline-block;
+      background-color: pink;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    #table-luk {
+      width: 700px;
+    }
+    .table-mid-luk {
+      width: 590px;
+    }
+    .table-item-luk {
+      height: 116px;
+    }
+  }
+ 
+  @media screen and (min-width: 1400px) {
+    #table-luk {
+      width: 800px;
+    }
+    .table-mid-luk {
+      width: 690px;
+    }
+    .table-item-luk {
+      height: 116px;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    #table-luk {
+      width: 800px;
+    }
+    .table-mid-luk {
+      width: 690px;
+    }
+    .table-item-luk {
+      height: 116px;
+    }
+  }
+  @media screen and (min-width: 992px) {
+    #table-luk {
+      width: 800px;
+    }
+    .table-mid-luk {
+      width: 690px;
+    }
+    .table-item-luk {
+      height: 116px;
+    }
+  }
+ 
+

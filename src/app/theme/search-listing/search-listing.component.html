@@ -1,135 +1,3 @@
-<style>
-  @media screen and (min-width: 0px) {
-    #table-luk {
-      width: 320px;
-    }
-    .table-mid-luk {
-      width: 210px;
-    }
-  }
- 
-  @media screen and (min-width: 576px) {
-    #table-luk {
-      width: 570px;
-    }
-    .table-mid-luk {
-      width: 460px;
-    }
-  }
-
-  @media screen and (min-width: 768px) {
-    #table-luk {
-      width: 700px;
-    }
-    .table-mid-luk {
-      width: 590px;
-    }
-  }
- 
-  @media screen and (min-width: 1400px) {
-    #table-luk {
-      width: 800px;
-    }
-    .table-mid-luk {
-      width: 690px;
-    }
-  }
-  @media screen and (min-width: 1200px) {
-    #table-luk {
-      width: 800px;
-    }
-    .table-mid-luk {
-      width: 690px;
-    }
-  }
-  @media screen and (min-width: 992px) {
-    #table-luk {
-      width: 800px;
-    }
-    .table-mid-luk {
-      width: 690px;
-    }
-  }
- 
-  #table-luk {
-    !width: 100%;
-    background-color: pink;
-  }
-  .table-item-luk {
-    width: 100%;
-    height: 116px;
-    padding: 1px;
-    background-color: white;
-    border: solid;
-    border-width: 2px;
-  }
-  .table-img-luk {
-    width:100px; 
-    height: 100px;
-    !background-color: yellow;
-    float: left;
-    !display: inline-block;
-  }
-  .table-img-luk > img {
-    width: 100%;
-    height: 110px;
-    !@100%;
-    object-fit: contain;  
-  }
-
-  .table-mid-luk {
-    !width: 500px;
-    height: 100%;
-    !padding: 10px;
-    !background-color: red;
-    float: left;
-    !display: inline-block;
-  }
-
-  .table-mid-top-luk {
-    !width: 100%;
-    height: 80%;
-    !background-color: pink;
-   !line-height: 30px;
-  }
-
-  .table-mid-top-luk > .book-title {
-    width: 100%;
-    height: 50%;
-    border-bottom-style: solid;
-    border-color: rgb(200, 200, 200);
-    border-width: 1px;
-    padding: 0px;
-    font-size: 25px;
-    overflow: hidden;
-    white-space: nowrap; 
-    text-overflow: ellipsis;
-    !background-color: blue;
- }
-
-  .table-mid-top-luk > .book-desc {
-    width: 100%;
-    height: 50%;
-    overflow: hidden;
-    white-space: nowrap; 
-    text-overflow: ellipsis;
-   !background-color: orange;
-  }
-  
-  .table-mid-bottom-luk {
-    bakcround-color: lime;
-    height: 20%;
-    width: 100%;
-    text-align: center;
-  }
-  .table-mid-bottom-luk > span {
-    display: inline-block;
-    !line-height: 50px;
-  }
-  
-}
-</style>
-
 <div class="card">
   <div class="card-block">
     <div class="row">
@@ -150,25 +18,33 @@
     </div>
   </div>
 </div>
-          <div id="table-luk" style="margin: auto;">
-            <div class="table-item-luk">
-              <div class="table-img-luk">
-                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstarschanges.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fmonica-bellucci-dress.png&f=1&nofb=1"> 
-              </div>
-              <div class="table-mid-luk">
-                <div class="table-mid-top-luk">
-                  <div class="book-title">
-                    Lalka, Bolesław Prus alalala
-                  </div>
-                  <div class="book-desc">
-                    To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum. 
-                  </div>
-                </div>
-                <div class="table-mid-bottom-luk">
-                  <span style="">Wymiana</span>
-                  <span style="">110zł</span>
-                </div>
-              </div>
-            </div>
-          </div>
+
+<span *ngFor="let n of numSequence(pageCount); let i = index;">
+  <a style="cursor: pointer; margin-right:10px;" (click)="changePage(i)">{{ i }},   </a>
+</span> 
+
+<div *ngFor="let item of booksPage | slice:itemFirst:itemlast" id="table-luk" style="margin: auto;">
+  <div class="table-item-luk">
+    <div class="table-img-luk">
+      <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstarschanges.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fmonica-bellucci-dress.png&f=1&nofb=1"> 
+    </div>
+    <div class="table-mid-luk">
+      <div class="table-mid-top-luk">
+        <div class="book-title">
+          {{ item.title}}, {{ item.author }}
+        </div>
+        <div class="book-desc">
+          {{ item.desc }}
+        </div>
+      </div>
+      <div class="table-mid-bottom-luk">
+        <div class="city">{{ item.city }}</div>
+        <div *ngIf="item.exchange"class="exchange">
+          Wymiana
+        </div>
+        <div class="price">{{ item.price }}zł</div>
+      </div>
+    </div>
+  </div>
+</div>
 
