@@ -5,7 +5,7 @@
         <div class="col-sm-12">
           <!-- Authentication card start -->
   
-          <form class="md-float-material form-material" #validationForm="ngForm" novalidate action="javascript:">
+          <form class="md-float-material form-material" [formGroup]="form">
             <div class="text-center">
               <img src="assets/images/logo.png" alt="logo.png">
             </div>
@@ -19,19 +19,19 @@
                     <h6 class="text-center"> Podaj swój adres e-mail na który wyślemy link gdzie będzie możliwe ustawienie nowego hasła.</h6>
                   </div>
                 </div>
-  
                 <div class="form-group form-primary">
-                    <input type="text" id="email" name="email" class="form-control"
-                    [ngClass]="{'is-invalid': !email.valid && (email.dirty || email.touched || submit)}" #email="ngModel" required email 
-                    [(ngModel)]="formInput.email">
-                    <span class="form-bar"></span>
-                    <label class="float-label form-control-label" for="email">E-mail</label>
-                    <label *ngIf="!email.valid && (email.dirty || email.touched || submit)" id="validation-email-error" 
-                    class="error jquery-validation-error small form-text invalid-feedback">Niepoprawny adres email!</label>
-                </div>
+                  <input type="text" formControlName="email" class="form-control" 
+                      [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                  <span class="form-bar"></span>
+                  <label class="float-label form-control-label" for="email">E-mail</label>
+                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                      <div *ngIf="f.email.errors.required">Adres email nie może być pusty.</div>
+                      <div *ngIf="f.email.errors.email">Niepoprawny adres email.</div>
+                  </div>
+              </div>
                 <div class="row">
                   <div class="col-md-12">
-                    <button type="button" class="btn btn-success btn-md btn-block waves-light text-center m-b-20 ripple" (click)='changeButtonClicked(validationForm)'>Zmień</button>
+                    <button type="button" class="btn btn-success btn-md btn-block waves-light text-center m-b-20 ripple" (click)='changeButtonClicked()'>Zmień</button>
                   </div>
                 </div>
                 <p class="f-w-600 text-left"><a [routerLink]="['/auth/login']">Wróć</a></p>

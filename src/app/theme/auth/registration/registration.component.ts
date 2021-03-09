@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import {AccountService} from '../../../_services/account.service'
-
-export class FormInput {
-  email: any;
-  password: any;
-}
+import {AccountService} from '@app/_services/account.service'
+import {MustMatch} from '@app/_helpers/must.match.validator'
 
 @Component({
   selector: 'app-registration',
@@ -15,36 +12,42 @@ export class FormInput {
 })
 export class RegistrationComponent implements OnInit {
 
-  public submit : boolean;
-  formInput:FormInput;
-  form:any;
+  public submitted : boolean;
+  form: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private accountService: AccountService,
     private route: ActivatedRoute,
     private router: Router) {
     
-      this.submit = false;
+      this.submitted = false;
    }
 
   ngOnInit(): void {
     document.querySelector('body').setAttribute('themebg-pattern', 'theme6');
 
-    this.formInput = {
-      email: '',
-      password : ''
-    };
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(128)]],
+      confirmPassword: ['', Validators.required],
+      acceptTerms: [false, Validators.requiredTrue]
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
+      });
   }
 
-  signUpButtonClicked(form: any):void { 
-    this.submit = true;
-    if(!form.valid) {
+  get f() { return this.form.controls; }
+
+  signUpButtonClicked():void { 
+    this.submitted = true;
+    if(this.form.invalid) {
       return;
     } 
     
-    this.accountService.register(form.value).pipe(first()).subscribe({
+    this.accountService.register(this.form.value).pipe(first()).subscribe({
         next: () => {
-          // navigate to profile page probably
+          // email verification and alert
         },
         error: () => {
           // rejestracja nie powiodła się (zajęty emial?) Jakiś alert pewnie.

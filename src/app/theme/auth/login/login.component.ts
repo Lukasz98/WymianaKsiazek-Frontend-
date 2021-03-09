@@ -2,15 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@app/_services/account.service';
 import { first } from 'rxjs/operators';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@environments/environment';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 declare var FB:any;
 declare const gapi: any;
-
-export class FormInput {
-  email: any;
-  password: any;
-}
 
 @Component({
   selector: 'app-login',
@@ -20,26 +16,33 @@ export class FormInput {
 export class LoginComponent implements OnInit {
 
   auth2: any;
-  public submit : boolean;
-  formInput:FormInput;
-  form:any;
+  public submitted : boolean;
+  form:FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService,
   ) {
-    this.submit = false;
+
+    this.submitted = false;
+    if (this.accountService.accountValue) {
+      //navigate to profile page
+      //this.router.navigate(['/']);
+    }
     
   }
+
+  get f() { return this.form.controls; }
 
   ngOnInit(): void {
     document.querySelector('body').setAttribute('themebg-pattern', 'theme6');
 
-    this.formInput = {
-      email: '',
-      password : ''
-    };
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+  });
 
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -96,13 +99,14 @@ export class LoginComponent implements OnInit {
        
   }
 
-  logInButtonClicked(form: any):void { 
-    this.submit = true;
-    if(!form.valid) {
+  logInButtonClicked():void { 
+    this.submitted = true;
+
+    if(this.form.invalid) {
       return;
     }
 
-    this.accountService.login(form.value.email, form.value.password)
+    this.accountService.login(this.f.email.value, this.f.password.value)
             .pipe(first())
             .subscribe({
                 next: () => {

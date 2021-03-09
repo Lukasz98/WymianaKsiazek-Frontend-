@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '@app/_services/account.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { first } from 'rxjs/operators';
-import { environment } from "../../../../environments/environment";
-
-export class FormInput {
-  password: any;
-  rpassword: any;
-}
+import { environment } from "@environments/environment";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MustMatch } from '@app/_helpers/must.match.validator';
 
 @Component({
   selector: 'app-change',
@@ -16,41 +13,49 @@ export class FormInput {
 })
 export class ChangeComponent implements OnInit {
 
-  formInput : FormInput;
-  public submit : boolean;
-  form:any;
+  form: FormGroup;
+  public submitted : boolean;
+  token = null;
 
   constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService
   ) { 
-    this.submit = false;
+    this.submitted = false;
   }
 
   ngOnInit(): void {
 
     document.querySelector('body').setAttribute('themebg-pattern', 'theme6');
 
-    this.formInput = {
-      password: '',
-      rpassword: ''
-    };
+    this.form = this.formBuilder.group({
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(128)]],
+      confirmPassword: ['', Validators.required],
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
+    });
+
+    this.token = this.route.snapshot.queryParams['access_token'];
+    this.router.navigate([], { relativeTo: this.route, replaceUrl: true });
   }
 
-  changeButtonClicked(form: any):void { 
-    this.submit = true;
-    if(!form.valid) {
+  get f() { return this.form.controls; }
+
+  changeButtonClicked():void { 
+    this.submitted = true;
+    if(this.form.invalid) {
       return;
     } 
     
-    this.accountService.resetPassword(form.value.password)
+    this.accountService.resetPassword(this.token, this.f.password.value)
     .pipe(first())
     .subscribe({
       next: () => {
           
         // back to login and alert
 
-        //this.router.navigateByUrl(environment.apiUrl + "/auth/login");
       },
       error: error => {
         

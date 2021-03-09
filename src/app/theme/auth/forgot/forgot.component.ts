@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Router} from '@angular/router';
 import { AccountService } from '@app/_services/account.service';
 import { first } from 'rxjs/operators';
-
-export class FormInput {
-  email: any;
-}
 
 @Component({
   selector: 'app-forgot',
@@ -14,37 +11,40 @@ export class FormInput {
 })
 export class ForgotComponent implements OnInit {
 
-  formInput : FormInput;
-  public submit : boolean;
-  form:any;
+  form: FormGroup;
+  public submitted : boolean;
 
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     private accountService: AccountService
   ) { 
-    this.submit = false;
+    
+    this.submitted = false;
   }
 
   ngOnInit(): void {
     document.querySelector('body').setAttribute('themebg-pattern', 'theme6');
 
-    this.formInput = {
-      email: ''
-    };
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
     
   }
 
-  changeButtonClicked(form: any):void { 
-    this.submit = true;
-    if(!form.valid) {
+  get f() { return this.form.controls; }
+
+  changeButtonClicked():void { 
+    this.submitted = true;
+    if(this.form.invalid) {
       return;
     } 
     
-    this.accountService.forgotPassword(form.value.email)
+    this.accountService.forgotPassword(this.f.email.value)
     .pipe(first())
     .subscribe({
       next: () => {
-
+          // email with instructions
       },
       error: error => {
           // invalid email alert
