@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Router} from '@angular/router';
 import { AccountService } from '@app/_services/account.service';
+import { AlertService } from '@app/_services/alert.service';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -17,7 +18,8 @@ export class ForgotComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private alertService: AlertService
   ) { 
     
     this.submitted = false;
@@ -44,9 +46,11 @@ export class ForgotComponent implements OnInit {
     .pipe(first())
     .subscribe({
       next: () => {
+        this.alertService.success("Sprawdź maila czy coś.")
           // email with instructions
       },
       error: error => {
+        this.alertService.error(error);
           // invalid email alert
       }
     });
