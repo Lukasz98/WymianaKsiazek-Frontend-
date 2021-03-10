@@ -175,6 +175,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "mega-able-hztl"
+    }
+  },
+  "defaultProject": "mega-able-hztl",
+  "cli": {
+    "analytics": "3fba3d95-3dfc-48dc-b757-be1f87558c0e"
+  }
 }
