@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
 //import { TestModel } from '../../models/testmodel';
-import { Observable } from "rxjs/Observable";
-import { HttpClient } from "@angular/common/http";
-import * as _ from 'lodash';
-import 'rxjs/add/operator/map'
+//import { Observable } from "rxjs/Observable";
+//import { HttpClient } from "@angular/common/http";
+//import * as _ from 'lodash';
+//import 'rxjs/add/operator/map'
 import 'rxjs/Rx';
 
 import {IOption} from 'ng-select';
@@ -21,7 +21,7 @@ import 'rxjs/add/operator/first';
 //import { TestService} from '../../services/test.service'; 
 import 'rxjs/add/operator/map'; 
 ////import {HttpModule} from '@angular/http';
-import {serialize} from 'json-typescript-mapper';
+//import {serialize} from 'json-typescript-mapper';
 
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
@@ -43,7 +43,7 @@ body: string
 })
 export class AddBookComponent implements OnInit {
 
-  public dds$ : Observable<DD[]>;
+  //public dds$ : Observable<DD[]>;
   form: FormGroup;
   //stateForm2: FormGroup;
   //restForm : FormGroup;
@@ -71,7 +71,8 @@ export class AddBookComponent implements OnInit {
   imageSrc2 : string;
   imageSrc3 : string;
 
-  constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
+  //constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
+  constructor(private router:Router, private fb:FormBuilder ) {
     this.initForm();
   }
  

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomValidators } from 'ngx-custom-validators';
+//import { CustomValidators } from 'ngx-custom-validators';
 //import { TestModel } from '../../models/testmodel';
-import { Observable } from "rxjs/Observable";
-import { HttpClient } from "@angular/common/http";
-import * as _ from 'lodash';
-import 'rxjs/add/operator/map'
+//import { Observable } from "rxjs/Observable";
+//import { HttpClient } from "@angular/common/http";
+//import * as _ from 'lodash';
+//import 'rxjs/add/operator/map'
 import 'rxjs/Rx';
 
 import {IOption} from 'ng-select';
@@ -19,9 +19,9 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/first';
 //import { TestService} from '../../services/test.service'; 
-import 'rxjs/add/operator/map'; 
+//import 'rxjs/add/operator/map'; 
 //import {HttpModule} from '@angular/http';
-import {serialize} from 'json-typescript-mapper';
+//import {serialize} from 'json-typescript-mapper';
 
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
@@ -41,7 +41,7 @@ body: string
 })
 export class BookSearchComponent implements OnInit {
 
-  public dds$ : Observable<DD[]>;
+  //public dds$ : Observable<DD[]>;
   stateForm: FormGroup;
 
   showDropDown = false;
@@ -60,7 +60,8 @@ export class BookSearchComponent implements OnInit {
   
   opened : number;
 
-  constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
+  //constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
+  constructor(private router:Router, private fb:FormBuilder ) {
     const bookName = new FormControl('', Validators.required);
     this.myForm = new FormGroup({
       bookName: new FormControl()
@@ -92,12 +93,12 @@ export class BookSearchComponent implements OnInit {
   ngOnInit() {
     //const url = 'http://ip.jsontest.com/';
     //const url = 'http://date.jsontest.com'; 
-    const url = 'https://jsonplaceholder.typicode.com/posts'
-    this.dds$ = this.http.get<DD[]>(url)
-               .do(console.log)
-               .map(data => _.values(data));
+    //const url = 'https://jsonplaceholder.typicode.com/posts'
+    //this.dds$ = this.http.get<DD[]>(url)
+    //           .do(console.log)
+    //           .map(data => _.values(data));
     //.map(data =>data)
-    console.log(this.dds$);
+    //console.log(this.dds$);
   }
 
   onSubmit() {
