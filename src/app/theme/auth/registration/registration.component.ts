@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import {AccountService} from '@app/_services/account.service'
 import {MustMatch} from '@app/_helpers/must.match.validator'
+import { AlertService } from '@app/_services/alert.service';
 
 @Component({
   selector: 'app-registration',
@@ -19,6 +20,7 @@ export class RegistrationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private accountService: AccountService,
     private route: ActivatedRoute,
+    private alertService: AlertService,
     private router: Router) {
     
       this.submitted = false;
@@ -47,9 +49,12 @@ export class RegistrationComponent implements OnInit {
     
     this.accountService.register(this.form.value).pipe(first()).subscribe({
         next: () => {
+          this.alertService.success('Sprawdź maila czy coś', { keepAfterRouteChange: true });
+          this.router.navigate(['../login'], { relativeTo: this.route });
           // email verification and alert
         },
-        error: () => {
+        error: (error) => {
+          this.alertService.error(error);
           // rejestracja nie powiodła się (zajęty emial?) Jakiś alert pewnie.
         }
     });

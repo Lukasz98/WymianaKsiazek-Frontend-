@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { environment } from "@environments/environment";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MustMatch } from '@app/_helpers/must.match.validator';
+import { AlertService } from '@app/_services/alert.service';
 
 @Component({
   selector: 'app-change',
@@ -21,7 +22,8 @@ export class ChangeComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private alertService: AlertService,
   ) { 
     this.submitted = false;
   }
@@ -48,17 +50,21 @@ export class ChangeComponent implements OnInit {
     if(this.form.invalid) {
       return;
     } 
+
+    this.alertService.clear();
     
     this.accountService.resetPassword(this.token, this.f.password.value)
     .pipe(first())
     .subscribe({
       next: () => {
+        this.alertService.success('Hasło zresetowane, możesz się teraz zalogować.', { keepAfterRouteChange: true });
+        this.router.navigate(['../login'], { relativeTo: this.route });
           
         // back to login and alert
 
       },
       error: error => {
-        
+        this.alertService.error(error);
           // invalid email alert
       }
     });

@@ -34,7 +34,11 @@ const routes: Routes = [
       {
         path: 'auth',
         loadChildren: () => import('./theme/auth/auth.module').then(m => m.AuthModule)
-      }
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('./theme/profile/profile.module').then(m => m.ProfileModule)
+      },
     ]
   },
   {

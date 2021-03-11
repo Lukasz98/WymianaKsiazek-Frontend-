@@ -4,6 +4,7 @@ import { AccountService } from '@app/_services/account.service';
 import { first } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from '@app/_services/alert.service';
 
 declare var FB:any;
 declare const gapi: any;
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService,
+    private alertService: AlertService,
   ) {
 
     this.submitted = false;
@@ -87,6 +89,7 @@ export class LoginComponent implements OnInit {
             // navigate to profile page probably
           },
           error: error => {
+            this.alertService.error(error);
             // logowanie nie powiodło się alert
           }
         });
@@ -113,6 +116,7 @@ export class LoginComponent implements OnInit {
                   // navigate to profile page probably
                 },
                 error: error => {
+                  this.alertService.error(error);
                   // logowanie nie powiodło się (zły email albo hasło) alert
                 }
             });
@@ -153,6 +157,7 @@ export class LoginComponent implements OnInit {
         })
 
       }, error => {
+        this.alertService.error(error);
         // logowanie nie powiodło się  alert
     });
   }
