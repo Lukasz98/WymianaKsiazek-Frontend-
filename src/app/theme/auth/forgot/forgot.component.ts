@@ -40,8 +40,8 @@ export class ForgotComponent implements OnInit {
     this.submitted = true;
     if(this.form.invalid) {
       return;
-    } 
-    
+    }
+
     this.accountService.forgotPassword(this.f.email.value)
     .pipe(first())
     .subscribe({

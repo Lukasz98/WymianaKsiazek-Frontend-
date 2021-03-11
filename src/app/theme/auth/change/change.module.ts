@@ -7,6 +7,7 @@ import { ChangeComponent } from './change.component';
 import {CustomFormsModule} from 'ngx-custom-validators';
 import {SharedModule} from '../../../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AlertModule } from '@app/theme/alert/alert.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    CustomFormsModule
+    CustomFormsModule,
+    AlertModule,
   ]
 })
 export class ChangeModule { }
