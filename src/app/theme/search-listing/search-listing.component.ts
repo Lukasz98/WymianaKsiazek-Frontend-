@@ -20,7 +20,7 @@ city: string,
 export class SearchListingComponent implements OnInit {
   itemLast: number;
   itemFirst: number;
-  itemsOnPage = 3;
+  itemsOnPage = 8;
   currPage = 0;
   pageCount = 0;
   //public books$ : Observable<Book[]>;
@@ -34,23 +34,39 @@ export class SearchListingComponent implements OnInit {
       desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
       city: "Nadkowice Górne"
     },
-    { imgSrc: "asd", title: "Krzyżacy", author: "Henryk Sienkiewicz", price: 20, exchange: 0,
+    { imgSrc: "asd", title: "Bonifacy", author: "Henryk Sienkiewicz", price: 20, exchange: 0,
       desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
       city: "Nadkowice Górne"
     },
-    { imgSrc: "asd", title: "Krzyżacy", author: "Henryk Sienkiewicz", price: 25, exchange: 0,
+    { imgSrc: "asd", title: "Bogdaniacy", author: "Henryk Sienkiewicz", price: 25, exchange: 0,
       desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
       city: "Nadkowice Górne"
     },
-    { imgSrc: "asd", title: "Krzyżacy", author: "Henryk Sienkiewicz", price: 30, exchange: 0,
+    { imgSrc: "asd", title: "Belchioracy", author: "Henryk Sienkiewicz", price: 30, exchange: 0,
       desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
       city: "Nadkowice Górne"
     },
-    { imgSrc: "asd", title: "Krzyżacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
+    { imgSrc: "asd", title: "Benedyktiacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
       desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
       city: "Nadkowice Górne"
     },
-    { imgSrc: "asd", title: "Krzyżacy", author: "Henryk Sienkiewicz", price: 40, exchange: 0,
+    { imgSrc: "asd", title: "Baldwiniacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
+      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
+      city: "Nadkowice Górne"
+    },
+    { imgSrc: "asd", title: "Beniaminiacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
+      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
+      city: "Nadkowice Górne"
+    },
+    { imgSrc: "asd", title: "Bernardiacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
+      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
+      city: "Nadkowice Górne"
+    },
+    { imgSrc: "asd", title: "Błażejacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
+      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
+      city: "Nadkowice Górne"
+    },
+    { imgSrc: "asd", title: "Boguchwalacy", author: "Henryk Sienkiewicz", price: 40, exchange: 0,
       desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
       city: "Nadkowice Górne"
     }
@@ -60,7 +76,7 @@ export class SearchListingComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) {
     //books$.push(
-    this.itemLast = 3;
+    this.itemLast = this.itemsOnPage;
     this.itemFirst = 0;
 
     this.pageCount = Math.ceil(this.books.length / this.itemsOnPage);
@@ -68,25 +84,42 @@ export class SearchListingComponent implements OnInit {
     //if (this.books.length % this.itemsOnPage)
     //    this.pageCount += 1;
 
-    this.booksPage.push(this.books[0]);
-    this.booksPage.push(this.books[1]);
-    this.booksPage.push(this.books[2]);
+    this.changePage(0);
+    //this.booksPage.push(this.books[0]);
+    //this.booksPage.push(this.books[1]);
+    //this.booksPage.push(this.books[2]);
   }
 
   numSequence(n: number): Array<number> { 
     return Array(n); 
   } 
 
+  previousPage() {
+    if (this.currPage == 0)
+      return;
+    this.changePage(this.currPage - 1);
+  }
+
+  nextPage() {
+    if (this.currPage == this.pageCount - 1)
+      return;
+    this.changePage(this.currPage + 1);
+  }
+
   changePage(n) {
+    window.scrollTo(0,0);
     console.log(n);
     this.booksPage = [];
+    //this.pageCount = this.pageCount + 1;
+    //this.pageCount = this.pageCount - 1;
+    this.currPage = n;
     for (let i = n * this.itemsOnPage; i < n * this.itemsOnPage + this.itemsOnPage && i < this.books.length; i++) {
       this.booksPage.push(this.books[i]);
     }
   }
 
   ngOnInit() {
-    this.itemLast = 3;
+    this.itemLast = this.itemsOnPage;
     this.itemFirst = 0;
     this.route.queryParams.subscribe(
                       params => {
