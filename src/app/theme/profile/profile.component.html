@@ -1,1 +1,557 @@
-<p>profile works!</p>
+<div class="page-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="md-tabs md-card-tabs">
+          <ngb-tabset>
+            <ngb-tab title="Moje ogłoszenia">
+                <ng-template ngbTabContent>
+                  <div [@fadeInOutTranslate] class="m-t-15">
+                    <!-- info card start -->
+                    <div class="card">
+                      <div class="card-header">
+                        <h5 class="card-header-text">Ogłoszenia</h5>
+                      </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="card b-l-success business-info services m-b-20">
+                              <div ngbDropdown class="card-header">
+                                <div class="service-header">
+                                  <a href="javascript:"><h5 class="card-header-text">Shivani Hero</h5></a>
+                                </div>
+                                <span ngbDropdownToggle class="dropdown-toggle addon-btn text-muted pull-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
+                                               </span>
+                                <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right b-none services-list">
+                                  <a class="dropdown-item" href="javascript:"><i class="icofont icofont-edit"></i> Edit</a>
+                                  <a class="dropdown-item" href="javascript:"><i class="icofont icofont-ui-delete"></i> Delete</a>
+                                  <a class="dropdown-item" href="javascript:"><i class="icofont icofont-eye-alt"></i> View</a>
+                                </div>
+                              </div>
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <p class="task-detail">Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod temp or incidi dunt ut labore et.Lorem ipsum dolor sit amet, consecte.</p>
+                                  </div>
+                                  <!-- end of col-sm-8 -->
+                                </div>
+                                <!-- end of row -->
+                              </div>
+                              <!-- end of card-body -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- info card end -->
+                  </div>
+                </ng-template>
+              </ngb-tab>
+            <ngb-tab title="Dane">
+              <ng-template ngbTabContent>
+                <div [@fadeInOutTranslate] class="m-t-15">
+                  <!-- personal card start -->
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-header-text">Dane</h5>
+                      <button id="edit-btn" type="button" class="btn btn-sm btn-primary pull-right ripple light" (click)="toggleEditProfile()">
+                        <i class="icofont {{ editProfileIcon }}"></i>
+                      </button>
+                    </div>
+                    <div class="card-body">
+                      <div class="view-info" *ngIf="editProfile">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="general-info">
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="table-responsive">
+                                    <table class="table m-0">
+                                      <tbody>
+                                      <tr>
+                                        <th scope="row">Imię</th>
+                                        <td>Im</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Nazwisko</th>
+                                        <td>nz</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Miejscowość</th>
+                                        <td>Toruń</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Nazwa Użytkownika</th>
+                                        <td>Imnz</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">E-mail</th>
+                                        <td><a href="javascript:;">email@email</a></td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Hasło</th>
+                                        <td><a href="javascript:;">Zmień Hasło</a></td>
+                                      </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                                <!-- end of table col-lg-6 -->
+                              </div>
+                              <!-- end of row -->
+                            </div>
+                            <!-- end of general info -->
+                          </div>
+                          <!-- end of col-lg-12 -->
+                        </div>
+                        <!-- end of row -->
+                      </div>
+                      <!-- end of view-info -->
+                      <div class="edit-info" *ngIf="!editProfile">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="general-info form-material">
+                              <div class="row">
+                                <div class="col-lg-6 ">
+                                  <div class="material-group">
+                                    <div class="material-addone">
+                                      <i class="icofont icofont-user"></i>
+                                    </div>
+                                    <div class="form-group form-primary">
+                                      <input type="text" name="footer-email" class="form-control" required="">
+                                      <span class="form-bar"></span>
+                                      <label class="float-label">Full Name</label>
+                                    </div>
+                                  </div>
+                                  <div class="material-group">
+                                    <div class="material-addone">
+                                      <i class="fa fa-mars-double"></i>
+                                    </div>
+                                    <div class="form-group form-primary">
+                                      <div class="form-radio">
+                                        <div class="group-add-on">
+                                          <div class="radio radiofill radio-inline">
+                                            <label>
+                                              <input type="radio" name="radio" checked><i class="helper"></i> Male
+                                            </label>
+                                          </div>
+                                          <div class="radio radiofill radio-inline">
+                                            <label>
+                                              <input type="radio" name="radio"><i class="helper"></i> Female
+                                            </label>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+  
+  
+                                  <div class="material-group">
+                                    <div class="material-addone">
+                                      <i class="fa fa-birthday-cake"></i>
+                                    </div>
+                                    <div class="form-group form-primary">
+                                      <input type="text" name="footer-email" class="form-control" required="">
+                                      <span class="form-bar"></span>
+                                      <label class="float-label">Select Your Birth Date</label>
+                                    </div>
+                                  </div>
+  
+  
+                                  <div class="material-group">
+                                    <div class="material-addone">
+                                      <i class="fa fa-heart"></i>
+                                    </div>
+                                    <div class="form-group form-primary">
+                                      <select id="hello-single" class="form-control">
+                                        <option value="">---- Marital Status ----</option>
+                                        <option value="married">Married</option>
+                                        <option value="unmarried">Unmarried</option>
+                                      </select>
+                                      <span class="form-bar"></span>
+  
+                                    </div>
+                                  </div>
+  
+  
+  
+                                  <div class="material-group">
+                                    <div class="material-addone">
+                                      <i class="icofont icofont-location-pin"></i>
+                                    </div>
+                                    <div class="form-group form-primary">
+                                      <input type="text" name="footer-email" class="form-control" required="">
+                                      <span class="form-bar"></span>
+                                      <label class="float-label">Address</label>
+                                    </div>
+                                  </div>
+  
+  
+                                </div>
+                                <!-- end of table col-lg-6 -->
+                                <div class="col-lg-6">
+  
+                                  <div class="material-group">
+                                    <div class="material-addone">
+                                      <i class="icofont icofont-mobile-phone"></i>
+                                    </div>
+                                    <div class="form-group form-primary">
+                                      <input type="text" name="footer-email" class="form-control" required="">
+                                      <span class="form-bar"></span>
+                                      <label class="float-label">Mobile Number</label>
+                                    </div>
+                                  </div>
+  
+  
+                                  <div class="material-group">
+                                    <div class="material-addone">
+                                      <i class="icofont icofont-social-twitter"></i>
+                                    </div>
+                                    <div class="form-group form-primary">
+                                      <input type="text" name="footer-email" class="form-control" required="">
+                                      <span class="form-bar"></span>
+                                      <label class="float-label">Twitter Id</label>
+                                    </div>
+                                  </div>
+  
+  
+  
+                                  <div class="material-group">
+                                    <div class="material-addone">
+                                      <i class="icofont icofont-social-skype"></i>
+                                    </div>
+                                    <div class="form-group form-primary">
+                                      <input type="text" name="footer-email" class="form-control" required="">
+                                      <span class="form-bar"></span>
+                                      <label class="float-label">Skype Id</label>
+                                    </div>
+                                  </div>
+  
+  
+  
+  
+                                  <div class="material-group">
+                                    <div class="material-addone">
+                                      <i class="icofont icofont-earth"></i>
+                                    </div>
+                                    <div class="form-group form-primary">
+                                      <input type="text" name="footer-email" class="form-control" required="">
+                                      <span class="form-bar"></span>
+                                      <label class="float-label">website</label>
+                                    </div>
+                                  </div>
+  
+  
+  
+                                </div>
+                                <!-- end of table col-lg-6 -->
+                              </div>
+                              <!-- end of row -->
+                              <div class="text-center">
+                                <a href="javascript:" class="btn btn-primary waves-effect waves-light m-r-20">Save</a>
+                                <a href="javascript:" id="edit-cancel" class="btn btn-default waves-effect" (click)="toggleEditProfile()">Cancel</a>
+                              </div>
+                            </div>
+                            <!-- end of edit info -->
+                          </div>
+                          <!-- end of col-lg-12 -->
+                        </div>
+                        <!-- end of row -->
+                      </div>
+                      <!-- end of edit-info -->
+                    </div>
+                    <!-- end of card-body -->
+                  </div>
+                  <!-- personal card end-->
+                </div>
+              </ng-template>
+            </ngb-tab>
+            
+            <ngb-tab title="Wiadomości">
+              <ng-template ngbTabContent>
+                <div [@fadeInOutTranslate] class="m-t-15">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <!-- user contact card left side start -->
+                      <div class="card">
+                        <div class="card-header contact-user">
+                          <img class="img-radius" src="assets/images/user-profile/contact-user.jpg" alt="contact-user">
+                          <h4>Angelica Ramos</h4>
+                        </div>
+                        <div class="card-body">
+                          <ul class="list-group list-contacts">
+                            <li class="list-group-item active"><a href="javascript:;">All Contacts</a></li>
+                            <li class="list-group-item"><a href="javascript:;">Recent Contacts</a></li>
+                            <li class="list-group-item"><a href="javascript:;">Favourite Contacts</a></li>
+                          </ul>
+                        </div>
+                        <div class="card-body groups-contact">
+                          <h4>Groups</h4>
+                          <ul class="list-group">
+                            <li class="list-group-item justify-content-between">
+                              Project
+                              <span class="badge badge-default badge-pill">30</span>
+                            </li>
+                            <li class="list-group-item justify-content-between">
+                              Notes
+                              <span class="badge badge-default badge-pill">20</span>
+                            </li>
+                            <li class="list-group-item justify-content-between">
+                              Activity
+                              <span class="badge badge-default badge-pill">100</span>
+                            </li>
+                            <li class="list-group-item justify-content-between">
+                              Schedule
+                              <span class="badge badge-default badge-pill">50</span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <h4 class="card-title">Contacts<span class="f-15"> (100)</span></h4>
+                        </div>
+                        <div class="card-body">
+                          <div class="connection-list">
+                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-1.jpg" alt="f-1" data-toggle="tooltip" data-placement="top" data-original-title="Airi Satou">
+                            </a>
+                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-2.jpg" alt="f-2" data-toggle="tooltip" data-placement="top" data-original-title="Angelica Ramos">
+                            </a>
+                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-3.jpg" alt="f-3" data-toggle="tooltip" data-placement="top" data-original-title="Ashton Cox">
+                            </a>
+                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-4.jpg" alt="f-4" data-toggle="tooltip" data-placement="top" data-original-title="Cara Stevens">
+                            </a>
+                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-5.jpg" alt="f-5" data-toggle="tooltip" data-placement="top" data-original-title="Garrett Winters">
+                            </a>
+                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-1.jpg" alt="f-6" data-toggle="tooltip" data-placement="top" data-original-title="Cedric Kelly">
+                            </a>
+                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-3.jpg" alt="f-7" data-toggle="tooltip" data-placement="top" data-original-title="Brielle Williamson">
+                            </a>
+                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-5.jpg" alt="f-8" data-toggle="tooltip" data-placement="top" data-original-title="Jena Gaines">
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- user contact card left side end -->
+                    </div>
+                    <div class="col-lg-9">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <!-- contact data table card start -->
+                          <app-card [title]="'Contact'" [cardOptionBlock]="true">
+                              <div class="dt-responsive" *ngIf="data | async as data">
+                                <!-- <div class="panel-heading">User information</div>-->
+                                <div class="table-responsive">
+                                <table datatable class="table table-striped table-bordered">
+                                  <thead>
+                                  <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Favourite</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                    <th>Action</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr *ngFor="let item of data">
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.position}}</td>
+                                    <td>{{item.office}}</td>
+                                    <td class="text-primary">
+                                      <span *ngIf="item.age > 45"><i class="fa fa-star" aria-hidden="true"></i></span>
+                                      <span *ngIf="item.age <= 45 && item.age > 25"><i class="fa fa-star-half-o" aria-hidden="true"></i></span>
+                                      <span *ngIf="item.age <= 25"><i class="fa fa-star-o" aria-hidden="true"></i></span>
+                                    </td>
+                                    <td>{{item.date}}</td>
+                                    <td>{{item.salary}}</td>
+                                    <td ngbDropdown>
+                                      <button ngbDropdownToggle type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                                      <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right b-none contact-menu">
+                                        <a class="dropdown-item" href="javascript:;"><i class="icofont icofont-edit"></i>Edit</a>
+                                        <a class="dropdown-item" href="javascript:;"><i class="icofont icofont-ui-delete"></i>Delete</a>
+                                        <a class="dropdown-item" href="javascript:;"><i class="icofont icofont-eye-alt"></i>View</a>
+                                        <a class="dropdown-item" href="javascript:;"><i class="icofont icofont-tasks-alt"></i>Project</a>
+                                        <a class="dropdown-item" href="javascript:;"><i class="icofont icofont-ui-note"></i>Notes</a>
+                                        <a class="dropdown-item" href="javascript:;"><i class="icofont icofont-eye-alt"></i>Activity</a>
+                                        <a class="dropdown-item" href="javascript:;"><i class="icofont icofont-badge"></i>Schedule</a>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                                </div>
+                              </div>
+                          </app-card>
+                          <!-- contact data table card end -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Reviews">
+              <ng-template ngbTabContent>
+                <div [@fadeInOutTranslate] class="m-t-15">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-header-text">Review</h5>
+                    </div>
+                    <div class="card-body">
+                      <ul class="media-list">
+                        <li class="media">
+                          <div class="media-left">
+                            <a href="javascript:;">
+                              <img class="media-object img-radius comment-img" src="assets/images/avatar-1.jpg" alt="Generic placeholder image">
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <h6 class="media-heading">Sortino media<span class="f-12 text-muted m-l-5">Just now</span></h6>
+                            <div class="stars-example-css review-star">
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                            </div>
+                            <p class="m-b-0">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                            <div class="m-b-25">
+                              <span><a href="javascript:;" class="m-r-10 f-12">Reply</a></span><span><a href="javascript:;" class="f-12">Edit</a> </span>
+                            </div>
+                            <hr>
+                            <!-- Nested media object -->
+                            <div class="media mt-2">
+                              <a class="media-left" href="javascript:;">
+                                <img class="media-object img-radius comment-img" src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
+                              </a>
+                              <div class="media-body">
+                                <h6 class="media-heading">Larry heading <span class="f-12 text-muted m-l-5">Just now</span></h6>
+                                <div class="stars-example-css review-star">
+                                  <i class="icofont icofont-star"></i>
+                                  <i class="icofont icofont-star"></i>
+                                  <i class="icofont icofont-star"></i>
+                                  <i class="icofont icofont-star"></i>
+                                  <i class="icofont icofont-star"></i>
+                                </div>
+                                <p class="m-b-0"> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                                <div class="m-b-25">
+                                  <span><a href="javascript:;" class="m-r-10 f-12">Reply</a></span><span><a href="javascript:;" class="f-12">Edit</a> </span>
+                                </div>
+                                <hr>
+  
+                              </div>
+                            </div>
+  
+                          </div>
+                        </li>
+                        <!-- Nested media object -->
+                        <div class="media mt-2">
+                          <div class="media-left">
+                            <a href="javascript:;">
+                              <img class="media-object img-radius comment-img" src="assets/images/avatar-1.jpg" alt="Generic placeholder image">
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <h6 class="media-heading">Cedric Kelly<span class="f-12 text-muted m-l-5">Just now</span></h6>
+                            <div class="stars-example-css review-star">
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                            </div>
+                            <p class="m-b-0">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                            <div class="m-b-25">
+                              <span><a href="javascript:;" class="m-r-10 f-12">Reply</a></span><span><a href="javascript:;" class="f-12">Edit</a> </span>
+                            </div>
+                            <hr>
+                          </div>
+                        </div>
+                        <div class="media mt-2">
+                          <a class="media-left" href="javascript:;">
+                            <img class="media-object img-radius comment-img" src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
+                          </a>
+                          <div class="media-body">
+                            <h6 class="media-heading">Larry heading <span class="f-12 text-muted m-l-5">Just now</span></h6>
+                            <div class="stars-example-css review-star">
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                            </div>
+                            <p class="m-b-0"> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                            <div class="m-b-25">
+                              <span><a href="javascript:;" class="m-r-10 f-12">Reply</a></span><span><a href="javascript:;" class="f-12">Edit</a> </span>
+                            </div>
+                            <hr>
+                            <!-- Nested media object -->
+                            <div class="media mt-2">
+                              <div class="media-left">
+                                <a href="javascript:;">
+                                  <img class="media-object img-radius comment-img" src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
+                                </a>
+                              </div>
+                              <div class="media-body">
+                                <h6 class="media-heading">Colleen Hurst <span class="f-12 text-muted m-l-5">Just now</span></h6>
+                                <div class="stars-example-css review-star">
+                                  <i class="icofont icofont-star"></i>
+                                  <i class="icofont icofont-star"></i>
+                                  <i class="icofont icofont-star"></i>
+                                  <i class="icofont icofont-star"></i>
+                                  <i class="icofont icofont-star"></i>
+                                </div>
+                                <p class="m-b-0">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                                <div class="m-b-25">
+                                  <span><a href="javascript:;" class="m-r-10 f-12">Reply</a></span><span><a href="javascript:;" class="f-12">Edit</a> </span>
+                                </div>
+                              </div>
+                              <hr>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="media mt-2">
+                          <div class="media-left">
+                            <a href="javascript:;">
+                              <img class="media-object img-radius comment-img" src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <h6 class="media-heading">Mark Doe<span class="f-12 text-muted m-l-5">Just now</span></h6>
+                            <div class="stars-example-css review-star">
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                              <i class="icofont icofont-star"></i>
+                            </div>
+                            <p class="m-b-0">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                            <div class="m-b-25">
+                              <span><a href="javascript:;" class="m-r-10 f-12">Reply</a></span><span><a href="javascript:;" class="f-12">Edit</a> </span>
+                            </div>
+                            <hr>
+                          </div>
+                        </div>
+                      </ul>
+                      <div class="md-float-material d-flex">
+                        <div class="md-group-add-on p-relative col-lg-12">
+                          <div class="input-group input-group-button input-group-primary">
+                            <input type="text" class="form-control" placeholder="Write Comment">
+                            <span class="input-group-addon">
+                              <button class="btn btn-primary ripple light"><i class="icofont icofont-plus"></i>note</button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+  
