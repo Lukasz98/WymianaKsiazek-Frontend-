@@ -42,7 +42,11 @@ export class AccountService {
             this.startRefreshTokenTimer();
             return account;
         }));
-}
+    }
+
+    private stopRefreshTokenTimer() {
+      clearTimeout(this.refreshTokenTimeout);
+    }
 
    login(email: string, password:string) {
      return this.http.post<any>(`${baseUrl}/login`, {email, password})
@@ -53,6 +57,33 @@ export class AccountService {
         return account;
      }));
    }
+
+   logout() {
+    this.http.post<any>(`${baseUrl}/revoke-token`, {}).subscribe();
+    this.stopRefreshTokenTimer();
+    this.accountSubject.next(null);
+    this.router.navigate(['/auth/login']);
+   }
+
+   update(params) {
+    return this.http.put(`${baseUrl}/${this.accountValue.id}`, params)
+        .pipe(map((account: any) => {
+            // update the current account if it was updated
+            if (account.id === this.accountValue.id) {
+                // publish updated account to subscribers
+                account = { ...this.accountValue, ...account };
+                this.accountSubject.next(account);
+            }
+            return account;
+        }));
+}
+
+  delete() {
+    return this.http.delete(`${baseUrl}/${this.accountValue.id}`)
+        .pipe(finalize(() => {
+            this.logout();
+        }));
+  }
 
    register(account: Account) {
     return this.http.post<any>(`${baseUrl}/register`, account);

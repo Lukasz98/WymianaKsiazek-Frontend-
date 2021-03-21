@@ -10,6 +10,9 @@
                     <div class="card">
                       <div class="card-header">
                         <h5 class="card-header-text">Ogłoszenia</h5>
+                        <button id="edit-btn" type="button" class="btn btn-sm btn-success pull-right ripple light" (click)="addOffer()">
+                          <i class="icofont icofont-plus"></i> Nowe Ogłoszenie
+                        </button>
                       </div>
                       <div class="card-body">
                         <div class="row">
@@ -54,7 +57,7 @@
                     <div class="card-header">
                       <h5 class="card-header-text">Dane</h5>
                       <button id="edit-btn" type="button" class="btn btn-sm btn-primary pull-right ripple light" (click)="toggleEditProfile()">
-                        <i class="icofont {{ editProfileIcon }}"></i>
+                        <i class="icofont {{ editProfileIcon }}"></i> Eytuj Profil
                       </button>
                     </div>
                     <div class="card-body">
@@ -63,39 +66,92 @@
                           <div class="col-lg-12">
                             <div class="general-info">
                               <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12 col-xl-4">
                                   <div class="table-responsive">
                                     <table class="table m-0">
                                       <tbody>
                                       <tr>
-                                        <th scope="row">Imię</th>
-                                        <td>Im</td>
+                                        <th scope="row">
+                                          <div class="data-container">
+                                            <div class="adnot">
+                                              Imię i Nazwisko
+                                            </div>
+                                            <div>
+                                              {{account.firstName}} {{account.lastName}}
+                                            </div>
+                                          </div>
+                                        </th>
                                       </tr>
                                       <tr>
-                                        <th scope="row">Nazwisko</th>
-                                        <td>nz</td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">Miejscowość</th>
-                                        <td>Toruń</td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">Nazwa Użytkownika</th>
-                                        <td>Imnz</td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">E-mail</th>
-                                        <td><a href="javascript:;">email@email</a></td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">Hasło</th>
-                                        <td><a href="javascript:;">Zmień Hasło</a></td>
+                                        <th scope="row">
+                                          <div class="data-container">
+                                            <div class="adnot">
+                                              E-mail
+                                            </div>
+                                            <div>
+                                              {{account.email}}
+                                            </div>
+                                          </div>
+                                        </th>
                                       </tr>
                                       </tbody>
                                     </table>
                                   </div>
                                 </div>
                                 <!-- end of table col-lg-6 -->
+                                <div class="col-lg-12 col-xl-4">
+                                  <div class="table-responsive">
+                                    <table class="table m-0">
+                                      <tbody>
+                                      <tr>
+                                        <th scope="row">
+                                          <div class="data-container">
+                                            <div class="adnot">
+                                              Miejscowość
+                                            </div>
+                                            <div>
+                                              {{account.address}}
+                                            </div>
+                                          </div>
+                                        </th>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">
+                                          <div class="data-container">
+                                            <div class="adnot">
+                                              Hasło
+                                            </div>
+                                            <div>
+                                              <a [routerLink]="['/auth/change']">Zmień Hasło</a>
+                                            </div>
+                                          </div>
+                                        </th>
+                                      </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                                <!-- end of table col-lg-6 -->
+                                <div class="col-lg-12 col-xl-4">
+                                  <div class="table-responsive">
+                                    <table class="table m-0">
+                                      <tbody>
+                                      <tr>
+                                        <th scope="row">
+                                          <div class="data-container">
+                                            <div class="adnot">
+                                              Nazwa Użytkownika
+                                            </div>
+                                            <div>
+                                              {{account.username}}
+                                            </div>
+                                          </div>
+                                        </th>
+                                      </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                               <!-- end of row -->
                             </div>
@@ -106,7 +162,7 @@
                         <!-- end of row -->
                       </div>
                       <!-- end of view-info -->
-                      <div class="edit-info" *ngIf="!editProfile">
+                      <form class="edit-info" *ngIf="!editProfile">
                         <div class="row">
                           <div class="col-lg-12">
                             <div class="general-info form-material">
@@ -116,75 +172,28 @@
                                     <div class="material-addone">
                                       <i class="icofont icofont-user"></i>
                                     </div>
-                                    <div class="form-group form-primary">
-                                      <input type="text" name="footer-email" class="form-control" required="">
+                                    <div class="form-group form-primary marg">
+                                      <input type="text" name="footer-email" class="form-control" required="" value="{{account.firstName}}">
                                       <span class="form-bar"></span>
-                                      <label class="float-label">Full Name</label>
+                                      <label class="float-label">Imię</label>
                                     </div>
-                                  </div>
-                                  <div class="material-group">
-                                    <div class="material-addone">
-                                      <i class="fa fa-mars-double"></i>
-                                    </div>
-                                    <div class="form-group form-primary">
-                                      <div class="form-radio">
-                                        <div class="group-add-on">
-                                          <div class="radio radiofill radio-inline">
-                                            <label>
-                                              <input type="radio" name="radio" checked><i class="helper"></i> Male
-                                            </label>
-                                          </div>
-                                          <div class="radio radiofill radio-inline">
-                                            <label>
-                                              <input type="radio" name="radio"><i class="helper"></i> Female
-                                            </label>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-  
-  
-                                  <div class="material-group">
-                                    <div class="material-addone">
-                                      <i class="fa fa-birthday-cake"></i>
-                                    </div>
-                                    <div class="form-group form-primary">
-                                      <input type="text" name="footer-email" class="form-control" required="">
+                                    <div class="form-group form-primary marg">
+                                      <input type="text" name="footer-email" class="form-control" required="" value="{{account.lastName}}">
                                       <span class="form-bar"></span>
-                                      <label class="float-label">Select Your Birth Date</label>
+                                      <label class="float-label">Nazwisko</label>
                                     </div>
                                   </div>
-  
-  
-                                  <div class="material-group">
-                                    <div class="material-addone">
-                                      <i class="fa fa-heart"></i>
-                                    </div>
-                                    <div class="form-group form-primary">
-                                      <select id="hello-single" class="form-control">
-                                        <option value="">---- Marital Status ----</option>
-                                        <option value="married">Married</option>
-                                        <option value="unmarried">Unmarried</option>
-                                      </select>
-                                      <span class="form-bar"></span>
-  
-                                    </div>
-                                  </div>
-  
-  
   
                                   <div class="material-group">
                                     <div class="material-addone">
                                       <i class="icofont icofont-location-pin"></i>
                                     </div>
                                     <div class="form-group form-primary">
-                                      <input type="text" name="footer-email" class="form-control" required="">
+                                      <input type="text" name="footer-email" class="form-control" required="" value="{{account.address}}">
                                       <span class="form-bar"></span>
-                                      <label class="float-label">Address</label>
+                                      <label class="float-label">Miejscowość</label>
                                     </div>
                                   </div>
-  
   
                                 </div>
                                 <!-- end of table col-lg-6 -->
@@ -192,62 +201,21 @@
   
                                   <div class="material-group">
                                     <div class="material-addone">
-                                      <i class="icofont icofont-mobile-phone"></i>
+                                      <i class="icofont icofont-ui-user"></i>
                                     </div>
                                     <div class="form-group form-primary">
-                                      <input type="text" name="footer-email" class="form-control" required="">
+                                      <input type="text" name="footer-email" class="form-control" required="" valuie="{{account.username}}">
                                       <span class="form-bar"></span>
-                                      <label class="float-label">Mobile Number</label>
+                                      <label class="float-label">Nazwa Użytkownika</label>
                                     </div>
                                   </div>
-  
-  
-                                  <div class="material-group">
-                                    <div class="material-addone">
-                                      <i class="icofont icofont-social-twitter"></i>
-                                    </div>
-                                    <div class="form-group form-primary">
-                                      <input type="text" name="footer-email" class="form-control" required="">
-                                      <span class="form-bar"></span>
-                                      <label class="float-label">Twitter Id</label>
-                                    </div>
-                                  </div>
-  
-  
-  
-                                  <div class="material-group">
-                                    <div class="material-addone">
-                                      <i class="icofont icofont-social-skype"></i>
-                                    </div>
-                                    <div class="form-group form-primary">
-                                      <input type="text" name="footer-email" class="form-control" required="">
-                                      <span class="form-bar"></span>
-                                      <label class="float-label">Skype Id</label>
-                                    </div>
-                                  </div>
-  
-  
-  
-  
-                                  <div class="material-group">
-                                    <div class="material-addone">
-                                      <i class="icofont icofont-earth"></i>
-                                    </div>
-                                    <div class="form-group form-primary">
-                                      <input type="text" name="footer-email" class="form-control" required="">
-                                      <span class="form-bar"></span>
-                                      <label class="float-label">website</label>
-                                    </div>
-                                  </div>
-  
-  
   
                                 </div>
                                 <!-- end of table col-lg-6 -->
                               </div>
                               <!-- end of row -->
                               <div class="text-center">
-                                <a href="javascript:" class="btn btn-primary waves-effect waves-light m-r-20">Save</a>
+                                <a href="javascript:" class="btn btn-primary waves-effect waves-light m-r-20" (click)="saveChanges()">Save</a>
                                 <a href="javascript:" id="edit-cancel" class="btn btn-default waves-effect" (click)="toggleEditProfile()">Cancel</a>
                               </div>
                             </div>
@@ -256,6 +224,10 @@
                           <!-- end of col-lg-12 -->
                         </div>
                         <!-- end of row -->
+                      </form>
+                      <div class="text-center" *ngIf="editProfile">
+                        <a href="javascript:" class="btn btn-primary waves-effect buttons" (click)="logOut()">Wyloguj się</a>
+                        <a href="javascript:" class="btn btn-danger waves-effect waves-light m-r-20" (click)="deleteAccount()">Usuń konto</a>
                       </div>
                       <!-- end of edit-info -->
                     </div>
@@ -384,164 +356,6 @@
                               </div>
                           </app-card>
                           <!-- contact data table card end -->
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ng-template>
-            </ngb-tab>
-            <ngb-tab title="Reviews">
-              <ng-template ngbTabContent>
-                <div [@fadeInOutTranslate] class="m-t-15">
-                  <div class="card">
-                    <div class="card-header">
-                      <h5 class="card-header-text">Review</h5>
-                    </div>
-                    <div class="card-body">
-                      <ul class="media-list">
-                        <li class="media">
-                          <div class="media-left">
-                            <a href="javascript:;">
-                              <img class="media-object img-radius comment-img" src="assets/images/avatar-1.jpg" alt="Generic placeholder image">
-                            </a>
-                          </div>
-                          <div class="media-body">
-                            <h6 class="media-heading">Sortino media<span class="f-12 text-muted m-l-5">Just now</span></h6>
-                            <div class="stars-example-css review-star">
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                            </div>
-                            <p class="m-b-0">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-                            <div class="m-b-25">
-                              <span><a href="javascript:;" class="m-r-10 f-12">Reply</a></span><span><a href="javascript:;" class="f-12">Edit</a> </span>
-                            </div>
-                            <hr>
-                            <!-- Nested media object -->
-                            <div class="media mt-2">
-                              <a class="media-left" href="javascript:;">
-                                <img class="media-object img-radius comment-img" src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
-                              </a>
-                              <div class="media-body">
-                                <h6 class="media-heading">Larry heading <span class="f-12 text-muted m-l-5">Just now</span></h6>
-                                <div class="stars-example-css review-star">
-                                  <i class="icofont icofont-star"></i>
-                                  <i class="icofont icofont-star"></i>
-                                  <i class="icofont icofont-star"></i>
-                                  <i class="icofont icofont-star"></i>
-                                  <i class="icofont icofont-star"></i>
-                                </div>
-                                <p class="m-b-0"> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-                                <div class="m-b-25">
-                                  <span><a href="javascript:;" class="m-r-10 f-12">Reply</a></span><span><a href="javascript:;" class="f-12">Edit</a> </span>
-                                </div>
-                                <hr>
-  
-                              </div>
-                            </div>
-  
-                          </div>
-                        </li>
-                        <!-- Nested media object -->
-                        <div class="media mt-2">
-                          <div class="media-left">
-                            <a href="javascript:;">
-                              <img class="media-object img-radius comment-img" src="assets/images/avatar-1.jpg" alt="Generic placeholder image">
-                            </a>
-                          </div>
-                          <div class="media-body">
-                            <h6 class="media-heading">Cedric Kelly<span class="f-12 text-muted m-l-5">Just now</span></h6>
-                            <div class="stars-example-css review-star">
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                            </div>
-                            <p class="m-b-0">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-                            <div class="m-b-25">
-                              <span><a href="javascript:;" class="m-r-10 f-12">Reply</a></span><span><a href="javascript:;" class="f-12">Edit</a> </span>
-                            </div>
-                            <hr>
-                          </div>
-                        </div>
-                        <div class="media mt-2">
-                          <a class="media-left" href="javascript:;">
-                            <img class="media-object img-radius comment-img" src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
-                          </a>
-                          <div class="media-body">
-                            <h6 class="media-heading">Larry heading <span class="f-12 text-muted m-l-5">Just now</span></h6>
-                            <div class="stars-example-css review-star">
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                            </div>
-                            <p class="m-b-0"> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-                            <div class="m-b-25">
-                              <span><a href="javascript:;" class="m-r-10 f-12">Reply</a></span><span><a href="javascript:;" class="f-12">Edit</a> </span>
-                            </div>
-                            <hr>
-                            <!-- Nested media object -->
-                            <div class="media mt-2">
-                              <div class="media-left">
-                                <a href="javascript:;">
-                                  <img class="media-object img-radius comment-img" src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
-                                </a>
-                              </div>
-                              <div class="media-body">
-                                <h6 class="media-heading">Colleen Hurst <span class="f-12 text-muted m-l-5">Just now</span></h6>
-                                <div class="stars-example-css review-star">
-                                  <i class="icofont icofont-star"></i>
-                                  <i class="icofont icofont-star"></i>
-                                  <i class="icofont icofont-star"></i>
-                                  <i class="icofont icofont-star"></i>
-                                  <i class="icofont icofont-star"></i>
-                                </div>
-                                <p class="m-b-0">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-                                <div class="m-b-25">
-                                  <span><a href="javascript:;" class="m-r-10 f-12">Reply</a></span><span><a href="javascript:;" class="f-12">Edit</a> </span>
-                                </div>
-                              </div>
-                              <hr>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="media mt-2">
-                          <div class="media-left">
-                            <a href="javascript:;">
-                              <img class="media-object img-radius comment-img" src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
-                            </a>
-                          </div>
-                          <div class="media-body">
-                            <h6 class="media-heading">Mark Doe<span class="f-12 text-muted m-l-5">Just now</span></h6>
-                            <div class="stars-example-css review-star">
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                              <i class="icofont icofont-star"></i>
-                            </div>
-                            <p class="m-b-0">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-                            <div class="m-b-25">
-                              <span><a href="javascript:;" class="m-r-10 f-12">Reply</a></span><span><a href="javascript:;" class="f-12">Edit</a> </span>
-                            </div>
-                            <hr>
-                          </div>
-                        </div>
-                      </ul>
-                      <div class="md-float-material d-flex">
-                        <div class="md-group-add-on p-relative col-lg-12">
-                          <div class="input-group input-group-button input-group-primary">
-                            <input type="text" class="form-control" placeholder="Write Comment">
-                            <span class="input-group-addon">
-                              <button class="btn btn-primary ripple light"><i class="icofont icofont-plus"></i>note</button>
-                            </span>
-                          </div>
                         </div>
                       </div>
                     </div>
