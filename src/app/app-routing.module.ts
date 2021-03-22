@@ -22,8 +22,8 @@ const routes: Routes = [
         loadChildren: () => import('./theme/add-book/add-book.module').then(m => m.AddBookModule)
       },
       {
-        path: 'offert-view',
-        loadChildren: () => import('./theme/offert-view/offert-view.module').then(m => m.OffertViewModule)
+        path: 'offer-view',
+        loadChildren: () => import('./theme/offer-view/offer-view.module').then(m => m.OfferViewModule)
       },
       {
         path: 'search-listing',

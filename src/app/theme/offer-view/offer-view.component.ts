@@ -13,11 +13,11 @@ city: string,
 };
 
 @Component({
-  selector: 'app-offert-view',
-  templateUrl: './offert-view.component.html',
-  styleUrls: ['./offert-view.component.scss', 'style.css']
+  selector: 'app-offer-view',
+  templateUrl: './offer-view.component.html',
+  styleUrls: ['./offer-view.component.scss', 'style.css']
 })
-export class OffertViewComponent implements OnInit {
+export class OfferViewComponent implements OnInit {
 
 imageSrc1 = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.galleries.smcloud.net%2Ft%2Fgalleries%2Fgf-69dd-mFo5-3Nuy_sowa-guma-664x442-nocrop.jpg&f=1&nofb=1";
 imageSrc2 = "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fbooklips.pl%2Fwp-content%2Fuploads%2F2015%2F07%2Fsowa-karta-biblioteczna2.jpg&f=1&nofb=1";
