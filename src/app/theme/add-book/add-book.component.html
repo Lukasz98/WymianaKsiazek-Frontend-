@@ -64,10 +64,10 @@
 
 </style>
 
-<div class="card">
-  <div class="card-block">
+<div class="" style="max-width: 1000px; margin: auto;">
+  <div class="card-block col-12 ">
     <div class="row">
-      <div class="col-lg-6 offset-lg-3">
+      <div class="col-12">
         <h1 class="txt-highlight text-center m-t-20">
           Dodaj ogłoszenie 
         </h1>
@@ -76,7 +76,7 @@
   
 
     <div class="row search-header">
-      <div class="col-sm-6 offset-sm-3" >
+      <div class="col-12 offset-sm-0" >
         <form  [formGroup]='form' autocomplete="new-password" novalidate>
           <input id='title' autocomplete="off"  placeholder="Tytuł" formControlName='title' (click)=' openDropDown() ' (keyup)="onStrokeSearch($event)" class=' input-underline search-bar col-sm-12 col-md-12 col-12 ' type='text'>
           <div clickOutside (clickOutside)="closeDropDown()">
