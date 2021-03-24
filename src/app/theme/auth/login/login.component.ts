@@ -114,6 +114,7 @@ export class LoginComponent implements OnInit {
             .subscribe({
                 next: () => {
                   // navigate to profile page probably
+                  this.router.navigate(["/profile"]);
                 },
                 error: error => {
                   this.alertService.error(error);

@@ -244,118 +244,257 @@
                   <div class="row">
                     <div class="col-lg-3">
                       <!-- user contact card left side start -->
-                      <div class="card">
+                      <div class="card h-50 container-fluid">
                         <div class="card-header contact-user">
-                          <img class="img-radius" src="assets/images/user-profile/contact-user.jpg" alt="contact-user">
-                          <h4>Angelica Ramos</h4>
-                        </div>
-                        <div class="card-body">
-                          <ul class="list-group list-contacts">
-                            <li class="list-group-item active"><a href="javascript:;">All Contacts</a></li>
-                            <li class="list-group-item"><a href="javascript:;">Recent Contacts</a></li>
-                            <li class="list-group-item"><a href="javascript:;">Favourite Contacts</a></li>
-                          </ul>
-                        </div>
-                        <div class="card-body groups-contact">
-                          <h4>Groups</h4>
-                          <ul class="list-group">
-                            <li class="list-group-item justify-content-between">
-                              Project
-                              <span class="badge badge-default badge-pill">30</span>
-                            </li>
-                            <li class="list-group-item justify-content-between">
-                              Notes
-                              <span class="badge badge-default badge-pill">20</span>
-                            </li>
-                            <li class="list-group-item justify-content-between">
-                              Activity
-                              <span class="badge badge-default badge-pill">100</span>
-                            </li>
-                            <li class="list-group-item justify-content-between">
-                              Schedule
-                              <span class="badge badge-default badge-pill">50</span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="card">
-                        <div class="card-header">
-                          <h4 class="card-title">Contacts<span class="f-15"> (100)</span></h4>
-                        </div>
-                        <div class="card-body">
-                          <div class="connection-list">
-                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-1.jpg" alt="f-1" data-toggle="tooltip" data-placement="top" data-original-title="Airi Satou">
-                            </a>
-                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-2.jpg" alt="f-2" data-toggle="tooltip" data-placement="top" data-original-title="Angelica Ramos">
-                            </a>
-                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-3.jpg" alt="f-3" data-toggle="tooltip" data-placement="top" data-original-title="Ashton Cox">
-                            </a>
-                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-4.jpg" alt="f-4" data-toggle="tooltip" data-placement="top" data-original-title="Cara Stevens">
-                            </a>
-                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-5.jpg" alt="f-5" data-toggle="tooltip" data-placement="top" data-original-title="Garrett Winters">
-                            </a>
-                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-1.jpg" alt="f-6" data-toggle="tooltip" data-placement="top" data-original-title="Cedric Kelly">
-                            </a>
-                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-3.jpg" alt="f-7" data-toggle="tooltip" data-placement="top" data-original-title="Brielle Williamson">
-                            </a>
-                            <a href="javascript:;"><img class="img-fluid img-radius" src="assets/images/user-profile/follower/f-5.jpg" alt="f-8" data-toggle="tooltip" data-placement="top" data-original-title="Jena Gaines">
-                            </a>
+                          <h4>Kontakty</h4>
+                          <div class="m-2">
+                              <form class="form-material">
+                                  <div class="form-group form-primary">
+                                      <input type="text" name="footer-email" class="form-control" id="search-friends" required="">
+                                      <span class="form-bar"></span>
+                                      <label class="float-label"><i class="fa fa-search m-r-10"></i>Wyszukaj</label>
+                                  </div>
+                              </form>
                           </div>
                         </div>
+                        <div class="card-body overflow-auto">
+                          <ui class="contacts">
+                            <li class="active">
+                              <div class="d-flex bd-highlight">
+                                <div class="user_info">
+                                  <span>Khalid</span>
+                                  <p>Kalid is online</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="d-flex bd-highlight">
+                                <div class="user_info">
+                                  <span>Taherah Big</span>
+                                  <p>Taherah left 7 mins ago</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="d-flex bd-highlight">
+                                <div class="user_info">
+                                  <span>Sami Rafi</span>
+                                  <p>Sami is online</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="d-flex bd-highlight">
+                                <div class="user_info">
+                                  <span>Nargis Hawa</span>
+                                  <p>Nargis left 30 mins ago</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="d-flex bd-highlight">
+                                <div class="user_info">
+                                  <span>Rashid Samim</span>
+                                  <p>Rashid left 50 mins ago</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="d-flex bd-highlight">
+                                <div class="user_info">
+                                  <span>Rashid Samim</span>
+                                  <p>Rashid left 50 mins ago</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="d-flex bd-highlight">
+                                <div class="user_info">
+                                  <span>Rashid Samim</span>
+                                  <p>Rashid left 50 mins ago</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="d-flex bd-highlight">
+                                <div class="user_info">
+                                  <span>Rashid Samim</span>
+                                  <p>Rashid left 50 mins ago</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="d-flex bd-highlight">
+                                <div class="user_info">
+                                  <span>Rashid Samim</span>
+                                  <p>Rashid left 50 mins ago</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="d-flex bd-highlight">
+                                <div class="user_info">
+                                  <span>Rashid Samim</span>
+                                  <p>Rashid left 50 mins ago</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="d-flex bd-highlight">
+                                <div class="user_info">
+                                  <span>Rashid Samim</span>
+                                  <p>Rashid left 50 mins ago</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="d-flex bd-highlight">
+                                <div class="user_info">
+                                  <span>Rashid Samim</span>
+                                  <p>Rashid left 50 mins ago</p>
+                                </div>
+                              </div>
+                            </li>
+                            </ui>
+                        </div>
                       </div>
-                      <!-- user contact card left side end -->
                     </div>
                     <div class="col-lg-9">
                       <div class="row">
-                        <div class="col-sm-12">
-                          <!-- contact data table card start -->
-                          <app-card [title]="'Contact'" [cardOptionBlock]="true">
-                              <div class="dt-responsive" *ngIf="data | async as data">
-                                <!-- <div class="panel-heading">User information</div>-->
-                                <div class="table-responsive">
-                                <table datatable class="table table-striped table-bordered">
-                                  <thead>
-                                  <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Favourite</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
-                                    <th>Action</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                  <tr *ngFor="let item of data">
-                                    <td>{{item.name}}</td>
-                                    <td>{{item.position}}</td>
-                                    <td>{{item.office}}</td>
-                                    <td class="text-primary">
-                                      <span *ngIf="item.age > 45"><i class="fa fa-star" aria-hidden="true"></i></span>
-                                      <span *ngIf="item.age <= 45 && item.age > 25"><i class="fa fa-star-half-o" aria-hidden="true"></i></span>
-                                      <span *ngIf="item.age <= 25"><i class="fa fa-star-o" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>{{item.date}}</td>
-                                    <td>{{item.salary}}</td>
-                                    <td ngbDropdown>
-                                      <button ngbDropdownToggle type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></button>
-                                      <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right b-none contact-menu">
-                                        <a class="dropdown-item" href="javascript:;"><i class="icofont icofont-edit"></i>Edit</a>
-                                        <a class="dropdown-item" href="javascript:;"><i class="icofont icofont-ui-delete"></i>Delete</a>
-                                        <a class="dropdown-item" href="javascript:;"><i class="icofont icofont-eye-alt"></i>View</a>
-                                        <a class="dropdown-item" href="javascript:;"><i class="icofont icofont-tasks-alt"></i>Project</a>
-                                        <a class="dropdown-item" href="javascript:;"><i class="icofont icofont-ui-note"></i>Notes</a>
-                                        <a class="dropdown-item" href="javascript:;"><i class="icofont icofont-eye-alt"></i>Activity</a>
-                                        <a class="dropdown-item" href="javascript:;"><i class="icofont icofont-badge"></i>Schedule</a>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  </tbody>
-                                </table>
-                                </div>
+                        <div class="card h-50 container-fluid">
+                          <div class="card-header msg_head">
+                            <div class="d-flex bd-highlight">
+                              <div class="user_info">
+                                <span><b>Khalid</b></span>
                               </div>
-                          </app-card>
-                          <!-- contact data table card end -->
+                            </div>
+                          </div>
+                          <div class="card-body msg_card_body">
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                Hi, how are you samim?
+                                <span class="msg_time">8:40 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-end mb-4">
+                              <div class="msg_cotainer_send">
+                                Hi Khalid i am good tnx how about you?
+                                <span class="msg_time_send">8:55 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                I am good too, thank you for your chat template
+                                <span class="msg_time">9:00 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-end mb-4">
+                              <div class="msg_cotainer_send">
+                                You are welcome
+                                <span class="msg_time_send">9:05 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                I am looking for your next templates
+                                <span class="msg_time">9:07 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-end mb-4">
+                              <div class="msg_cotainer_send">
+                                Ok, thank you have a good day
+                                <span class="msg_time_send">9:10 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                Bye, see you
+                                <span class="msg_time">9:12 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                Bye, see you
+                                <span class="msg_time">9:12 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                Bye, see you
+                                <span class="msg_time">9:12 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                Bye, see you
+                                <span class="msg_time">9:12 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                Bye, see you
+                                <span class="msg_time">9:12 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                Bye, see you
+                                <span class="msg_time">9:12 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                Bye, see you
+                                <span class="msg_time">9:12 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                Bye, see you
+                                <span class="msg_time">9:12 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                Bye, see you
+                                <span class="msg_time">9:12 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                Bye, see you
+                                <span class="msg_time">9:12 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                Bye, see you
+                                <span class="msg_time">9:12 AM, Today</span>
+                              </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                              <div class="msg_cotainer">
+                                Bye, see you
+                                <span class="msg_time">9:12 AM, Today</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-footer">
+                            <div class="right-icon-control">
+                              <form class="form-material">
+                                  <div class="form-group form-primary">
+                                      <input type="text" name="footer-email" class="form-control" required="">
+                                      <span class="form-bar"></span>
+                                      <label class="float-label">Twoja wiadomość...</label>
+                                  </div>
+                              </form>
+                              <div class="form-icon ">
+                                  <button class="btn btn-primary btn-icon  waves-effect waves-light">
+                                      <i class="fa fa-paper-plane"></i>
+                                  </button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
