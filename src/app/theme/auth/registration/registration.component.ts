@@ -50,7 +50,7 @@ export class RegistrationComponent implements OnInit {
     this.accountService.register(this.form.value).pipe(first()).subscribe({
         next: () => {
           this.alertService.success('Sprawdź maila czy coś', { keepAfterRouteChange: true });
-          this.router.navigate(['../login'], { relativeTo: this.route });
+          this.router.navigate(['/auth/login']);
           // email verification and alert
         },
         error: (error) => {
