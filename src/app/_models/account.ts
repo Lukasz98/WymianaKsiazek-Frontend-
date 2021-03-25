@@ -8,4 +8,5 @@ export class Account {
     accessToken: string;
     refreshToken: string;
     expires: Date;
+    address: string;
 }

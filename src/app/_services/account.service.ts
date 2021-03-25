@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 import { Account } from '../_models/account';
 import { Router } from '@angular/router';
 
-const baseUrl = environment.apiUrl + "/auth";
+const baseUrl = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -31,31 +31,64 @@ export class AccountService {
    private startRefreshTokenTimer() {
 
        // set a timeout to refresh the token a minute before it expires
-       const timeout = this.accountValue.expires.getDate() - Date.now() - (60 * 1000);
+       var exp = new Date(this.accountValue.expires);
+       const timeout = exp.getTime() - Date.now() - (60 * 1000);
        this.refreshTokenTimeout = setTimeout(() => this.refreshToken(this.accountValue.refreshToken).subscribe(), timeout);
    }
 
    refreshToken(token: string) {
-    return this.http.post<any>(`${baseUrl}/refresh-token`, {token})
+    return this.http.post<any>(`${baseUrl}/users/token/refresh`, {token})
         .pipe(map((account) => {
             this.accountSubject.next(account);
             this.startRefreshTokenTimer();
             return account;
         }));
-}
+    }
+
+    private stopRefreshTokenTimer() {
+      clearTimeout(this.refreshTokenTimeout);
+    }
 
    login(email: string, password:string) {
-     return this.http.post<any>(`${baseUrl}/login`, {email, password})
+     return this.http.post<any>(`${baseUrl}/users/token`, {email, password})
      .pipe(map(account => {
         this.accountSubject.next(account);
         localStorage.setItem('user', JSON.stringify(account));
         this.startRefreshTokenTimer();
+        console.log(account);
         return account;
      }));
    }
 
+   logout() {
+    this.http.post<any>(`${baseUrl}/revoke-token`, {}).subscribe();
+    this.stopRefreshTokenTimer();
+    this.accountSubject.next(null);
+    this.router.navigate(['/auth/login']);
+   }
+
+   update(params) {
+    return this.http.put(`${baseUrl}/${this.accountValue.id}`, params)
+        .pipe(map((account: any) => {
+            // update the current account if it was updated
+            if (account.id === this.accountValue.id) {
+                // publish updated account to subscribers
+                account = { ...this.accountValue, ...account };
+                this.accountSubject.next(account);
+            }
+            return account;
+        }));
+}
+
+  delete() {
+    return this.http.delete(`${baseUrl}/${this.accountValue.id}`)
+        .pipe(finalize(() => {
+            this.logout();
+        }));
+  }
+
    register(account: Account) {
-    return this.http.post<any>(`${baseUrl}/register`, account);
+    return this.http.post<any>(`${baseUrl}/users/register`, account);
    }
 
    facebookLogin(accessToken: string) {
