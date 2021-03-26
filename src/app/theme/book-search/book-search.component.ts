@@ -54,27 +54,36 @@ export class BookSearchComponent implements OnInit {
                   'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington',
                      'West Virginia', 'Wisconsin', 'Wyoming'];
 
+      cities = ['akapulko', 'pacanowo'];
+
+  showDropDown2 = false;
 
   myForm: FormGroup;
   submitted: boolean;
   
   opened : number;
+  opened2 : number;
 
   //constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
   constructor(private router:Router, private fb:FormBuilder ) {
     const bookName = new FormControl('', Validators.required);
     this.myForm = new FormGroup({
-      bookName: new FormControl()
+      bookName: new FormControl(),
+      city: new FormControl()
     });
     this.initForm();
   }
  
   initForm(): FormGroup {
-    return this.stateForm = this.fb.group({ search: [null] });
+    return this.stateForm = this.fb.group({ search: [null], search2: [null] });
   }
   
   getSearchValue() {
     return this.stateForm.value.search;
+  }
+
+  getSearchValue2() {
+    return this.stateForm.value.search2;
   }
 
   openDropDown() {
@@ -83,11 +92,24 @@ export class BookSearchComponent implements OnInit {
     this.opened = 2;
   }
   
+  openDropDown2() {
+    console.log("showDropDown2");
+    this.showDropDown2 = true;
+    this.opened2 = 2;
+  }
+
   closeDropDown() {
     if (this.opened)
       this.opened = this.opened - 1;
     else
       this.showDropDown = false;
+  }
+
+  closeDropDown2() {
+    if (this.opened2)
+      this.opened2 = this.opened2 - 1;
+    else
+      this.showDropDown2 = false;
   }
 
   ngOnInit() {
@@ -102,7 +124,7 @@ export class BookSearchComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.stateForm.value.search);
+    console.log(this.stateForm.value);
     this.submitted = true;
     //this.http.get('http://ip.jsontest.com/?callback=showMyIP').map(res =>res.json());
     //console.log(this.myForm);
@@ -122,18 +144,24 @@ export class BookSearchComponent implements OnInit {
     //}
   }
 
- selectValue(value) {
-  this.stateForm.patchValue({"search": value});
-  console.log("select value");
-  this.showDropDown = false;
- }
+  selectValue(value) {
+    this.stateForm.patchValue({"search": value});
+    console.log("select value");
+    this.showDropDown = false;
+  }
+
+  selectValue2(value) {
+    this.stateForm.patchValue({"search2": value});
+    console.log("select2 value");
+    this.showDropDown2 = false;
+  }
 
   onStrokeSearch(event: any) {
     //if (event.target.value) { 
     console.log("onstroke");
     //console.log(event.target.value);
-    this.states = [];
-    this.states.push(event.target.value);
+    //this.states = [];
+    //this.states.push(event.target.value);
     //}
   }
 
@@ -146,6 +174,16 @@ export class BookSearchComponent implements OnInit {
     //if (event.target.value == 0x0d) {
     //    console.log("enter");
     //}
+    this.onSubmit();
+  }
+  
+  onStrokeSearch2(event: any) {
+    console.log("onstroke2");
+    this.cities = [];
+    this.cities.push(event.target.value);
+  }
+
+  onEnterSearch2(event:  KeyboardEvent) {
     this.onSubmit();
   }
   
