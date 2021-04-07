@@ -12,8 +12,12 @@
 .search-bar {
   height: 50px;
   !float: left;
-  text-indent: 10px !important;
-  border-style: none;
+  text-indent: 0px !important;
+border: 1px solid #448aff;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+color: #448aff;
 }
 
 .search-button {
@@ -30,7 +34,8 @@
 .search-icon {
   background-color: white; 
   color: black; 
-  width: 100%; 
+  height: 100%;
+  !width: 100%; 
   !width: 50px; 
   border-radius: 0px;
   border-width: 1px;
@@ -69,71 +74,36 @@ margin: 0px;
 padding: 0px;
 }
 
-.city-border {
-  border-width: 1px;
-  border-style: none;
-  border-left-style: solid;
-  border-color: rgb(220, 220, 220);
-
-}
-
-.city-width {
-width: 40%;
-min-width: 200px;
-}
-
-.city-input-width {
-/* Firefox */
-width: -moz-calc(100% - 40px);
-/* WebKit */
-wdith: -webkit-calc(100% - 40px);
-/* Opera */
-width: -o-calc(100% - 40px);
-/* Standard */
-width: calc(100% - 40px);
+.margintop {
+margin-top: 10px !important;
 }
 
 .drop-down-city {
-/* Firefox */
-width: -moz-calc(40% - 40px);
-/* WebKit */
-wdith: -webkit-calc(40% - 40px);
-/* Opera */
-width: -o-calc(40% - 40px);
-/* Standard */
-width: calc(40% - 40px);
+width:100%;
 }
 
-.title-width {
-width: 60%;
-min-width: 200px;
-}
+
+
 .drop-down-title {
-  width: 60%;
-}
-
-@media only screen and (max-width: 666px) {
-.city-width {
-width: 100%;
-margin-top: 20px;
-}
-.city-border {
-border-left-width: 0px;
-}
-.drop-down-city {
   width: 100%;
 }
 
-.title-width {
-width: 100%;
-}
-.drop-down-title {
-  width: 85%;
-}
-
-
+@media only screen and (max-width: 767px) {
+.autopadding {
+margin-left: 0px;
+margin-top: 5px;
 }
 
+.margintop {
+margin-top: 5px !important;
+}
+}
+
+@media only screen and (min-width: 767px) {
+.autopadding {
+margin-left: 5px;
+}
+}
 </style>
 
 <div class="nopadding" style="max-width: 800px; margin: auto; ">
@@ -145,18 +115,18 @@ width: 100%;
         </h1>
       </div>
     </div>
-    <div class=" col-12 nopadding " style="">
+    <div class=" col-12 " style="margin: auto;">
       <form  [formGroup]='stateForm' autocomplete="new-password" novalidate>
-        <div class="row col-12 nopadding " style=" margin: auto; ">
+        <div class="row col-12 nopadding" style="">
           
-          <div style=" " class="nopadding title-width">
+          <div style="  margin: auto; " class="col-12 col-md-7 autopadding nopadding margintop">
             <input id='search' autocomplete="off"  placeholder="tytuł, autor" formControlName='search' 
               (keyup.enter)="onEnterSearch($event)"  (click)=' openDropDown() ' 
-              (keyup)="onStrokeSearch($event)" class=' input-underline search-bar ' type='text' 
-              style="width:100%;">
+              (keyup)="onStrokeSearch($event)" class=' input-underline search-bar col-12' type='text' 
+              style="width:100%; ">
             
-            <div clickOutside (clickOutside)="closeDropDown()" style="">
-              <div *ngIf='showDropDown' class='search-drop-down drop-down-title'>
+            <div clickOutside (clickOutside)="closeDropDown()" style="width: 100%;" class="">
+              <div *ngIf='showDropDown' class='search-drop-down drop-down-title col-12 nopadding'>
                 <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of states | searchFilter: getSearchValue()">
                   <a [innerHTML]="s | letterBold: getSearchValue()">
                     {{s}}
@@ -166,15 +136,14 @@ width: 100%;
             </div>
           </div>
           
-          <div style="float: left; " class=" nopadding city-width">
+          <div style="margin: auto; " class=" col-12 col-md-4 autopadding nopadding margintop">
             <input id='search2' autocomplete="off"  placeholder="miasto" formControlName='search2' 
               (keyup.enter)="onEnterSearch2($event)"  (click)=' openDropDown2() ' 
-              (keyup)="onStrokeSearch2($event)" class=' input-underline search-bar city-border city-input-width' type='text' 
-              style="float: left;">
-            <span class="input-group-append search-btn search-button " (click)="onSubmit()" ><i class="icon-search input-group-text search-icon" ></i></span>
-           
-             <div clickOutside (clickOutside)="closeDropDown2()">
-              <div *ngIf='showDropDown2' class='search-drop-down drop-down-city'>
+              (keyup)="onStrokeSearch2($event)" class=' input-underline search-bar col-12' type='text' 
+              style="width: 100%;">
+  
+            <div clickOutside (clickOutside)="closeDropDown2()" style="width: 100%;">
+              <div *ngIf='showDropDown2' class='search-drop-down drop-down-city col-12 nopadding'>
                 <div (click)='selectValue2(s)' class='search-results ' *ngFor="let s of cities | searchFilter: getSearchValue2()">
                   <a [innerHTML]="s | letterBold: getSearchValue2()">
                     {{s}}
@@ -184,7 +153,15 @@ width: 100%;
             </div>
           </div>
           
+          <div class="col-12 col-md-7 nopadding autopadding margintop" style="margin:auto; ">
+            <select name="select" class="form-control form-control-primary" style="-webkit-box-shadow: none; " formControlName="category">
+              <option *ngFor="let item of categories; let i = index " value="{{i}}" >{{ item }}</option>
+            </select>
+          </div>
           
+          <div class="col-12 col-md-4  autopadding nopadding margintop" style="margin:auto; text-align: center; ">
+             <button type="submit" (click)="onSubmit()" class="btn btn-primary m-b-0 ripple light " style="line-height: 20px; width: 200px;" ><i class="fa fa-search" style="line-height: 20px;" ></i>Szukaj</button>
+          </div>
         </div>
       </form>
     </div>

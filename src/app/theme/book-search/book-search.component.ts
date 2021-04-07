@@ -56,6 +56,8 @@ export class BookSearchComponent implements OnInit {
 
       cities = ['akapulko', 'pacanowo'];
 
+  categories = [ 'Dowolna kategoria', 'Kryminały', 'Bajki' ];
+
   showDropDown2 = false;
 
   myForm: FormGroup;
@@ -75,7 +77,7 @@ export class BookSearchComponent implements OnInit {
   }
  
   initForm(): FormGroup {
-    return this.stateForm = this.fb.group({ search: [null], search2: [null] });
+    return this.stateForm = this.fb.group({ search: [null], search2: [null], category: [0] });
   }
   
   getSearchValue() {
