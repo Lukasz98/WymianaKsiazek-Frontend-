@@ -91,25 +91,25 @@ padding: 0 !important;
                 </div>
               </div>
               <div class="col-xl-7 col-lg-6 col-12 offset-0" id="right" >
-                <div class="card" style="width=100%;">
+                <div *ngIf="offerData" class="card" style="width=100%;">
                   <div class="card-header">
-                    <h2>Ludzie bezdomni</h2>
-                    <h6>Stefan Żeromski</h6>
+                    <h2>{{ offerData.book.title }}</h2>
+                    <h6>{{ offerData.book.author }}</h6>
                   </div>
                   <div class="card-block" style="min-height: 300px;">
                     <div class="row" style="border-bottom: solid; padding-bottom: 15px; border-width: 1px; border-color: rgb(240,240,240);">
-                      <div class="col-6" style=" text-align: left;">Strachowice</div>
-                      <div class="col-6" style=" text-align: right;">Cena: 15zł</div>
+                      <div class="col-6" style=" text-align: left;">{{ offerData.address.name }}</div>
+                      <div class="col-6" style=" text-align: right;">Cena: {{ offerData.price }}zł</div>
                     </div>
                     <div class="row" style="padding: 15px; min-height: 200px;  border-bottom: solid; border-width: 1px; border-color: rgb(240,240,240);">
-                      Opis
+                      {{ offerData.content }}
                     </div>
                     <div class="row " style="padding: 15px; border-bottom: solid; border-width: 1px; border-color: rgb(240,240,240); line-height: 20px;">
-                      <ng-template [ngIf]="mainImageSrc"><i class="fa fa-check" style="line-height: 20px"></i>&nbsp;Wymiana</ng-template>
-                      <ng-template [ngIf]="!mainImageSrc"><i class="fa fa-close" style="line-height: 20px"></i>&nbsp;Wymiana </ng-template>
+                      <ng-template [ngIf]="offerData.type"><i class="fa fa-check" style="line-height: 20px"></i>&nbsp;Wymiana</ng-template>
+                      <ng-template [ngIf]="!offerData.type"><i class="fa fa-close" style="line-height: 20px"></i>&nbsp;Wymiana </ng-template>
                     </div>
                     <div class="row" style="padding-top: 15px;">
-                      <div class="col-6" style="text-align: left; margin: auto;">Od Łukasz</div>
+                      <div class="col-6" style="text-align: left; margin: auto;">Od {{ offerData.user }}</div>
                       <div class="col-6" style="text-align: right; margin: auto;"> Telefon: 987987932</div>
                     </div>
                     <div class="row" style="padding-top: 15px;">

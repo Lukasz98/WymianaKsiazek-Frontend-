@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 //import { CustomValidators } from 'ngx-custom-validators';
 //import { TestModel } from '../../models/testmodel';
-//import { Observable } from "rxjs/Observable";
-//import { HttpClient } from "@angular/common/http";
-//import * as _ from 'lodash';
+import { Observable } from "rxjs/Observable";
+import { HttpClient } from "@angular/common/http";
+import * as _ from 'lodash';
 //import 'rxjs/add/operator/map'
 import 'rxjs/Rx';
 
@@ -33,6 +33,12 @@ title: string,
 body: string
 }
 
+class TitleCandidate {
+status: number;
+//status2: number;
+title: Array<string>;
+}
+
 @Component({
   selector: 'app-book-search',
   templateUrl: './book-search.component.html',
@@ -43,7 +49,7 @@ export class BookSearchComponent implements OnInit {
 
   //public dds$ : Observable<DD[]>;
   stateForm: FormGroup;
-
+public testData : TitleCandidate;
   showDropDown = false;
       states = ['Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado',
         'Connecticut', 'Delaware', 'District of Columbia', 'Florida'
@@ -67,7 +73,9 @@ export class BookSearchComponent implements OnInit {
   opened2 : number;
 
   //constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
-  constructor(private router:Router, private fb:FormBuilder ) {
+  constructor(private router:Router, private fb:FormBuilder, private http : HttpClient ) {
+    //this.testData =
+
     const bookName = new FormControl('', Validators.required);
     this.myForm = new FormGroup({
       bookName: new FormControl(),
@@ -118,14 +126,46 @@ export class BookSearchComponent implements OnInit {
     //const url = 'http://ip.jsontest.com/';
     //const url = 'http://date.jsontest.com'; 
     //const url = 'https://jsonplaceholder.typicode.com/posts'
+    const url = 'http://localhost:8000/api.php?title=asd';
     //this.dds$ = this.http.get<DD[]>(url)
+    
+    //let val = this.http.get<TitleCandidate>(url)
     //           .do(console.log)
     //           .map(data => _.values(data));
+    //console.log(val);
     //.map(data =>data)
     //console.log(this.dds$);
+ /*   
+    let status = 0;
+    
+    this.http.get<TitleCandidate>(url).subscribe(
+    (response) => {
+        console.log("response recv");
+        console.log(response)
+        this.d = response
+        }
+     );
+*/
+
+
+
+
+    //{
+    //  data => {
+    //    status = data.status;
+    //  }
+      //,
+      //error: error => {
+      //    console.error('There was an error!', error);
+      //}
+    //}
+    //);
+    //console.log(this.d);
+  
   }
 
   onSubmit() {
+    //console.log(this.d);
     console.log(this.stateForm.value);
     this.submitted = true;
     //this.http.get('http://ip.jsontest.com/?callback=showMyIP').map(res =>res.json());
@@ -161,6 +201,25 @@ export class BookSearchComponent implements OnInit {
   onStrokeSearch(event: any) {
     //if (event.target.value) { 
     console.log("onstroke");
+    
+    const url = 'http://localhost:40403/api.php?title=asd';
+    this.http.get<TitleCandidate>(url).subscribe(
+    (response) => {
+        console.log("response recv");
+        console.log(response)
+        this.testData = response
+        console.log(this.testData);
+   //console.log(this.d);
+    //for (let i = 0; i < this.d.title.length; i++) {
+    //    console.log(i);
+    //}
+        }
+     );
+     
+   // this.states = [];
+    //for (let i = 0; i < this.d.title.length; i++) {
+    //    console.log(i);
+    //}
     //console.log(event.target.value);
     //this.states = [];
     //this.states.push(event.target.value);
