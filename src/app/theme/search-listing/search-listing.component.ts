@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from "rxjs/Observable";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 interface Book {
 imgSrc: string,
@@ -15,7 +17,7 @@ city: string,
 @Component({
   selector: 'app-search-listing',
   templateUrl: './search-listing.component.html',
-  styleUrls: ['./search-listing.component.scss', 'style.css']
+  styleUrls: ['./search-listing.component.scss', 'style.css', './search.css']
 })
 export class SearchListingComponent implements OnInit {
   itemLast: number;
@@ -74,7 +76,34 @@ export class SearchListingComponent implements OnInit {
 
   booksPage : Book[] = [];
 
-  constructor(private route: ActivatedRoute) {
+
+// formularz
+  stateForm: FormGroup;
+  showDropDown = false;
+      states = ['Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado',
+        'Connecticut', 'Delaware', 'District of Columbia', 'Florida'
+          , 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky'
+            , 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
+              'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina',
+                'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico',
+                  'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington',
+                     'West Virginia', 'Wisconsin', 'Wyoming'];
+
+      cities = ['akapulko', 'pacanowo'];
+
+  categories = [ 'Dowolna kategoria', 'Kryminały', 'Bajki', 'bajki2',  'bajki3', 'bajki4', 'bajki5', 'bajki6', 'bajki7', 'bajki8', 'bajki9', 'bajk10' ];
+
+  showDropDown2 = false;
+
+  myForm: FormGroup;
+  submitted: boolean;
+  
+  opened : number;
+  opened2 : number;
+//~formularz
+
+
+  constructor(private route: ActivatedRoute, private fb:FormBuilder) {
     //books$.push(
     this.itemLast = this.itemsOnPage;
     this.itemFirst = 0;
@@ -88,6 +117,8 @@ export class SearchListingComponent implements OnInit {
     //this.booksPage.push(this.books[0]);
     //this.booksPage.push(this.books[1]);
     //this.booksPage.push(this.books[2]);
+  
+    this.initForm();
   }
 
   numSequence(n: number): Array<number> { 
@@ -129,5 +160,88 @@ export class SearchListingComponent implements OnInit {
                       }
     );
   }
+
+
+
+  //formularz
+  initForm(): FormGroup {
+    return this.stateForm = this.fb.group({ search: [null], search2: [null], category: [0] });
+  }
+  
+  getSearchValue() {
+    return this.stateForm.value.search;
+  }
+
+  getSearchValue2() {
+    return this.stateForm.value.search2;
+  }
+
+  openDropDown() {
+    console.log("showDropDown");
+    this.showDropDown = true;
+    this.opened = 2;
+  }
+  
+  openDropDown2() {
+    console.log("showDropDown2");
+    this.showDropDown2 = true;
+    this.opened2 = 2;
+  }
+
+  closeDropDown() {
+    if (this.opened)
+      this.opened = this.opened - 1;
+    else
+      this.showDropDown = false;
+  }
+
+  closeDropDown2() {
+    if (this.opened2)
+      this.opened2 = this.opened2 - 1;
+    else
+      this.showDropDown2 = false;
+  }
+
+  onSubmit() {
+    console.log(this.stateForm.value);
+    this.submitted = true;
+    console.log('sumbit');
+  }
+
+  selectValue(value) {
+    this.stateForm.patchValue({"search": value});
+    console.log("select value");
+    this.showDropDown = false;
+  }
+
+  selectValue2(value) {
+    this.stateForm.patchValue({"search2": value});
+    console.log("select2 value");
+    this.showDropDown2 = false;
+  }
+
+  onStrokeSearch(event: any) {
+    console.log("onstroke");
+  }
+
+  onEnterSearch(event:  KeyboardEvent) {
+    this.onSubmit();
+  }
+  
+  onStrokeSearch2(event: any) {
+    console.log("onstroke2");
+    this.cities = [];
+    this.cities.push(event.target.value);
+  }
+
+  onEnterSearch2(event:  KeyboardEvent) {
+    this.onSubmit();
+  }
+  
+  mouseClickSearch() {
+    console.log('mouse click');
+    this.onSubmit();
+  }
+  //~formularz
 
 }

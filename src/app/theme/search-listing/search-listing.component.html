@@ -2,42 +2,152 @@
 .hov:hover {
 cursor: pointer;
 }
+
+p {
+margin-top: 0px;
+margin-bottom: 0px;
+}
+
+img {
+height: 200px;
+max-width: 200px;
+}
+
+.nomargin {
+margin: 0px;
+}
+.nopadding {
+padding: 0px;
+}
+
+.margintop {
+margin-top: 10px !important;
+}
+
+.drop-down-city {
+width:100%;
+}
+
+
+
+.drop-down-title {
+  width: 100%;
+}
+
+@media only screen and (max-width: 767px) {
+.autopadding {
+margin-left: 0px;
+margin-top: 5px;
+}
+
+.margintop {
+margin-top: 5px !important;
+}
+}
+
+@media only screen and (min-width: 767px) {
+.autopadding {
+margin-left: 5px;
+}
+}
+
 </style>
 
-<div class="page-body" >
-<div class="card">
-  <div class="card-block">
+<div class="nopadding" style="max-width: 800px; margin: auto; ">
+  <div class="card-block nopadding ">
+<!--
     <div class="row">
-      <div class="col-lg-6 offset-lg-3 text-center">
-        <h1  class="txt-highlight text-center m-t-20">
-          Wyniki dla: <i>{{ searchString }} </i>
+      <div class="col-12">
+        <h1 class="txt-highlight text-center m-t-20">
+          Wyszukiwarka
         </h1>
-      Strona {{ this.currPage }} z {{ this.pageCount - 1 }}
       </div>
     </div>
-   <div class="row" style="margin:auto; text-align:center">
+-->
+    <div class=" col-12 nopadding" style="margin: auto;  ">
+      <form  [formGroup]='stateForm' autocomplete="new-password" novalidate>
+        <div class="row col-12 nopadding" style="margin: auto;">
+          
+          <div style="  margin: auto; " class="col-12 col-md-7 autopadding nopadding margintop">
+            <input id='search' autocomplete="off"  placeholder="tytuł, autor" formControlName='search' 
+              (keyup.enter)="onEnterSearch($event)"  (click)=' openDropDown() ' 
+              (keyup)="onStrokeSearch($event)" class=' input-underline search-bar col-12' type='text' 
+              style="width:100%; ">
+            
+            <div clickOutside (clickOutside)="closeDropDown()" style="width: 100%;" class="">
+              <div *ngIf='showDropDown' class='search-drop-down drop-down-title col-12 nopadding'>
+                <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of states | searchFilter: getSearchValue()">
+                  <a [innerHTML]="s | letterBold: getSearchValue()">
+                    {{s}}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="margin: auto; " class=" col-12 col-md-4 autopadding nopadding margintop">
+            <input id='search2' autocomplete="off"  placeholder="miasto" formControlName='search2' 
+              (keyup.enter)="onEnterSearch2($event)"  (click)=' openDropDown2() ' 
+              (keyup)="onStrokeSearch2($event)" class=' input-underline search-bar col-12' type='text' 
+              style="width: 100%;">
+  
+            <div clickOutside (clickOutside)="closeDropDown2()" style="width: 100%;">
+              <div *ngIf='showDropDown2' class='search-drop-down drop-down-city col-12 nopadding'>
+                <div (click)='selectValue2(s)' class='search-results ' *ngFor="let s of cities | searchFilter: getSearchValue2()">
+                  <a [innerHTML]="s | letterBold: getSearchValue2()">
+                    {{s}}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-12 col-md-7 nopadding autopadding margintop" style="margin:auto; height: 50px;">
+            <select name="select" class="form-control form-control-primary" style="height: 100%; -webkit-box-shadow: none; " formControlName="category">
+              <option  *ngFor="let item of categories; let i = index " value="{{i}}" >
+                  {{ item }}
+              </option>
+            </select>
+          </div>
+          
+          <div class="col-12 col-md-4  autopadding nopadding margintop" style="margin:auto; text-align: center; ">
+             <button type="submit" (click)="onSubmit()" class="btn btn-primary m-b-0 ripple light " style="line-height: 20px; width: 200px;" ><i class="fa fa-search" style="line-height: 20px;" ></i>Szukaj</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
 
-    <div class="row" style="max-width: 1000px; margin: auto;" >
-     <div *ngFor="let item of booksPage " class="col-xl-3 col-md-6" style="">
-       <div class="card user-card">
-         <div class="card-block text-center">
-           <div class="" style="">
-             <img height="120px" width="120px" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F4.bp.blogspot.com%2F-nsJPARPvroM%2FVerAOx3o7KI%2FAAAAAAAAElQ%2Fz9orWEOiBsk%2Fs1600%2Flalka.jpg&f=1&nofb=1" class="" alt="User-Profile-Image">
-           </div>
-           <h6 class="m-t-25 m-b-10">{{ item.title }}</h6>
-           <p class="text-muted">{{ item.author }}</p>
-           <p class="text-c d-block">{{ item.city }}</p>
-           <p class="text-c d-block">{{ item.price }}zł</p>
-           <i *ngIf="item.exchange; else noexchange" class="fa fa-check"> Wymiana</i>
-           <ng-template #noexchange><i class="fa fa-close"> Wymiana</i></ng-template>
-           <button class="btn btn-primary d-block ripple light">Więcej</button>
-         </div>
-       </div>
-     </div>
+<div class="page-body" >
+  <div class="col-12" style="max-width: 1000px; margin: auto;">
+    <h3  class="txt-highlight text-left m-t-20">
+      Wyniki dla: <i>{{ searchString }} </i>
+    </h3>
+    <p class="txt-highlight text-left m-t-20">
+      Strona {{ this.currPage + 1 }} z {{ this.pageCount - 1 + 1 }}
+    </p>
+  </div>
+
+
+ <div class="row" style="max-width: 1000px; margin: auto;" >
+  <div *ngFor="let item of booksPage " class="col-xl-3 col-md-6" style="">
+    <div class="card user-card">
+      <div class="card-block text-center" style="">
+        <div class="" style="">
+          <img height="200px" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F4.bp.blogspot.com%2F-nsJPARPvroM%2FVerAOx3o7KI%2FAAAAAAAAElQ%2Fz9orWEOiBsk%2Fs1600%2Flalka.jpg&f=1&nofb=1" class="" alt="User-Profile-Image">
+        </div>
+        <h6 class="m-t-25 m-b-10">{{ item.title }}</h6>
+        <p class="text-muted" >{{ item.author }}</p>
+        <p class="text-c d-block"  >{{ item.city }}</p>
+        <p class="text-c d-block">{{ item.price }}zł</p>
+        <i *ngIf="item.exchange; else noexchange" class="fa fa-check"> Wymiana</i>
+        <ng-template #noexchange><i class="fa fa-close"> Wymiana</i></ng-template>
+        <button class="btn btn-primary d-block ripple light">Więcej</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 
@@ -50,7 +160,7 @@ cursor: pointer;
           <a aria-controls="simpletable" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
         </li>
         <li class="paginate_button page-item hov" [ngClass]="{'active ' : currPage == i}"  *ngFor="let n of numSequence(pageCount); let i = index;"   >
-          <a  (click)="changePage(i)" aria-controls="simpletable" data-dt-idx="1" tabindex="0" class="page-link">{{ i }}</a>
+          <a  (click)="changePage(i)" aria-controls="simpletable" data-dt-idx="1" tabindex="0" class="page-link">{{ i + 1}}</a>
         </li> 
         <li class="paginate_button page-item next hov" [ngClass]="{'disabled' : currPage == pageCount - 1}" id="simpletable_next" (click)="nextPage()">
           <a aria-controls="simpletable" data-dt-idx="3" tabindex="0" class="page-link">Następna</a>

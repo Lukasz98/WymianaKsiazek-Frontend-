@@ -66,7 +66,6 @@ public testData : TitleCandidate;
 
   showDropDown2 = false;
 
-  myForm: FormGroup;
   submitted: boolean;
   
   opened : number;
@@ -77,10 +76,6 @@ public testData : TitleCandidate;
     //this.testData =
 
     const bookName = new FormControl('', Validators.required);
-    this.myForm = new FormGroup({
-      bookName: new FormControl(),
-      city: new FormControl()
-    });
     this.initForm();
   }
  
@@ -169,9 +164,7 @@ public testData : TitleCandidate;
     console.log(this.stateForm.value);
     this.submitted = true;
     //this.http.get('http://ip.jsontest.com/?callback=showMyIP').map(res =>res.json());
-    //console.log(this.myForm);
     console.log('sumbit');
-    //if (this.myForm.value.bookName) {
     //if( this.myForm.value.bookName[0].value)
       //console.log('ruteruje');
       //var inputVal = this.myForm.value.bookName[0].value;
