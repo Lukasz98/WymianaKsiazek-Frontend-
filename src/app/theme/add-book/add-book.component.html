@@ -9,15 +9,6 @@
   margin-right: 5px;
 }
 
-.search-bar {
-  width: 100%;
-  height: 50px;
-  padding: 10px;
-  !float: left;
-  text-indent: 10px !important;
-  border-style: none;
-}
-
 .search-button {
   height: 50px;
   border-style: none;
@@ -40,30 +31,12 @@
   background-color: rgb(200, 200, 200);
 }
 
-.search-drop-down {
-  position: absolute;
-  width: 100%;
-  max-height: 300px;
-  overflow-y: auto;
-  z-index: 10;
-  background-color: #F6F6F6;
-  font-family: sans-serif;
-  opacity: 0.98;
-}
-
 #titlediv {
 width: 100%;
 }
 
 #authordiv {
 width: 100%;
-}
-.search-results {
- padding: 10px;
-}
-
-.search-results:hover {
- background: #707070;
 }
 
 .del-icon:hover {
@@ -77,6 +50,19 @@ margin: 0px;
 padding: 0px;
 }
 
+.marginTop {
+  margin-top: 10px !important;
+}
+
+.smallButton {
+padding: 6px;
+height: 40px;
+}
+
+.notPicked {
+background-color: silver;
+border-color: silver;
+}
 
 </style>
 
@@ -94,10 +80,11 @@ padding: 0px;
     <div class="row search-header">
       <div class="col-12 offset-sm-0" >
         <form  [formGroup]='form' autocomplete="new-password" novalidate>
-          <div id="titlediv" class="col-12 nopadding">
-            <input id='title' autocomplete="off"  placeholder="Tytuł" formControlName='title' (click)=' openDropDown() ' (keyup)="onStrokeSearch($event)" class=' input-underline search-bar ' type='text'>
+          
+          <div id="titlediv" class="col-12 nopadding marginTop">
+            <input id='title' autocomplete="off"  placeholder="Tytuł" formControlName='title' (click)=' openDropDown() ' (keyup)="onStrokeSearch($event)" class=' input-underline search-bar col-12' type='text' style="width: 100%;">
             <div clickOutside (clickOutside)="closeDropDown()">
-              <div *ngIf='showDropDown' class='search-drop-down '>
+              <div *ngIf='showDropDown' class='search-drop-down ' style="width: 100%;">
                 <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of titles | searchFilter: getSearchValue()">
                   <a [innerHTML]="s | letterBold: getSearchValue()">
                     {{s}}
@@ -106,13 +93,11 @@ padding: 0px;
               </div>
             </div>
           </div>
-          
-          <br> 
 
-          <div id="authordiv" class="col-12 nopadding">
-            <input id='author' autocomplete="off"  placeholder="Autor" formControlName='author' (click)=' openDropDown2() ' (keyup)="onStrokeSearch2($event)" class=' input-underline search-bar ' type='text'>
+          <div id="authordiv" class="col-12 nopadding marginTop">
+            <input id='author' autocomplete="off"  placeholder="Autor" formControlName='author' (click)=' openDropDown2() ' (keyup)="onStrokeSearch2($event)" class=' input-underline search-bar col-12' type='text' style="width: 100%;">
             <div clickOutside (clickOutside)="closeDropDown2()">
-              <div *ngIf='showDropDown2' class='search-drop-down '>
+              <div *ngIf='showDropDown2' class='search-drop-down ' style="width: 100%;">
                 <div (click)='selectValue2(s)' class='search-results ' *ngFor="let s of authors | searchFilter: getSearchValue2()">
                   <a [innerHTML]="s | letterBold: getSearchValue2()">
                     {{s}}
@@ -122,11 +107,17 @@ padding: 0px;
             </div>
           </div>
           
-          <br>
+          <div class="col-12  nopadding autopadding marginTop" style="margin:auto; height: 50px;">
+            <select name="select" class="form-control form-control-primary" style="height: 100%; -webkit-box-shadow: none; " formControlName="category">
+              <option  *ngFor="let item of categories; let i = index " value="{{i}}" >
+                {{ item }}
+              </option>
+            </select>
+          </div>
 
 
-          <div style="background-color: white; padding:20px;">
-            <div class="checkbox-fade fade-in-default">
+          <div style="background-color: white; padding:20px;" class=" marginTop">
+            <div class="checkbox-fade fade-in-default" style="line-height: 30px;">
               <label>
                 <input type="checkbox" value="" formControlName="exchange">
                   <span class="cr">
@@ -137,12 +128,11 @@ padding: 0px;
             </div>
           </div>
 
-          <br>
 
 
 
 
-          <div class="form-group " style="background-color: white; padding: 10px; padding-left: 25px;">
+          <div class="form-group marginTop" style="background-color: white; padding: 10px; padding-left: 25px; line-height: 30px;">
             <div style="float: left;">
               <label class="col-form-label">Cena: </label>
             </div>
@@ -157,14 +147,13 @@ padding: 0px;
             </div>
           </div>
 
-          <br>
 
-          <div class="form-group form-default ">
+          <div class="form-group form-default marginTop">
             <textarea formControlName="description" placeholder="Opis ogłoszenia" class="form-control" required="" style="background-color: white; text-indent: 10px; padding-top: 10px;"></textarea>
             <span class="form-bar"></span>
           </div>
           
-          <div class="form-group " style="background-color: white; padding-top: 10px; padding-bottom: 10px;" class="col-12 nopadding" >
+          <div class="form-group marginTop" style="background-color: white; padding-top: 10px; padding-bottom: 10px;" class="col-12 nopadding" >
               <label for="upload-file" class="btn btn-primary m-b-0 ripple light col-12 col-sm-6 offset-0 offset-sm-3" style="" >Dodaj zdjęcie (maks. 3)</label> 
               <input id="upload-file" type="file" class="form-control" (change)="onFileChange($event)" style="display: none;">
             <br>
@@ -174,7 +163,8 @@ padding: 0px;
                   <div class="thumb ">
                       <img [src]="imageSrc1" alt="" class="img-fluid img-thumbnail">
                   </div>
-                  <span (click)="delImg1()"><i class="fa fa-times-circle del-icon" ></i></span>
+                  <button type="button" (click)="setThumbnail(1)" style="margin-right: 5px; padding: 3px;" class="btn btn-primary m-b-0 ripple light  smallButton"   [ngClass]="{'notPicked' : offerThumbnail != 1}" >Miniaturka</button>
+                  <button type="button" class="btn btn-primary m-b-0 ripple light  smallButton" (click)="delImg1()">Usuń <i class="fa fa-times-circle del-icon" ></i></button>
                 </div>
               </div>
               <div *ngIf="imageSrc2" class="col-lg-4 col-sm-6 ">
@@ -182,7 +172,8 @@ padding: 0px;
                   <div class="thumb ">
                     <img [src]="imageSrc2" alt="" class="img-fluid img-thumbnail">
                   </div>
-                  <span (click)="delImg2()"><i class="fa fa-times-circle del-icon" ></i></span>
+                  <button type="button" (click)="setThumbnail(2)" style="margin-right: 5px; " class="btn btn-primary m-b-0 ripple light smallButton"   [ngClass]="{'notPicked' : offerThumbnail != 2}">Miniaturka</button>
+                  <button type="button" class="btn btn-primary m-b-0 ripple light  smallButton" (click)="delImg2()">Usuń <i class="fa fa-times-circle del-icon" ></i></button>
                 </div>
               </div>
               <div *ngIf="imageSrc3" class="col-lg-4 col-sm-6 ">
@@ -190,7 +181,8 @@ padding: 0px;
                   <div class="thumb ">
                     <img [src]="imageSrc3" alt="" class="img-fluid img-thumbnail">
                   </div>
-                  <span (click)="delImg3()"><i class="fa fa-times-circle del-icon" ></i></span>
+                  <button type="button" (click)="setThumbnail(3)" style="margin-right: 5px; " class="btn btn-primary m-b-0 ripple light smallButton"   [ngClass]="{'notPicked' : offerThumbnail != 3}">Miniaturka</button>
+                  <button type="button" class="btn btn-primary m-b-0 ripple light  smallButton" (click)="delImg3()">Usuń <i class="fa fa-times-circle del-icon" ></i></button>
                 </div>
               </div>
             </div>

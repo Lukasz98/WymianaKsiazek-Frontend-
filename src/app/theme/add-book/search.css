@@ -1,0 +1,31 @@
+
+.search-bar {
+  height: 50px;
+  text-indent: 0px !important;
+  border: 1px solid #448aff;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+  color: #448aff;
+}
+
+
+
+.search-drop-down {
+  position: absolute;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 10;
+  background-color: #F6F6F6;
+  font-family: sans-serif;
+  opacity: 0.98;
+}
+
+
+.search-results {
+ padding: 10px;
+}
+
+.search-results:hover {
+ background: #707070;
+}

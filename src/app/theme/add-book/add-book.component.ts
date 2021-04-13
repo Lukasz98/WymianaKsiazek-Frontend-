@@ -38,7 +38,7 @@ body: string
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
-  styleUrls: ['./add-book.component.scss'],
+  styleUrls: ['./add-book.component.scss', './search.css' ],
 
 })
 export class AddBookComponent implements OnInit {
@@ -60,6 +60,7 @@ export class AddBookComponent implements OnInit {
                      'West Virginia', 'Wisconsin', 'Wyoming'];
 
   authors = [ 'Hawaje' ];
+  categories = [ 'Dowolna kategoria', 'Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado' ];
 
   myForm: FormGroup;
   submitted: boolean;
@@ -71,6 +72,8 @@ export class AddBookComponent implements OnInit {
   imageSrc2 : string;
   imageSrc3 : string;
 
+  offerThumbnail = 1;
+
   //constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
   constructor(private router:Router, private fb:FormBuilder ) {
     this.initForm();
@@ -78,16 +81,21 @@ export class AddBookComponent implements OnInit {
  
   initForm(): FormGroup {
     return this.form = this.fb.group({ 
-                               title: [null], author: [null], description: [null], 
+                               title: [null], author: [null], category: [0], description: [null], 
                                fileSource1: [null],
                                fileSource2: [null], 
                                fileSource3: [null],
                                exchange: [null],
-                               price: [null]
+                               price: [null],
+                               thumbnailNum: [this.offerThumbnail]
                        
                        });
   }
- 
+
+  setThumbnail(n) {
+    this.offerThumbnail = n;
+    this.form.value.thumbnailNum = n;
+  }
   
   getSearchValue() {
     return this.form.value.title;
@@ -224,15 +232,59 @@ export class AddBookComponent implements OnInit {
 
   delImg1() {
     this.imageSrc1 = "";
-    this.form.value.fileSource1 = "";
+    //this.form.value.fileSource1 = "";
+    this.form.patchValue({ fileSource1: "" });
+    
+    if (this.offerThumbnail == 1) {
+        if (this.imageSrc2) {
+          this.offerThumbnail = 2;   
+        }
+        else if (this.imageSrc3) {
+          this.offerThumbnail = 3;   
+        }
+        else {
+          this.offerThumbnail = 1;   
+        }
+        this.form.patchValue({ thumbnailNum: this.offerThumbnail });
+    }
   }
+
   delImg2() {
     this.imageSrc2 = "";
-    this.form.value.fileSource2 = "";
+    //this.form.value.fileSource2 = "";
+    this.form.patchValue({ fileSource2: "" });
+  
+    if (this.offerThumbnail == 2) {
+        if (this.imageSrc1) {
+          this.offerThumbnail = 1;   
+        }
+        else if (this.imageSrc3) {
+          this.offerThumbnail = 3;   
+        }
+        else {
+          this.offerThumbnail = 1;   
+        }
+        this.form.patchValue({ thumbnailNum: this.offerThumbnail });
+    }
   }
+  
   delImg3() {
     this.imageSrc3 = "";
-    this.form.value.fileSource3 = "";
+    //this.form.value.fileSource3 = "";
+    this.form.patchValue({ fileSource3: "" });
+  
+    if (this.offerThumbnail == 3) {
+        if (this.imageSrc1) {
+          this.offerThumbnail = 1;   
+        }
+        else if (this.imageSrc2) {
+          this.offerThumbnail = 2;   
+        }
+        else {
+          this.offerThumbnail = 1;   
+        }
+        this.form.patchValue({ thumbnailNum: this.offerThumbnail });
+    }
   }
 
 }

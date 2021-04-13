@@ -9,64 +9,6 @@
   margin-right: 5px;
 }
 
-.search-bar {
-  height: 50px;
-  !float: left;
-  text-indent: 0px !important;
-border: 1px solid #448aff;
-  border-top-style: none;
-  border-right-style: none;
-  border-left-style: none;
-color: #448aff;
-}
-
-.search-button {
-  height: 50px;
-  !width: 15%;
-  width: 40px;
-  border-style: none;
-}
-
-.search-button:hover {
-  cursor: pointer;
-}
-
-.search-icon {
-  background-color: white; 
-  color: black; 
-  height: 100%;
-  !width: 100%; 
-  !width: 50px; 
-  border-radius: 0px;
-  border-width: 1px;
-  border-color: rgb(220, 220, 220);
-  border-style: none;
-  border-left-style: solid;
-}
-
-.search-icon:hover {
-  background-color: rgb(200, 200, 200);
-}
-
-.search-drop-down {
-  position: absolute;
-  max-height: 300px;
-  overflow-y: auto;
-  z-index: 10;
-  background-color: #F6F6F6;
-  font-family: sans-serif;
-  opacity: 0.98;
-}
-
-
-.search-results {
- padding: 10px;
-}
-
-.search-results:hover {
- background: #707070;
-}
-
 .nomargin {
 margin: 0px;
 }
@@ -104,6 +46,7 @@ margin-top: 5px !important;
 margin-left: 5px;
 }
 }
+
 </style>
 
 <div *ngIf="testData">
@@ -119,9 +62,9 @@ margin-left: 5px;
         </h1>
       </div>
     </div>
-    <div class=" col-12 " style="margin: auto;">
+    <div class=" col-12 nopadding" style="margin: auto;  ">
       <form  [formGroup]='stateForm' autocomplete="new-password" novalidate>
-        <div class="row col-12 nopadding" style="">
+        <div class="row col-12 nopadding" style="margin: auto;">
           
           <div style="  margin: auto; " class="col-12 col-md-7 autopadding nopadding margintop">
             <input id='search' autocomplete="off"  placeholder="tytuł, autor" formControlName='search' 
@@ -157,9 +100,11 @@ margin-left: 5px;
             </div>
           </div>
           
-          <div class="col-12 col-md-7 nopadding autopadding margintop" style="margin:auto; ">
-            <select name="select" class="form-control form-control-primary" style="-webkit-box-shadow: none; " formControlName="category">
-              <option *ngFor="let item of categories; let i = index " value="{{i}}" >{{ item }}</option>
+          <div class="col-12 col-md-7 nopadding autopadding margintop" style="margin:auto; height: 50px;">
+            <select name="select" class="form-control form-control-primary" style="height: 100%; -webkit-box-shadow: none; " formControlName="category">
+              <option  *ngFor="let item of categories; let i = index " value="{{i}}" >
+                  {{ item }}
+              </option>
             </select>
           </div>
           

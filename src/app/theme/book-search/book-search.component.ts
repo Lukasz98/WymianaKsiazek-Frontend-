@@ -42,7 +42,7 @@ title: Array<string>;
 @Component({
   selector: 'app-book-search',
   templateUrl: './book-search.component.html',
-  styleUrls: ['./book-search.component.scss'],
+  styleUrls: ['./book-search.component.scss', './search.css' ],
 
 })
 export class BookSearchComponent implements OnInit {
@@ -62,7 +62,7 @@ public testData : TitleCandidate;
 
       cities = ['akapulko', 'pacanowo'];
 
-  categories = [ 'Dowolna kategoria', 'Kryminały', 'Bajki' ];
+  categories = [ 'Dowolna kategoria', 'Kryminały', 'Bajki', 'bajki2',  'bajki3', 'bajki4', 'bajki5', 'bajki6', 'bajki7', 'bajki8', 'bajki9', 'bajk10' ];
 
   showDropDown2 = false;
 
