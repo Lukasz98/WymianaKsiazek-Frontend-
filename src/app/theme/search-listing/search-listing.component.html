@@ -103,7 +103,7 @@ margin-left: 5px;
           </div>
           
           <div class="col-12 col-md-7 nopadding autopadding margintop" style="margin:auto; height: 50px;">
-            <select name="select" class="form-control form-control-primary" style="height: 100%; -webkit-box-shadow: none; " formControlName="category">
+            <select (mousedown)="closeDropDown2(); closeDropDown()"  name="select" class="form-control form-control-primary" style="height: 100%; -webkit-box-shadow: none; " formControlName="category">
               <option  *ngFor="let item of categories; let i = index " value="{{i}}" >
                   {{ item }}
               </option>

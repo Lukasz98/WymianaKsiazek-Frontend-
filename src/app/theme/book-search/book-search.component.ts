@@ -74,7 +74,6 @@ public testData : TitleCandidate;
   //constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
   constructor(private router:Router, private fb:FormBuilder, private http : HttpClient ) {
     //this.testData =
-
     const bookName = new FormControl('', Validators.required);
     this.initForm();
   }
@@ -109,8 +108,10 @@ public testData : TitleCandidate;
     else
       this.showDropDown = false;
   }
-
+art(){console.log("gasg");}
   closeDropDown2() {
+    console.log("zamykam");
+    console.log(this.opened2);
     if (this.opened2)
       this.opened2 = this.opened2 - 1;
     else
