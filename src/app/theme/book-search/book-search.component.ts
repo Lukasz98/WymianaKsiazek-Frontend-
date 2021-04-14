@@ -192,8 +192,35 @@ art(){console.log("gasg");}
     this.showDropDown2 = false;
   }
 
+
+tracking : any;
+
+startTrackingLoop() {
+  this.tracking = setInterval(() => {
+    console.log(this.stateForm.value.search);
+    clearInterval(this.tracking);
+    this.tracking = null;
+    }, 2000);
+}
+
+stopTrackingLoop() {
+  clearInterval(this.tracking);
+  this.tracking = null;
+}
+
+timett : any;
   onStrokeSearch(event: any) {
+    
+    this.stopTrackingLoop();
+    this.startTrackingLoop();
+
+    //   console.log("tu");
+    //console.log(this.timett);
+    //this.timett = setTimeout(()=> {
+    //   console.log("timeout");
+    // }, 3000);
     //if (event.target.value) { 
+    /*
     console.log("onstroke");
     
     const url = 'http://localhost:40403/api.php?title=asd';
@@ -203,12 +230,11 @@ art(){console.log("gasg");}
         console.log(response)
         this.testData = response
         console.log(this.testData);
-   //console.log(this.d);
-    //for (let i = 0; i < this.d.title.length; i++) {
-    //    console.log(i);
-    //}
         }
      );
+   
+
+   */
      
    // this.states = [];
     //for (let i = 0; i < this.d.title.length; i++) {
