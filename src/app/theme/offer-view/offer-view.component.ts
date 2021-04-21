@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from "rxjs/Observable";
 import { HttpClient } from "@angular/common/http";
-
+/*
 interface Book {
 imgSrc: string,
 title: string,
@@ -12,7 +12,7 @@ exchange: number,
 desc: string,
 city: string,
 };
-
+*/
 interface Address {
 id: number,
 name: string
