@@ -63,7 +63,14 @@ export class ProfileComponent implements OnInit {
   }
 
   logOut() {
-    this.accountService.logout();
+    this.accountService.logout(this.accountService.accountValue.refreshToken).pipe(first()).
+    subscribe({
+      next: () => {
+        this.router.navigate(['/auth/login']);
+      },
+
+      error: error => console.log(error)
+    })
   }
 
   deleteAccount() {

@@ -29,6 +29,10 @@ const routes: Routes = [
         path: 'profile',
         loadChildren: () => import('./theme/profile/profile.module').then(m => m.ProfileModule)
       },
+      {
+        path: 'profile-card',
+        loadChildren: () => import('./theme/profile-card/profile-card.module').then(m => m.ProfileCardModule)
+      },
     ]
   },
   {

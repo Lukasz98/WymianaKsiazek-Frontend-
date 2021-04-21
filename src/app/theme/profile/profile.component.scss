@@ -83,3 +83,8 @@ color: rgb(107,107,107);
 .msg_head{
     position: relative;
 }
+
+.scroll {
+    max-height: 66vh;
+    overflow-y: auto;
+}
