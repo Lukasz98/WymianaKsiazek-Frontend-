@@ -107,7 +107,7 @@ export class SearchListingComponent implements OnInit {
     //books$.push(
     this.itemLast = this.itemsOnPage;
     this.itemFirst = 0;
-
+    
     this.pageCount = Math.ceil(this.books.length / this.itemsOnPage);
 
     //if (this.books.length % this.itemsOnPage)

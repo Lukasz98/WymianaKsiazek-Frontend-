@@ -74,7 +74,6 @@ public testData : TitleCandidate;
   //constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
   constructor(private router:Router, private fb:FormBuilder, private http : HttpClient ) {
     //this.testData =
-
     const bookName = new FormControl('', Validators.required);
     this.initForm();
   }
@@ -109,8 +108,10 @@ public testData : TitleCandidate;
     else
       this.showDropDown = false;
   }
-
+art(){console.log("gasg");}
   closeDropDown2() {
+    console.log("zamykam");
+    console.log(this.opened2);
     if (this.opened2)
       this.opened2 = this.opened2 - 1;
     else
@@ -191,10 +192,37 @@ public testData : TitleCandidate;
     this.showDropDown2 = false;
   }
 
+
+tracking : any;
+
+startTrackingLoop() {
+  this.tracking = setInterval(() => {
+    console.log(this.stateForm.value.search);
+    clearInterval(this.tracking);
+    this.tracking = null;
+    }, 2000);
+}
+
+stopTrackingLoop() {
+  clearInterval(this.tracking);
+  this.tracking = null;
+}
+
+timett : any;
   onStrokeSearch(event: any) {
-    //if (event.target.value) { 
-    console.log("onstroke");
     
+    this.stopTrackingLoop();
+    this.startTrackingLoop();
+
+    //   console.log("tu");
+    //console.log(this.timett);
+    //this.timett = setTimeout(()=> {
+    //   console.log("timeout");
+    // }, 3000);
+    //if (event.target.value) { 
+    /*
+    console.log("onstroke");
+   /* 
     const url = 'http://localhost:40403/api.php?title=asd';
     this.http.get<TitleCandidate>(url).subscribe(
     (response) => {
@@ -202,13 +230,9 @@ public testData : TitleCandidate;
         console.log(response)
         this.testData = response
         console.log(this.testData);
-   //console.log(this.d);
-    //for (let i = 0; i < this.d.title.length; i++) {
-    //    console.log(i);
-    //}
         }
      );
-     
+   */
    // this.states = [];
     //for (let i = 0; i < this.d.title.length; i++) {
     //    console.log(i);
