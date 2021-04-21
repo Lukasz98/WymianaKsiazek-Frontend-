@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, finalize } from 'rxjs/operators';
+import { map, finalize, first } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { Account } from '../_models/account';
 import { Router } from '@angular/router';
 
-const baseUrl = environment.apiUrl;
+const baseUrl = environment.apiUrl + "/api/user";
 
 @Injectable({
   providedIn: 'root'
@@ -60,11 +60,13 @@ export class AccountService {
      }));
    }
 
-   logout() {
-    this.http.post<any>(`${baseUrl}/revoke-token`, {}).subscribe();
-    this.stopRefreshTokenTimer();
-    this.accountSubject.next(null);
-    this.router.navigate(['/auth/login']);
+   logout(token) {
+    return this.http.post<any>(`${baseUrl}/users/signout`, {token}).pipe(
+      finalize(() => {
+        this.stopRefreshTokenTimer();
+        this.accountSubject.next(null);
+      })
+    );
    }
 
    update(params) {
@@ -83,7 +85,7 @@ export class AccountService {
   delete() {
     return this.http.delete(`${baseUrl}/${this.accountValue.id}`)
         .pipe(finalize(() => {
-            this.logout();
+            this.logout(this.accountValue.refreshToken);
         }));
   }
 

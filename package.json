@@ -26,6 +26,7 @@
     "@fullcalendar/daygrid": "^5.2.0",
     "@fullcalendar/interaction": "^5.2.0",
     "@fullcalendar/timegrid": "^5.2.0",
+    "@microsoft/signalr": "^5.0.4",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "@swimlane/ngx-datatable": "^17.1.0",
     "@types/facebook-js-sdk": "^3.3.1",
