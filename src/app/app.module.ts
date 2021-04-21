@@ -11,6 +11,7 @@ import {SharedModule} from './shared/shared.module';
 import {MenuItems} from './shared/menu-items/menu-items';
 import {BreadcrumbsComponent} from './layout/admin/breadcrumbs/breadcrumbs.component';
 import { AlertModule } from './theme/alert/alert.module';
+import { ProfileCardComponent } from './theme/profile-card/profile-card.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { AlertModule } from './theme/alert/alert.module';
     AppComponent,
     AdminComponent,
     AuthComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    ProfileCardComponent
   ],
   imports: [
     BrowserModule,
