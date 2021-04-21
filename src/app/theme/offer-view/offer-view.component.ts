@@ -85,7 +85,8 @@ this.offerData = { "id": 1, "content": "Opis ogloszonka pobrany z serwerka",
 
 
     const url = 'http://localhost:40403/api.php?title=asd';
-
+    //const url = 'http://localhost:5000/Offer/1';
+    //const url = 'https://localhost:5001/api/Offer/1';
     this.http.get<Offer>(url).subscribe(
       (response) => {
         console.log("response recv");

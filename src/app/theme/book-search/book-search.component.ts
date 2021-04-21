@@ -194,7 +194,7 @@ public testData : TitleCandidate;
   onStrokeSearch(event: any) {
     //if (event.target.value) { 
     console.log("onstroke");
-    
+   /* 
     const url = 'http://localhost:40403/api.php?title=asd';
     this.http.get<TitleCandidate>(url).subscribe(
     (response) => {
@@ -208,7 +208,7 @@ public testData : TitleCandidate;
     //}
         }
      );
-     
+ */    
    // this.states = [];
     //for (let i = 0; i < this.d.title.length; i++) {
     //    console.log(i);
