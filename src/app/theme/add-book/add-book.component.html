@@ -92,6 +92,7 @@ border-color: silver;
                 </div>
               </div>
             </div>
+            <span *ngIf="submitted && titleBlank" class="messages"><p class="text-danger error">Podaj tytuł</p></span> 
           </div>
 
           <div id="authordiv" class="col-12 nopadding marginTop">
@@ -105,6 +106,7 @@ border-color: silver;
                 </div>
               </div>
             </div>
+            <span *ngIf="submitted && authorBlank" class="messages"><p class="text-danger error">Podaj autora</p></span> 
           </div>
           
           <div class="col-12  nopadding autopadding marginTop" style="margin:auto; height: 50px;">
@@ -149,7 +151,7 @@ border-color: silver;
 
 
           <div class="form-group form-default marginTop">
-            <textarea formControlName="description" placeholder="Opis ogłoszenia" class="form-control" required="" style="background-color: white; text-indent: 10px; padding-top: 10px;"></textarea>
+            <textarea formControlName="description" placeholder="Opis ogłoszenia" class="form-control" style="background-color: white; text-indent: 10px; padding-top: 10px;"></textarea>
             <span class="form-bar"></span>
           </div>
           

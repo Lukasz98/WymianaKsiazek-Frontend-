@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
 //import { TestModel } from '../../models/testmodel';
 //import { Observable } from "rxjs/Observable";
-//import { HttpClient } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 //import * as _ from 'lodash';
 //import 'rxjs/add/operator/map'
 import 'rxjs/Rx';
@@ -27,6 +27,9 @@ import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 
 import {createAutoCorrectedDatePipe, createNumberMask, emailMask} from 'text-mask-addons/dist/textMaskAddons';
+
+import { AccountService } from '@app/_services/account.service';
+
 
 interface DD {
 userId: string,
@@ -62,9 +65,14 @@ export class AddBookComponent implements OnInit {
   authors = [ 'Hawaje' ];
   categories = [ 'Dowolna kategoria', 'Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado' ];
 
-  myForm: FormGroup;
+  //myForm: FormGroup;
+  imgForm : FormGroup;
   submitted: boolean;
-  
+  titleBlank: boolean;
+  authorBlank: boolean;
+  priceBlank: boolean;
+
+
   opened : number;
   opened2 : number;
 
@@ -73,10 +81,17 @@ export class AddBookComponent implements OnInit {
   imageSrc3 : string;
 
   offerThumbnail = 1;
-
+  
   //constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
-  constructor(private router:Router, private fb:FormBuilder ) {
+  constructor(private router:Router, private fb:FormBuilder,  private accountService: AccountService, private http : HttpClient ) {
     this.initForm();
+
+    this.imgForm = this.fb.group({ fileSource: [null] });
+
+//this.accountService.logout();
+    console.log(this.accountService.accountValue.accessToken);
+    this.accountService.logout(this.accountService.accountValue.accessToken);
+    console.log(this.accountService.account);//.value.token);
   }
  
   initForm(): FormGroup {
@@ -146,8 +161,12 @@ export class AddBookComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
     this.submitted = true;
+    this.titleBlank = !this.form.value.title;
+    this.authorBlank = !this.form.value.author;
+    if (this.titleBlank || this.authorBlank)
+        return;
+    console.log(this.form.value);
     //this.http.get('http://ip.jsontest.com/?callback=showMyIP').map(res =>res.json());
     console.log('sumbit');
     //if (this.myForm.value.bookName) {
@@ -207,7 +226,21 @@ export class AddBookComponent implements OnInit {
           this.imageSrc1 = reader.result as string;
           this.form.patchValue({
             fileSource1: reader.result
-          });                                                                  
+          });
+         //console.log(event.target); 
+//http://localhost:5001/api/Img/addImg
+          this.imgForm.patchValue({ fileSource: reader.result });
+          //this.imgForm.patchValue({ 
+              //fileSource: Array.from(new Uint8Array(event.target.result))
+              //fileSource: new Uint8Array(reader.result)
+              //fileSource: event.target.result
+          //});
+          console.log(this.imgForm.value);
+          this.http.post('https://localhost:5001/api/Img/addImg', this.imgForm.value)
+                         .subscribe(res => {
+                                     console.log(res);
+                                     alert('Uploaded Successfully.');
+                         })
         };
       }
       else if (!this.imageSrc2) {
