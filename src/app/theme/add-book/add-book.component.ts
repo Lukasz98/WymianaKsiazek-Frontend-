@@ -66,7 +66,12 @@ export class AddBookComponent implements OnInit {
   categories = [ 'Dowolna kategoria', 'Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado' ];
 
   //myForm: FormGroup;
-  imgForm : FormGroup;
+  imgForm1 : FormGroup;
+  imgForm2 : FormGroup;
+  imgForm3 : FormGroup;
+  img1Loaded : boolean;
+  img2Loaded : boolean;
+  img3Loaded : boolean;
   submitted: boolean;
   titleBlank: boolean;
   authorBlank: boolean;
@@ -86,8 +91,13 @@ export class AddBookComponent implements OnInit {
   constructor(private router:Router, private fb:FormBuilder,  private accountService: AccountService, private http : HttpClient ) {
     this.initForm();
 
-    this.imgForm = this.fb.group({ fileSource: [null] });
+    this.imgForm1 = this.fb.group({ fileSource: [null] });
+    this.imgForm2 = this.fb.group({ fileSource: [null] });
+    this.imgForm3 = this.fb.group({ fileSource: [null] });
 
+    this.img1Loaded = true;
+    this.img2Loaded = true;
+    this.img3Loaded = true;
 //this.accountService.logout();
     console.log(this.accountService.accountValue.accessToken);
     this.accountService.logout(this.accountService.accountValue.accessToken);
@@ -164,8 +174,10 @@ export class AddBookComponent implements OnInit {
     this.submitted = true;
     this.titleBlank = !this.form.value.title;
     this.authorBlank = !this.form.value.author;
+    if (!this.img1Loaded || !this.img2Loaded || !this.img3Loaded)
+      return;
     if (this.titleBlank || this.authorBlank)
-        return;
+      return;
     console.log(this.form.value);
     //this.http.get('http://ip.jsontest.com/?callback=showMyIP').map(res =>res.json());
     console.log('sumbit');
@@ -227,20 +239,15 @@ export class AddBookComponent implements OnInit {
           this.form.patchValue({
             fileSource1: reader.result
           });
-         //console.log(event.target); 
-//http://localhost:5001/api/Img/addImg
-          this.imgForm.patchValue({ fileSource: reader.result });
-          //this.imgForm.patchValue({ 
-              //fileSource: Array.from(new Uint8Array(event.target.result))
-              //fileSource: new Uint8Array(reader.result)
-              //fileSource: event.target.result
-          //});
-          console.log(this.imgForm.value);
-          this.http.post('https://localhost:5001/api/Img/addImg', this.imgForm.value)
+          this.img1Loaded = false;
+         
+          //console.log(this.imgForm1.value);
+          this.imgForm1.patchValue({ fileSource: reader.result });
+          this.http.post('https://localhost:5001/api/Img/addImg', this.imgForm1.value)
                          .subscribe(res => {
+                                     this.img1Loaded = true;
                                      console.log(res);
-                                     alert('Uploaded Successfully.');
-                         })
+                         });
         };
       }
       else if (!this.imageSrc2) {
@@ -248,7 +255,15 @@ export class AddBookComponent implements OnInit {
           this.imageSrc2 = reader.result as string;
           this.form.patchValue({
             fileSource2: reader.result
-          });                                                                  
+          });
+          this.img2Loaded = false;
+
+          this.imgForm2.patchValue({ fileSource: reader.result });
+          this.http.post('https://localhost:5001/api/Img/addImg', this.imgForm2.value)
+                         .subscribe(res => {
+                                     this.img2Loaded = true;
+                                     console.log(res);
+                         });
         };
       }
       else if (!this.imageSrc3) {
@@ -256,7 +271,15 @@ export class AddBookComponent implements OnInit {
           this.imageSrc3 = reader.result as string;
           this.form.patchValue({
             fileSource3: reader.result
-          });                                                                  
+          });
+          this.img3Loaded = false;
+
+          this.imgForm3.patchValue({ fileSource: reader.result });
+          this.http.post('https://localhost:5001/api/Img/addImg', this.imgForm3.value)
+                         .subscribe(res => {
+                                     this.img3Loaded = true;
+                                     console.log(res);
+                         });
         };
       }
     }
@@ -267,7 +290,7 @@ export class AddBookComponent implements OnInit {
     this.imageSrc1 = "";
     //this.form.value.fileSource1 = "";
     this.form.patchValue({ fileSource1: "" });
-    
+    //this.img1Loaded = false;
     if (this.offerThumbnail == 1) {
         if (this.imageSrc2) {
           this.offerThumbnail = 2;   
@@ -286,6 +309,7 @@ export class AddBookComponent implements OnInit {
     this.imageSrc2 = "";
     //this.form.value.fileSource2 = "";
     this.form.patchValue({ fileSource2: "" });
+    //this.img2Loaded = false;
   
     if (this.offerThumbnail == 2) {
         if (this.imageSrc1) {
@@ -305,6 +329,7 @@ export class AddBookComponent implements OnInit {
     this.imageSrc3 = "";
     //this.form.value.fileSource3 = "";
     this.form.patchValue({ fileSource3: "" });
+    //this.img3Loaded = false;
   
     if (this.offerThumbnail == 3) {
         if (this.imageSrc1) {

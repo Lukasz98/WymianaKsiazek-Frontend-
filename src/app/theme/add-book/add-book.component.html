@@ -159,14 +159,21 @@ border-color: silver;
               <label for="upload-file" class="btn btn-primary m-b-0 ripple light col-12 col-sm-6 offset-0 offset-sm-3" style="" >Dodaj zdjęcie (maks. 3)</label> 
               <input id="upload-file" type="file" class="form-control" (change)="onFileChange($event)" style="display: none;">
             <br>
+
             <div class="row" style="margin-top: 50px;" >
               <div *ngIf="imageSrc1" class="col-lg-4 col-sm-6 " >
                 <div class="thumbnail" style="text-align: center;">
                   <div class="thumb ">
                       <img [src]="imageSrc1" alt="" class="img-fluid img-thumbnail">
                   </div>
-                  <button type="button" (click)="setThumbnail(1)" style="margin-right: 5px; padding: 3px;" class="btn btn-primary m-b-0 ripple light  smallButton"   [ngClass]="{'notPicked' : offerThumbnail != 1}" >Miniaturka</button>
-                  <button type="button" class="btn btn-primary m-b-0 ripple light  smallButton" (click)="delImg1()">Usuń <i class="fa fa-times-circle del-icon" ></i></button>
+                  <div *ngIf="!this.img1Loaded" style=" width: 100px; margin:auto;">
+                    <div style="float: left"><i>Wysyłanie</i>&nbsp;&nbsp;</div>
+                    <svg id="loader2" viewBox="0 0 100 100" style="float: left; width:20px; height:20px;">
+                       <circle id="circle-loader2" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                  </div>
+                  <button *ngIf="this.img1Loaded" type="button" (click)="setThumbnail(1)" style="margin-right: 5px; padding: 3px;" class="btn btn-primary m-b-0 ripple light  smallButton"   [ngClass]="{'notPicked' : offerThumbnail != 1}" >Miniaturka</button>
+                  <button *ngIf="this.img1Loaded" type="button" class="btn btn-primary m-b-0 ripple light  smallButton" (click)="delImg1()">Usuń <i class="fa fa-times-circle del-icon" ></i></button>
                 </div>
               </div>
               <div *ngIf="imageSrc2" class="col-lg-4 col-sm-6 ">
@@ -174,8 +181,15 @@ border-color: silver;
                   <div class="thumb ">
                     <img [src]="imageSrc2" alt="" class="img-fluid img-thumbnail">
                   </div>
-                  <button type="button" (click)="setThumbnail(2)" style="margin-right: 5px; " class="btn btn-primary m-b-0 ripple light smallButton"   [ngClass]="{'notPicked' : offerThumbnail != 2}">Miniaturka</button>
-                  <button type="button" class="btn btn-primary m-b-0 ripple light  smallButton" (click)="delImg2()">Usuń <i class="fa fa-times-circle del-icon" ></i></button>
+                  
+                  <div *ngIf="!this.img2Loaded" style=" width: 100px; margin:auto;">
+                    <div style="float: left"><i>Wysyłanie</i>&nbsp;&nbsp;</div>
+                    <svg id="loader2" viewBox="0 0 100 100" style="float: left; width:20px; height:20px;">
+                       <circle id="circle-loader2" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                  </div>
+                  <button *ngIf="this.img2Loaded" type="button" (click)="setThumbnail(2)" style="margin-right: 5px; " class="btn btn-primary m-b-0 ripple light smallButton"   [ngClass]="{'notPicked' : offerThumbnail != 2}">Miniaturka</button>
+                  <button *ngIf="this.img2Loaded" type="button" class="btn btn-primary m-b-0 ripple light  smallButton" (click)="delImg2()">Usuń <i class="fa fa-times-circle del-icon" ></i></button>
                 </div>
               </div>
               <div *ngIf="imageSrc3" class="col-lg-4 col-sm-6 ">
@@ -183,8 +197,15 @@ border-color: silver;
                   <div class="thumb ">
                     <img [src]="imageSrc3" alt="" class="img-fluid img-thumbnail">
                   </div>
-                  <button type="button" (click)="setThumbnail(3)" style="margin-right: 5px; " class="btn btn-primary m-b-0 ripple light smallButton"   [ngClass]="{'notPicked' : offerThumbnail != 3}">Miniaturka</button>
-                  <button type="button" class="btn btn-primary m-b-0 ripple light  smallButton" (click)="delImg3()">Usuń <i class="fa fa-times-circle del-icon" ></i></button>
+                  
+                  <div *ngIf="!this.img3Loaded" style=" width: 100px; margin:auto;">
+                    <div style="float: left"><i>Wysyłanie</i>&nbsp;&nbsp;</div>
+                    <svg id="loader2" viewBox="0 0 100 100" style="float: left; width:20px; height:20px;">
+                       <circle id="circle-loader2" cx="50" cy="50" r="45"></circle>
+                    </svg>
+                  </div>
+                  <button *ngIf="this.img3Loaded" type="button" (click)="setThumbnail(3)" style="margin-right: 5px; " class="btn btn-primary m-b-0 ripple light smallButton"   [ngClass]="{'notPicked' : offerThumbnail != 3}">Miniaturka</button>
+                  <button *ngIf="this.img3Loaded" type="button" class="btn btn-primary m-b-0 ripple light  smallButton" (click)="delImg3()">Usuń <i class="fa fa-times-circle del-icon" ></i></button>
                 </div>
               </div>
             </div>
@@ -192,6 +213,7 @@ border-color: silver;
 
           
           <div class="col-sm-6 offset-sm-3 offset-0 nopadding" style="margin-top: 50px;">
+            <span *ngIf="submitted && (!img1Loaded || !img2Loaded || !img3Loaded)" class="messages"><p class="text-danger error">Poczekaj na zakończenie wysyłania zdjęć</p></span> 
             <button type="submit" (click)="onSubmit()" class="btn btn-primary m-b-0 ripple light col-12" style="margin:auto;" [disabled]="!form.valid">Dodaj ogłoszenie</button>
           </div>
         </form>
