@@ -16,7 +16,7 @@
                       </div>
                       <div class="card-body">
                         <div class="row" style="margin: auto;" >
-                          <div *ngFor="let item of books " class="col-xl-3 col-md-6" style="">
+                          <div *ngFor="let item of user.offers " class="col-xl-3 col-md-6" style="">
                               <div ngbDropdown class="card user-card">
                                 <span ngbDropdownToggle class="dropdown-toggle addon-btn text-muted pull-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
                                 </span>
@@ -28,11 +28,11 @@
                                   <div class="" style="">
                                     <img height="200px" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F4.bp.blogspot.com%2F-nsJPARPvroM%2FVerAOx3o7KI%2FAAAAAAAAElQ%2Fz9orWEOiBsk%2Fs1600%2Flalka.jpg&f=1&nofb=1" class="" alt="User-Profile-Image">
                                   </div>
-                                  <h6 class="m-t-25 m-b-10">{{ item.title }}</h6>
-                                  <p class="text-muted" >{{ item.author }}</p>
-                                  <p class="text-c d-block"  >{{ item.city }}</p>
+                                  <h6 class="m-t-25 m-b-10">{{ item.book.title }}</h6>
+                                  <p class="text-muted" >{{ item.book.author }}</p>
+                                  <p class="text-c d-block"  >{{ item.address.name }}</p>
                                   <p class="text-c d-block">{{ item.price }}zł</p>
-                                  <i *ngIf="item.exchange; else noexchange" class="fa fa-check"> Wymiana</i>
+                                  <i *ngIf="item.type; else noexchange" class="fa fa-check"> Wymiana</i>
                                   <ng-template #noexchange><i class="fa fa-close"> Wymiana</i></ng-template>
                                   <button class="btn btn-primary d-block ripple light">Więcej</button>
                                 </div>
@@ -72,7 +72,7 @@
                                               Imię i Nazwisko
                                             </div>
                                             <div>
-                                              {{account.firstName}} {{account.lastName}}
+                                              {{user.firstName}} {{user.lastName}}
                                             </div>
                                           </div>
                                         </th>
@@ -84,7 +84,7 @@
                                               E-mail
                                             </div>
                                             <div>
-                                              {{account.email}}
+                                              {{user.email}}
                                             </div>
                                           </div>
                                         </th>
@@ -105,7 +105,7 @@
                                               Miejscowość
                                             </div>
                                             <div>
-                                              {{account.address}}
+                                              {{user.address.name}}
                                             </div>
                                           </div>
                                         </th>
@@ -138,7 +138,7 @@
                                               Nazwa Użytkownika
                                             </div>
                                             <div>
-                                              {{account.username}}
+                                              {{user.userName}}
                                             </div>
                                           </div>
                                         </th>
@@ -168,12 +168,12 @@
                                       <i class="icofont icofont-user"></i>
                                     </div>
                                     <div class="form-group form-primary marg">
-                                      <input type="text" name="footer-email" class="form-control" required="" value="{{account.firstName}}">
+                                      <input type="text" name="footer-email" class="form-control" required="" value="{{user.firstName}}">
                                       <span class="form-bar"></span>
                                       <label class="float-label">Imię</label>
                                     </div>
                                     <div class="form-group form-primary marg">
-                                      <input type="text" name="footer-email" class="form-control" required="" value="{{account.lastName}}">
+                                      <input type="text" name="footer-email" class="form-control" required="" value="{{user.lastName}}">
                                       <span class="form-bar"></span>
                                       <label class="float-label">Nazwisko</label>
                                     </div>
@@ -184,7 +184,7 @@
                                       <i class="icofont icofont-location-pin"></i>
                                     </div>
                                     <div class="form-group form-primary">
-                                      <input type="text" name="footer-email" class="form-control" required="" value="{{account.address}}">
+                                      <input type="text" name="footer-email" class="form-control" required="" value="{{user.address.name}}">
                                       <span class="form-bar"></span>
                                       <label class="float-label">Miejscowość</label>
                                     </div>
@@ -199,7 +199,7 @@
                                       <i class="icofont icofont-ui-user"></i>
                                     </div>
                                     <div class="form-group form-primary">
-                                      <input type="text" name="footer-email" class="form-control" required="" valuie="{{account.username}}">
+                                      <input type="text" name="footer-email" class="form-control" required="" valuie="{{user.userName}}">
                                       <span class="form-bar"></span>
                                       <label class="float-label">Nazwa Użytkownika</label>
                                     </div>

@@ -17,18 +17,18 @@
                         <div class="card-header">
                             <h5 class="card-header-text">Ogłoszenia</h5>
                         </div>
-                        <div class="row" style="max-width: 1000px; margin: auto;" >
+                        <div class="row" style="margin: auto;" >
                             <div *ngFor="let item of books " class="col-xl-3 col-md-6" style="">
                                 <div class="card user-card">
                                   <div class="card-block text-center" style="">
                                     <div class="" style="">
                                       <img height="200px" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F4.bp.blogspot.com%2F-nsJPARPvroM%2FVerAOx3o7KI%2FAAAAAAAAElQ%2Fz9orWEOiBsk%2Fs1600%2Flalka.jpg&f=1&nofb=1" class="" alt="User-Profile-Image">
                                     </div>
-                                    <h6 class="m-t-25 m-b-10">{{ item.title }}</h6>
-                                    <p class="text-muted" >{{ item.author }}</p>
-                                    <p class="text-c d-block"  >{{ item.city }}</p>
+                                    <h6 class="m-t-25 m-b-10">{{ item.book.title }}</h6>
+                                    <p class="text-muted" >{{ item.book.author }}</p>
+                                    <p class="text-c d-block"  >{{ item.address.name }}</p>
                                     <p class="text-c d-block">{{ item.price }}zł</p>
-                                    <i *ngIf="item.exchange; else noexchange" class="fa fa-check"> Wymiana</i>
+                                    <i *ngIf="item.type; else noexchange" class="fa fa-check"> Wymiana</i>
                                     <ng-template #noexchange><i class="fa fa-close"> Wymiana</i></ng-template>
                                     <button class="btn btn-primary d-block ripple light">Więcej</button>
                                   </div>

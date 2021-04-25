@@ -1,9 +1,6 @@
+import {Category} from "./category";
 export interface Book {
-    imgSrc: string,
     title: string,
     author: string,
-    price: number,
-    exchange: number,
-    desc: string,
-    city: string,
-};
+    category: Category,
+    };

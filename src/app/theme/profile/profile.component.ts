@@ -6,7 +6,11 @@ import { AccountService } from '@app/_services/account.service';
 import { first } from 'rxjs/operators';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AlertService } from '@app/_services/alert.service';
-import { Book } from '@app/_models/book';
+import { UserService } from '@app/_services/user.service';
+import { Offer } from '@app/_models/offer';
+import {Book} from "@app/_models/book";
+import {Category} from "@app/_models/category";
+import {User} from "@app/_models/user";
 
 @Component({
   selector: 'app-profile',
@@ -27,56 +31,9 @@ import { Book } from '@app/_models/book';
 })
 export class ProfileComponent implements OnInit {
 
-  books : Book[] = [
-    { imgSrc: "asd", title: "Lalka", author: "Bolesław Prus", price: 10, exchange: 1,
-      desc: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Podkowice Dolne"
-    },
-    { imgSrc: "asd", title: "Krzyżacy", author: "Henryk Sienkiewicz", price: 15, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Bonifacy", author: "Henryk Sienkiewicz", price: 20, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Bogdaniacy", author: "Henryk Sienkiewicz", price: 25, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Belchioracy", author: "Henryk Sienkiewicz", price: 30, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Benedyktiacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Baldwiniacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Beniaminiacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Bernardiacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Błażejacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Boguchwalacy", author: "Henryk Sienkiewicz", price: 40, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    }
-  ];
-
   editProfile = true;
   editProfileIcon = 'icofont-edit';
-  account: any;
+  user: User;
   form: FormGroup;
 
   constructor(
@@ -84,9 +41,10 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private userService: UserService
   ) {
-    this.account = this.accountService.accountValue;
+    
   }
 
   ngOnInit() {
@@ -99,6 +57,36 @@ export class ProfileComponent implements OnInit {
       address: ['']
     });
 
+    this.userService.getUser(this.accountService.accountValue.id);
+    this.user = this.userService.userValue;
+    this.user.offers = [
+      { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: true,
+        content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
+        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: 0
+      },
+      { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: false,
+        content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
+        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: 0
+      },
+      { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: true,
+        content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
+        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: 0
+      },
+      { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: false,
+        content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
+        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: 0
+      },
+      { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: true,
+        content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
+        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: 0
+      },
+      { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: true,
+        content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
+        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: 0
+      }
+    ];
+
+    this.user.address = {id: 0, name: "Here"};
   }
 
   toggleEditProfile() {
@@ -122,14 +110,14 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteAccount() {
-    this.accountService.delete();
+    this.userService.delete();
   }
 
   saveChanges() {
-      this.accountService.update(this.form.value).pipe(first())
+      this.userService.update(this.form.value).pipe(first())
       .subscribe({
         next: () => {
-           this.account = this.accountService.accountValue;
+           this.user = this.userService.userValue;
             this.toggleEditProfile();
           },
 
