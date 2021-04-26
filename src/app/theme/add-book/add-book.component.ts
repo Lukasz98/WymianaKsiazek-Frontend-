@@ -30,6 +30,9 @@ import {createAutoCorrectedDatePipe, createNumberMask, emailMask} from 'text-mas
 
 import { AccountService } from '@app/_services/account.service';
 
+interface ImgResponse {
+fileName: string;
+}
 
 interface DD {
 userId: string,
@@ -107,9 +110,9 @@ export class AddBookComponent implements OnInit {
   initForm(): FormGroup {
     return this.form = this.fb.group({ 
                                title: [null], author: [null], category: [0], description: [null], 
-                               fileSource1: [null],
-                               fileSource2: [null], 
-                               fileSource3: [null],
+                               fileName1: [null],
+                               fileName2: [null], 
+                               fileName3: [null],
                                exchange: [null],
                                price: [null],
                                thumbnailNum: [this.offerThumbnail]
@@ -160,14 +163,11 @@ export class AddBookComponent implements OnInit {
 
 
   ngOnInit() {
-    //const url = 'http://ip.jsontest.com/';
-    //const url = 'http://date.jsontest.com'; 
     const url = 'https://jsonplaceholder.typicode.com/posts'
     //this.dds$ = this.http.get<DD[]>(url)
      //          .do(console.log)
     //           .map(data => _.values(data));
     //.map(data =>data)
-    //console.log(this.dds$);
   }
 
   onSubmit() {
@@ -225,7 +225,7 @@ export class AddBookComponent implements OnInit {
     console.log('mouse click');
     this.onSubmit();
   }
-
+  
   onFileChange(event) {
     if(event.target.files && event.target.files.length) {
       const reader = new FileReader();
@@ -236,49 +236,49 @@ export class AddBookComponent implements OnInit {
       console.log("tutej");
         reader.onload = () => {
           this.imageSrc1 = reader.result as string;
-          this.form.patchValue({
-            fileSource1: reader.result
-          });
           this.img1Loaded = false;
          
           //console.log(this.imgForm1.value);
           this.imgForm1.patchValue({ fileSource: reader.result });
-          this.http.post('https://localhost:5001/api/Img/addImg', this.imgForm1.value)
-                         .subscribe(res => {
+          this.http.post<ImgResponse>('https://localhost:5001/api/Img/addImg', this.imgForm1.value)
+                         .subscribe((res) => {
                                      this.img1Loaded = true;
                                      console.log(res);
+                                     this.form.patchValue({
+                                       fileName1: res.fileName
+                                     });
                          });
         };
       }
       else if (!this.imageSrc2) {
         reader.onload = () => {
           this.imageSrc2 = reader.result as string;
-          this.form.patchValue({
-            fileSource2: reader.result
-          });
           this.img2Loaded = false;
 
           this.imgForm2.patchValue({ fileSource: reader.result });
-          this.http.post('https://localhost:5001/api/Img/addImg', this.imgForm2.value)
+          this.http.post<ImgResponse>('https://localhost:5001/api/Img/addImg', this.imgForm2.value)
                          .subscribe(res => {
                                      this.img2Loaded = true;
                                      console.log(res);
+                                     this.form.patchValue({
+                                       fileName2: res.fileName
+                                     });
                          });
         };
       }
       else if (!this.imageSrc3) {
         reader.onload = () => {
           this.imageSrc3 = reader.result as string;
-          this.form.patchValue({
-            fileSource3: reader.result
-          });
           this.img3Loaded = false;
 
           this.imgForm3.patchValue({ fileSource: reader.result });
-          this.http.post('https://localhost:5001/api/Img/addImg', this.imgForm3.value)
+          this.http.post<ImgResponse>('https://localhost:5001/api/Img/addImg', this.imgForm3.value)
                          .subscribe(res => {
                                      this.img3Loaded = true;
                                      console.log(res);
+                                     this.form.patchValue({
+                                       fileName3: res.fileName
+                                     });
                          });
         };
       }
