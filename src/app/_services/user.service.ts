@@ -28,7 +28,7 @@ export class UserService {
   }
 
   update(params) {
-    return this.http.put(`${baseUrl}/${this.userValue.id}`, params)
+    return this.http.put(`${baseUrl}/User/${this.userValue.id}`, params)
         .pipe(map((user: User) => {
             // update the current account if it was updated
             if (user.id === this.userValue.id) {
@@ -41,7 +41,7 @@ export class UserService {
   }
 
   delete() {
-    return this.http.delete(`${baseUrl}/${this.userValue.id}`)
+    return this.http.delete(`${baseUrl}/User/${this.userValue.id}`)
         .pipe(finalize(() => {
             this.accountService.logout(this.accountService.accountValue.refreshToken);
         }));

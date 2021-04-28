@@ -9,9 +9,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {DataTablesModule} from 'angular-datatables';
 import {TinymceModule} from 'angular2-tinymce';
 
+import {SearchFilterPipe } from './filter-pipe';
+import { ApiService } from './api.service';
+import { LetterBoldPipe } from './letter-bold.pipe';
+import { ClickOutsideDirective } from './dropdown.directive';
 
 @NgModule({
-  declarations: [ProfileComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -21,6 +24,13 @@ import {TinymceModule} from 'angular2-tinymce';
     TinymceModule,
     DataTablesModule,
     HttpClientModule
+  ],
+  providers: [ApiService],
+  declarations: [
+    ProfileComponent,
+    SearchFilterPipe,
+    LetterBoldPipe,
+    ClickOutsideDirective
   ]
 })
 export class ProfileModule { }

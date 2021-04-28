@@ -157,7 +157,7 @@
                         <!-- end of row -->
                       </div>
                       <!-- end of view-info -->
-                      <form class="edit-info" *ngIf="!editProfile">
+                      <form [formGroup]='form' class="edit-info" *ngIf="!editProfile">
                         <div class="row">
                           <div class="col-lg-12">
                             <div class="general-info form-material">
@@ -168,12 +168,12 @@
                                       <i class="icofont icofont-user"></i>
                                     </div>
                                     <div class="form-group form-primary marg">
-                                      <input type="text" name="footer-email" class="form-control" required="" value="{{user.firstName}}">
+                                      <input type="text" name="footer-email" class="form-control" required="" value="{{form.value.firstName}}">
                                       <span class="form-bar"></span>
                                       <label class="float-label">Imię</label>
                                     </div>
                                     <div class="form-group form-primary marg">
-                                      <input type="text" name="footer-email" class="form-control" required="" value="{{user.lastName}}">
+                                      <input type="text" name="footer-email" class="form-control" required="" value="{{form.value.lastName}}">
                                       <span class="form-bar"></span>
                                       <label class="float-label">Nazwisko</label>
                                     </div>
@@ -184,9 +184,20 @@
                                       <i class="icofont icofont-location-pin"></i>
                                     </div>
                                     <div class="form-group form-primary">
-                                      <input type="text" name="footer-email" class="form-control" required="" value="{{user.address.name}}">
+                                      <input type="text" name="footer-email" class="form-control"  required="" value="{{form.value.address.name}}" 
+                                      (click)=' openDropDown() ' 
+                                      (keyup)="onStrokeSearch($event)" formControlName="address">
                                       <span class="form-bar"></span>
                                       <label class="float-label">Miejscowość</label>
+                                      <div clickOutside (clickOutside)="closeDropDown()" style="width: 100%;" class="">
+                                        <div *ngIf='showCities' class='search-drop-down drop-down-title col-12 nopadding'>
+                                          <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of states | searchFilter: getSearchValue()">
+                                            <a [innerHTML]="s | letterBold: getSearchValue()">
+                                              {{s}}
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
   
@@ -199,7 +210,7 @@
                                       <i class="icofont icofont-ui-user"></i>
                                     </div>
                                     <div class="form-group form-primary">
-                                      <input type="text" name="footer-email" class="form-control" required="" valuie="{{user.userName}}">
+                                      <input type="text" name="footer-email" class="form-control" required="" value="{{form.value.userName}}">
                                       <span class="form-bar"></span>
                                       <label class="float-label">Nazwa Użytkownika</label>
                                     </div>
@@ -242,111 +253,17 @@
                       <div class="card">
                         <div class="card-header contact-user">
                           <h4>Kontakty</h4>
-                          <div class="m-2">
-                              <form class="form-material">
-                                  <div class="form-group form-primary">
-                                      <input type="text" name="footer-email" class="form-control" id="search-friends" required="">
-                                      <span class="form-bar"></span>
-                                      <label class="float-label"><i class="fa fa-search m-r-10"></i>Wyszukaj</label>
-                                  </div>
-                              </form>
-                          </div>
                         </div>
                         <div class="card-body scroll">
-                          <ui class="contacts">
-                            <li class="active">
+                          <ui *ngFor="let contact of contacts" class="contacts">
+                            <li (click)="choseContact(contact)">
                               <div class="d-flex bd-highlight">
-                                <div class="user_info">
-                                  <span>Khalid</span>
-                                  <p>Kalid is online</p>
-                                </div>
+                                <div class="m-b-5"> 
+                                  <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image"> 
                               </div>
-                            </li>
-                            <li>
-                              <div class="d-flex bd-highlight">
                                 <div class="user_info">
-                                  <span>Taherah Big</span>
-                                  <p>Taherah left 7 mins ago</p>
-                                </div>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex bd-highlight">
-                                <div class="user_info">
-                                  <span>Sami Rafi</span>
-                                  <p>Sami is online</p>
-                                </div>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex bd-highlight">
-                                <div class="user_info">
-                                  <span>Nargis Hawa</span>
-                                  <p>Nargis left 30 mins ago</p>
-                                </div>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex bd-highlight">
-                                <div class="user_info">
-                                  <span>Rashid Samim</span>
-                                  <p>Rashid left 50 mins ago</p>
-                                </div>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex bd-highlight">
-                                <div class="user_info">
-                                  <span>Rashid Samim</span>
-                                  <p>Rashid left 50 mins ago</p>
-                                </div>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex bd-highlight">
-                                <div class="user_info">
-                                  <span>Rashid Samim</span>
-                                  <p>Rashid left 50 mins ago</p>
-                                </div>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex bd-highlight">
-                                <div class="user_info">
-                                  <span>Rashid Samim</span>
-                                  <p>Rashid left 50 mins ago</p>
-                                </div>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex bd-highlight">
-                                <div class="user_info">
-                                  <span>Rashid Samim</span>
-                                  <p>Rashid left 50 mins ago</p>
-                                </div>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex bd-highlight">
-                                <div class="user_info">
-                                  <span>Rashid Samim</span>
-                                  <p>Rashid left 50 mins ago</p>
-                                </div>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex bd-highlight">
-                                <div class="user_info">
-                                  <span>Rashid Samim</span>
-                                  <p>Rashid left 50 mins ago</p>
-                                </div>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex bd-highlight">
-                                <div class="user_info">
-                                  <span>Rashid Samim</span>
-                                  <p>Rashid left 50 mins ago</p>
+                                  <span>{{contact.userName}}</span>
+                                  <p>{{contact.messages[contact.messages.length - 1].text}}</p>
                                 </div>
                               </div>
                             </li>
@@ -359,15 +276,15 @@
                           <div class="card-header msg_head">
                             <div class="d-flex bd-highlight">
                               <div class="user_info">
-                                <span><b>Khalid</b></span>
+                                <span><b>{{activeContact.userName}}</b></span>
                               </div>
                             </div>
                           </div>
                           <div class="card-body scroll">
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                Hi, how are you samim?
-                                <span class="msg_time">8:40 AM, Today</span>
+                            <div class="d-flex justify-content-start mb-4" *ngFor="let message of activeContact.messages">
+                              <div ng-class="{message.sender_id === activeContact.userId ? 'msg_cotainer_send' : 'msg_cotainer' }">
+                                {{message.text}}
+                                <span class="msg_time">{{message.date}}</span>
                               </div>
                             </div>
                             <div class="d-flex justify-content-end mb-4">
