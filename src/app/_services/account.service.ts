@@ -6,6 +6,7 @@ import { map, finalize, first } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Account } from '../_models/account';
 import { Router } from '@angular/router';
+import {User} from "../_models/user";
 
 const baseUrl = environment.apiUrl + "/api/user";
 
@@ -18,7 +19,7 @@ export class AccountService {
   public account: Observable<Account>;
 
   constructor(private http: HttpClient, private router: Router) {
-    this.accountSubject = new BehaviorSubject<Account>(JSON.parse(localStorage.getItem('user')));
+    this.accountSubject = new BehaviorSubject<Account>(JSON.parse(localStorage.getItem('account')));
     this.account = this.accountSubject.asObservable();
    }
 
@@ -53,9 +54,8 @@ export class AccountService {
      return this.http.post<any>(`${baseUrl}/users/token`, {email, password})
      .pipe(map(account => {
         this.accountSubject.next(account);
-        localStorage.setItem('user', JSON.stringify(account));
+        localStorage.setItem('account', JSON.stringify(account));
         this.startRefreshTokenTimer();
-        console.log(account);
         return account;
      }));
    }
@@ -65,31 +65,13 @@ export class AccountService {
       finalize(() => {
         this.stopRefreshTokenTimer();
         this.accountSubject.next(null);
+        localStorage.removeItem('account');
+        localStorage.removeItem('user');
       })
     );
    }
 
-   update(params) {
-    return this.http.put(`${baseUrl}/${this.accountValue.id}`, params)
-        .pipe(map((account: any) => {
-            // update the current account if it was updated
-            if (account.id === this.accountValue.id) {
-                // publish updated account to subscribers
-                account = { ...this.accountValue, ...account };
-                this.accountSubject.next(account);
-            }
-            return account;
-        }));
-}
-
-  delete() {
-    return this.http.delete(`${baseUrl}/${this.accountValue.id}`)
-        .pipe(finalize(() => {
-            this.logout(this.accountValue.refreshToken);
-        }));
-  }
-
-   register(account: Account) {
+   register(account: User) {
     return this.http.post<any>(`${baseUrl}/users/register`, account);
    }
 
@@ -97,7 +79,7 @@ export class AccountService {
     return this.http.post<any>(`${baseUrl}/login/facebook`, {accessToken})
      .pipe(map(account => {
         this.accountSubject.next(account);
-        localStorage.setItem('user', JSON.stringify(account));
+        localStorage.setItem('account', JSON.stringify(account));
         this.startRefreshTokenTimer();
         return account;
      }));
@@ -107,7 +89,7 @@ export class AccountService {
      return this.http.post<any>(`${baseUrl}/login/google`, {token})
      .pipe(map(account => {
       this.accountSubject.next(account);
-      localStorage.setItem('user', JSON.stringify(account));
+      localStorage.setItem('account', JSON.stringify(account));
       this.startRefreshTokenTimer();
       return account;
     }));

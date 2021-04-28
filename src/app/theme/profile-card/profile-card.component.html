@@ -8,7 +8,7 @@
                         <div class="m-b-25"> 
                             <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image"> 
                         </div>
-                        <h6 class="f-w-600">Username</h6>
+                        <h6 class="f-w-600">{{user.userName}}</h6>
                         <p>Dołączył: 21.04.2021</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                     </div>
                 </div>
@@ -17,20 +17,25 @@
                         <div class="card-header">
                             <h5 class="card-header-text">Ogłoszenia</h5>
                         </div>
-                        <div class="card b-l-success business-info services m-b-20">
-                            <div ngbDropdown class="card-header">
-                                <div class="service-header">
-                                    <a href="javascript:"><h5 class="card-header-text">Shivani Hero</h5></a>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <p class="task-detail">Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod temp or incidi dunt ut labore et.Lorem ipsum dolor sit amet, consecte.</p>
+                        <div class="row card-body" style="margin: auto;" >
+                            <div *ngFor="let item of user.offers " class="col-xl-3 col-md-6" style="">
+                                <div ngbDropdown class="card user-card">
+                                  <div class="card-block text-center" style="">
+                                    <div class="" style="">
+                                      <img height="200px" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F4.bp.blogspot.com%2F-nsJPARPvroM%2FVerAOx3o7KI%2FAAAAAAAAElQ%2Fz9orWEOiBsk%2Fs1600%2Flalka.jpg&f=1&nofb=1" class="" alt="User-Profile-Image">
                                     </div>
+                                    <h6 class="m-t-25 m-b-10">{{ item.book.title }}</h6>
+                                    <p class="text-muted" >{{ item.book.author }}</p>
+                                    <p class="text-c d-block"  >{{ item.address.name }}</p>
+                                    <p class="text-c d-block">{{ item.price }}zł</p>
+                                    <i *ngIf="item.type; else noexchange" class="fa fa-check"> Wymiana</i>
+                                    <ng-template #noexchange><i class="fa fa-close"> Wymiana</i></ng-template>
+                                    <button class="btn btn-primary d-block ripple light">Więcej</button>
+                                  </div>
                                 </div>
                             </div>
-                        </div>
+                          </div>
+                        
                     </div>
                 </div>
             </div>
