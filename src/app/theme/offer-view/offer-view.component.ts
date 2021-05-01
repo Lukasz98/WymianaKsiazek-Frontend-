@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from "rxjs/Observable";
 import { HttpClient } from "@angular/common/http";
-
+/*
 interface Book {
 imgSrc: string,
 title: string,
@@ -12,7 +12,7 @@ exchange: number,
 desc: string,
 city: string,
 };
-
+*/
 interface Address {
 id: number,
 name: string
@@ -61,7 +61,27 @@ mainImageSrc = this.imageSrc1;
     //this.offerData.content = "opis";
     //this.offerData.type = false;
 
-
+this.offerData = { "id": 1, "content": "Opis ogloszonka pobrany z serwerka",
+"createdOn": "2021-03-17T12:21:12.3162045",
+"updatedOn": "2021-03-17T12:21:12.3164304",
+"type": true,
+"price": 10,
+"address": {
+"id": 1,
+"name": "torun"
+},
+"book": {
+"id": 1,
+"title": "Głód",
+"author": "Martin Caparros",
+"isbn": "91283691236",
+"category": {
+"id": 5,
+"name": "Literatura faktu, reportaż"
+}
+},
+"user": null
+};
 
 
     //const url = 'http://localhost:40403/api.php?title=asd';

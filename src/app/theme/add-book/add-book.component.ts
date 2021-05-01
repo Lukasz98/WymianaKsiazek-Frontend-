@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
 //import { TestModel } from '../../models/testmodel';
 //import { Observable } from "rxjs/Observable";
-//import { HttpClient } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 //import * as _ from 'lodash';
 //import 'rxjs/add/operator/map'
 import 'rxjs/Rx';
@@ -27,6 +27,12 @@ import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 
 import {createAutoCorrectedDatePipe, createNumberMask, emailMask} from 'text-mask-addons/dist/textMaskAddons';
+
+import { AccountService } from '@app/_services/account.service';
+
+interface ImgResponse {
+fileName: string;
+}
 
 interface DD {
 userId: string,
@@ -62,9 +68,19 @@ export class AddBookComponent implements OnInit {
   authors = [ 'Hawaje' ];
   categories = [ 'Dowolna kategoria', 'Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado' ];
 
-  myForm: FormGroup;
+  //myForm: FormGroup;
+  imgForm1 : FormGroup;
+  imgForm2 : FormGroup;
+  imgForm3 : FormGroup;
+  img1Loaded : boolean;
+  img2Loaded : boolean;
+  img3Loaded : boolean;
   submitted: boolean;
-  
+  titleBlank: boolean;
+  authorBlank: boolean;
+  priceBlank: boolean;
+
+
   opened : number;
   opened2 : number;
 
@@ -73,18 +89,30 @@ export class AddBookComponent implements OnInit {
   imageSrc3 : string;
 
   offerThumbnail = 1;
-
+  
   //constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
-  constructor(private router:Router, private fb:FormBuilder ) {
+  constructor(private router:Router, private fb:FormBuilder,  private accountService: AccountService, private http : HttpClient ) {
     this.initForm();
+
+    this.imgForm1 = this.fb.group({ fileSource: [null] });
+    this.imgForm2 = this.fb.group({ fileSource: [null] });
+    this.imgForm3 = this.fb.group({ fileSource: [null] });
+
+    this.img1Loaded = true;
+    this.img2Loaded = true;
+    this.img3Loaded = true;
+//this.accountService.logout();
+    console.log(this.accountService.accountValue.accessToken);
+    this.accountService.logout(this.accountService.accountValue.accessToken);
+    console.log(this.accountService.account);//.value.token);
   }
  
   initForm(): FormGroup {
     return this.form = this.fb.group({ 
                                title: [null], author: [null], category: [0], description: [null], 
-                               fileSource1: [null],
-                               fileSource2: [null], 
-                               fileSource3: [null],
+                               fileName1: [null],
+                               fileName2: [null], 
+                               fileName3: [null],
                                exchange: [null],
                                price: [null],
                                thumbnailNum: [this.offerThumbnail]
@@ -135,19 +163,22 @@ export class AddBookComponent implements OnInit {
 
 
   ngOnInit() {
-    //const url = 'http://ip.jsontest.com/';
-    //const url = 'http://date.jsontest.com'; 
     const url = 'https://jsonplaceholder.typicode.com/posts'
     //this.dds$ = this.http.get<DD[]>(url)
      //          .do(console.log)
     //           .map(data => _.values(data));
     //.map(data =>data)
-    //console.log(this.dds$);
   }
 
   onSubmit() {
-    console.log(this.form.value);
     this.submitted = true;
+    this.titleBlank = !this.form.value.title;
+    this.authorBlank = !this.form.value.author;
+    if (!this.img1Loaded || !this.img2Loaded || !this.img3Loaded)
+      return;
+    if (this.titleBlank || this.authorBlank)
+      return;
+    console.log(this.form.value);
     //this.http.get('http://ip.jsontest.com/?callback=showMyIP').map(res =>res.json());
     console.log('sumbit');
     //if (this.myForm.value.bookName) {
@@ -194,7 +225,7 @@ export class AddBookComponent implements OnInit {
     console.log('mouse click');
     this.onSubmit();
   }
-
+  
   onFileChange(event) {
     if(event.target.files && event.target.files.length) {
       const reader = new FileReader();
@@ -205,25 +236,50 @@ export class AddBookComponent implements OnInit {
       console.log("tutej");
         reader.onload = () => {
           this.imageSrc1 = reader.result as string;
-          this.form.patchValue({
-            fileSource1: reader.result
-          });                                                                  
+          this.img1Loaded = false;
+         
+          //console.log(this.imgForm1.value);
+          this.imgForm1.patchValue({ fileSource: reader.result });
+          this.http.post<ImgResponse>('https://localhost:5001/api/Img/addImg', this.imgForm1.value)
+                         .subscribe((res) => {
+                                     this.img1Loaded = true;
+                                     console.log(res);
+                                     this.form.patchValue({
+                                       fileName1: res.fileName
+                                     });
+                         });
         };
       }
       else if (!this.imageSrc2) {
         reader.onload = () => {
           this.imageSrc2 = reader.result as string;
-          this.form.patchValue({
-            fileSource2: reader.result
-          });                                                                  
+          this.img2Loaded = false;
+
+          this.imgForm2.patchValue({ fileSource: reader.result });
+          this.http.post<ImgResponse>('https://localhost:5001/api/Img/addImg', this.imgForm2.value)
+                         .subscribe(res => {
+                                     this.img2Loaded = true;
+                                     console.log(res);
+                                     this.form.patchValue({
+                                       fileName2: res.fileName
+                                     });
+                         });
         };
       }
       else if (!this.imageSrc3) {
         reader.onload = () => {
           this.imageSrc3 = reader.result as string;
-          this.form.patchValue({
-            fileSource3: reader.result
-          });                                                                  
+          this.img3Loaded = false;
+
+          this.imgForm3.patchValue({ fileSource: reader.result });
+          this.http.post<ImgResponse>('https://localhost:5001/api/Img/addImg', this.imgForm3.value)
+                         .subscribe(res => {
+                                     this.img3Loaded = true;
+                                     console.log(res);
+                                     this.form.patchValue({
+                                       fileName3: res.fileName
+                                     });
+                         });
         };
       }
     }
@@ -234,7 +290,7 @@ export class AddBookComponent implements OnInit {
     this.imageSrc1 = "";
     //this.form.value.fileSource1 = "";
     this.form.patchValue({ fileSource1: "" });
-    
+    //this.img1Loaded = false;
     if (this.offerThumbnail == 1) {
         if (this.imageSrc2) {
           this.offerThumbnail = 2;   
@@ -253,6 +309,7 @@ export class AddBookComponent implements OnInit {
     this.imageSrc2 = "";
     //this.form.value.fileSource2 = "";
     this.form.patchValue({ fileSource2: "" });
+    //this.img2Loaded = false;
   
     if (this.offerThumbnail == 2) {
         if (this.imageSrc1) {
@@ -272,6 +329,7 @@ export class AddBookComponent implements OnInit {
     this.imageSrc3 = "";
     //this.form.value.fileSource3 = "";
     this.form.patchValue({ fileSource3: "" });
+    //this.img3Loaded = false;
   
     if (this.offerThumbnail == 3) {
         if (this.imageSrc1) {
