@@ -9,7 +9,7 @@ import * as _ from 'lodash';
 import 'rxjs/Rx';
 
 import {IOption} from 'ng-select';
-import {SelectOptionService} from '../../shared/elements/select-option.service';
+import {SelectCityService} from '../../_services/city_search/select-city.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -26,6 +26,9 @@ import 'rxjs/add/operator/first';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 
+import {Subscription} from 'rxjs/Subscription';
+
+
 interface DD {
 userId: string,
 id: string,
@@ -39,6 +42,15 @@ status: number;
 title: Array<string>;
 }
 
+class Addresss {
+id: number;
+name: string;
+wojewodztwo: string;
+powiat: string;
+gmina: string;
+offers: number[];
+}
+
 @Component({
   selector: 'app-book-search',
   templateUrl: './book-search.component.html',
@@ -46,6 +58,21 @@ title: Array<string>;
 
 })
 export class BookSearchComponent implements OnInit {
+
+    selectedCar: number;
+
+        cars = [
+                { id: 1, name: 'Volvo' },
+                        { id: 2, name: 'Saab' },
+                                { id: 3, name: 'Opel' },
+                                        { id: 4, name: 'Audi' },
+                                            ];
+
+  public testt = [
+    {value: '1', name: 'lab1'},
+    {value: '2', name: 'lab2'},
+    {value: '3', name: 'lab3'}
+  ];
 
   //public dds$ : Observable<DD[]>;
   stateForm: FormGroup;
@@ -60,8 +87,8 @@ public testData : TitleCandidate;
                   'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington',
                      'West Virginia', 'Wisconsin', 'Wyoming'];
 
-      cities = ['akapulko', 'pacanowo'];
-
+      //cities = ['akapulko', 'pacanowo'];
+cities : Addresss[];
   categories = [ 'Dowolna kategoria', 'Kryminały', 'Bajki', 'bajki2',  'bajki3', 'bajki4', 'bajki5', 'bajki6', 'bajki7', 'bajki8', 'bajki9', 'bajk10' ];
 
   showDropDown2 = false;
@@ -70,10 +97,12 @@ public testData : TitleCandidate;
   
   opened : number;
   opened2 : number;
-
+  url = 'https://localhost:5001/address/'; 
+  //url = 'https://localhost:5001/address/';
   //constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
-  constructor(private router:Router, private fb:FormBuilder, private http : HttpClient ) {
-    //this.testData =
+  
+  constructor(private router:Router, private fb:FormBuilder, private http : HttpClient, public selectCityService: SelectCityService ) {
+    //this.testData =gt
     const bookName = new FormControl('', Validators.required);
     this.initForm();
   }
@@ -108,8 +137,10 @@ public testData : TitleCandidate;
     else
       this.showDropDown = false;
   }
-art(){console.log("gasg");}
-  closeDropDown2() {
+  
+  art() {
+    console.log("gasg");}
+    closeDropDown2() {
     console.log("zamykam");
     console.log(this.opened2);
     if (this.opened2)
@@ -117,8 +148,17 @@ art(){console.log("gasg");}
     else
       this.showDropDown2 = false;
   }
+private dataSub: Subscription = null;
+simpleOption: Array<IOption>;// = this.selectCityService.getCharacters();
 
+characters: Array<IOption>;
   ngOnInit() {
+    this.simpleOption = this.selectCityService.getCharacters();
+        this.dataSub = this.selectCityService.loadCharacters().subscribe((options) => {
+           this.characters = options;
+         });
+
+
     //const url = 'http://ip.jsontest.com/';
     //const url = 'http://date.jsontest.com'; 
     //const url = 'https://jsonplaceholder.typicode.com/posts'
@@ -195,12 +235,31 @@ art(){console.log("gasg");}
 
 tracking : any;
 
-startTrackingLoop() {
-  this.tracking = setInterval(() => {
-    console.log(this.stateForm.value.search);
-    clearInterval(this.tracking);
-    this.tracking = null;
+startTrackingLoop(city : boolean) {
+  if (!city) {
+    this.tracking = setInterval(() => {
+      console.log(this.stateForm.value.search);
+      clearInterval(this.tracking);
+      this.tracking = null;
     }, 2000);
+  }
+  else {
+  /*
+    this.tracking = setInterval(() => {
+      console.log(this.stateForm.value.search2);
+      clearInterval(this.tracking);
+      this.tracking = null;
+
+      this.http.get<Address>(this.url + this.stateForm.value.search2).subscribe(
+        (response) => {
+          console.log("response recv");
+          console.log(response)
+          //this.cities = response
+          console.log(this.cities);
+        });
+      }, 2000);
+  */
+  }
 }
 
 stopTrackingLoop() {
@@ -212,7 +271,7 @@ timett : any;
   onStrokeSearch(event: any) {
     
     this.stopTrackingLoop();
-    this.startTrackingLoop();
+    this.startTrackingLoop(false);
 
     //   console.log("tu");
     //console.log(this.timett);
@@ -257,8 +316,31 @@ timett : any;
   
   onStrokeSearch2(event: any) {
     console.log("onstroke2");
-    this.cities = [];
-    this.cities.push(event.target.value);
+    //this.cities = [];
+    //this.cities.push(event.target.value);
+    this.stopTrackingLoop();
+    this.startTrackingLoop(true);
+  }
+
+  onStrokeSearch3(event: any) {
+    //console.log((event.target.value.length));
+    if (this.selectCityService.queryDone && event.target.value.length >= 3)
+      return;
+    this.selectCityService.queryDone = false;
+    if (event.target.value.length >= 3) {
+        this.selectCityService.doQuery(event.target.value).subscribe( (response) => { 
+console.log(response);
+          SelectCityService.PLAYER_ONE = response;// as Address[];
+    this.simpleOption = this.selectCityService.getCharacters();
+    console.log(this.simpleOption);
+        });
+    this.selectCityService.queryDone = true;
+    }
+    //while (!this.selectCityService.queryDone);
+    this.simpleOption = this.selectCityService.getCharacters();
+    //this.dataSub = this.selectCityService.loadCharacters().subscribe((options) => {
+    //  this.characters = options;
+    //});
   }
 
   onEnterSearch2(event:  KeyboardEvent) {
@@ -270,7 +352,13 @@ timett : any;
     console.log('mouse click');
     this.onSubmit();
   }
-    
+   
+
+  cityCustomFilter(term: string, item: any) {
+  console.log(term);
+  console.log(item);
+  return 1;
+  }
 
 }
 

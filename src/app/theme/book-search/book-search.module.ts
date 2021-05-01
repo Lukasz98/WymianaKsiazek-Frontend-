@@ -8,8 +8,9 @@ import {HttpClientModule} from '@angular/common/http'
 //import { TestService } from '../../services/test.service';
 import { BrowserModule } from '@angular/platform-browser';
 
+//import { NgSelectModule } from '@ng-select/ng-select';
 import {SelectModule} from 'ng-select';
-import {SelectOptionService} from '../../shared/elements/select-option.service';
+import {SelectCityService} from '../../_services/city_search/select-city.service';
 import {TagInputModule} from 'ngx-chips';
 import {SearchFilterPipe } from './filter-pipe';
 
@@ -17,6 +18,7 @@ import { ApiService } from './api.service';
 
 import { LetterBoldPipe } from './letter-bold.pipe';
 import { ClickOutsideDirective } from './dropdown.directive';
+import {CityFilterPipe } from '../../_services/city_search/data-filter.pipe';
 
 @NgModule({
   imports: [
@@ -30,12 +32,14 @@ import { ClickOutsideDirective } from './dropdown.directive';
     SelectModule,
     TagInputModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, SelectCityService],
   declarations: [
     BookSearchComponent,
     SearchFilterPipe,
     LetterBoldPipe,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+
+    CityFilterPipe
   ]
 })
 export class BookSearchModule { }

@@ -101,10 +101,13 @@ export class AddBookComponent implements OnInit {
     this.img1Loaded = true;
     this.img2Loaded = true;
     this.img3Loaded = true;
-//this.accountService.logout();
-    console.log(this.accountService.accountValue.accessToken);
-    this.accountService.logout(this.accountService.accountValue.accessToken);
-    console.log(this.accountService.account);//.value.token);
+this.accountService.logout(this.accountService.accountValue.accessToken);
+    console.log(this.accountService);
+    if (this.accountService.accountValue) {
+      console.log(this.accountService.accountValue.accessToken);
+      this.accountService.logout(this.accountService.accountValue.accessToken);
+      console.log(this.accountService.account);//.value.token);
+    }
   }
  
   initForm(): FormGroup {
