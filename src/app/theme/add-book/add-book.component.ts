@@ -9,7 +9,9 @@ import { HttpClient } from "@angular/common/http";
 import 'rxjs/Rx';
 
 import {IOption} from 'ng-select';
-import {SelectOptionService} from '../../shared/elements/select-option.service';
+//import {SelectOptionService} from '../../shared/elements/select-option.service';
+import {SelectCityService} from '../../_services/city_search/select-city.service';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -29,6 +31,7 @@ import { FormBuilder } from '@angular/forms';
 import {createAutoCorrectedDatePipe, createNumberMask, emailMask} from 'text-mask-addons/dist/textMaskAddons';
 
 import { AccountService } from '@app/_services/account.service';
+import {Subscription} from 'rxjs/Subscription';
 
 interface ImgResponse {
 fileName: string;
@@ -39,6 +42,32 @@ userId: string,
 id: string,
 title: string,
 body: string
+}
+
+interface Category {
+id: number,
+name: string,
+books: any[]
+}
+
+interface SendOffer {
+content: string,
+addressId: number,
+type: boolean,
+price: number,
+title: string,
+author: string,
+categoryId: number
+}
+
+interface Offer {
+id: number,
+title: string,
+author: string,
+categoryId: number,
+isbn: string,
+offers: any[],
+category: any
 }
 
 @Component({
@@ -56,17 +85,10 @@ export class AddBookComponent implements OnInit {
 
   showDropDown = false;
   showDropDown2 = false;
-  titles = ['Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado',
-        'Connecticut', 'Delaware', 'District of Columbia', 'Florida'
-          , 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky'
-            , 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-              'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina',
-                'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico',
-                  'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington',
-                     'West Virginia', 'Wisconsin', 'Wyoming'];
+  titles : any[]; 
 
-  authors = [ 'Hawaje' ];
-  categories = [ 'Dowolna kategoria', 'Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado' ];
+  authors : any[] ;
+  categories : Category[] = [];
 
   //myForm: FormGroup;
   imgForm1 : FormGroup;
@@ -89,9 +111,17 @@ export class AddBookComponent implements OnInit {
   imageSrc3 : string;
 
   offerThumbnail = 1;
+  url = 'https://localhost:5001/';
   
-  //constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
-  constructor(private router:Router, private fb:FormBuilder,  private accountService: AccountService, private http : HttpClient ) {
+private dataSub: Subscription = null;
+simpleOption: Array<IOption>;// = this.selectCityService.getCharacters();
+
+characters: Array<IOption>;
+
+
+
+  constructor(private router:Router, private fb:FormBuilder,  private accountService: AccountService, private http : HttpClient, 
+                public selectCityService: SelectCityService) {
     this.initForm();
 
     this.imgForm1 = this.fb.group({ fileSource: [null] });
@@ -101,7 +131,7 @@ export class AddBookComponent implements OnInit {
     this.img1Loaded = true;
     this.img2Loaded = true;
     this.img3Loaded = true;
-this.accountService.logout(this.accountService.accountValue.accessToken);
+    this.accountService.logout(this.accountService.accountValue.accessToken);
     console.log(this.accountService);
     if (this.accountService.accountValue) {
       console.log(this.accountService.accountValue.accessToken);
@@ -110,17 +140,53 @@ this.accountService.logout(this.accountService.accountValue.accessToken);
     }
   }
  
+  ngOnInit() {
+  
+    this.http.get<Category[]>(this.url + 'api/Offer/categories').subscribe(
+      (response) => {
+        console.log("response categories recv");
+        console.log(response)
+        this.categories = response
+      }
+    );
+
+
+    this.simpleOption = this.selectCityService.getCharacters();
+        this.dataSub = this.selectCityService.loadCharacters().subscribe((options) => {
+           this.characters = options;
+    });
+
+
+  }
+
+
   initForm(): FormGroup {
     return this.form = this.fb.group({ 
-                               title: [null], author: [null], category: [0], description: [null], 
+                               title: [null], author: [null], categoryId: [0], content: [null], 
                                fileName1: [null],
                                fileName2: [null], 
                                fileName3: [null],
-                               exchange: [null],
+                               type: [null],
                                price: [null],
-                               thumbnailNum: [this.offerThumbnail]
-                       
+                               thumbnailNum: [this.offerThumbnail],
+                               addressId: [null]
                        });
+  }
+
+  onStrokeSearch3(event: any) {
+    if (this.selectCityService.queryDone && event.target.value.length >= 3)
+      return;
+    this.selectCityService.queryDone = false;
+    if (event.target.value.length >= 3) {
+        this.selectCityService.doQuery(event.target.value).subscribe( (response) => { 
+          console.log(response);
+          SelectCityService.PLAYER_ONE = response;// as Address[];
+          this.simpleOption = this.selectCityService.getCharacters();
+          console.log(this.simpleOption);
+        });
+        this.selectCityService.queryDone = true;
+    }
+    this.simpleOption = this.selectCityService.getCharacters();
   }
 
   setThumbnail(n) {
@@ -135,8 +201,6 @@ this.accountService.logout(this.accountService.accountValue.accessToken);
   getSearchValue2() {
     return this.form.value.author;
   }
-
-
 
   openDropDown() {
     console.log("showDropDown");
@@ -165,13 +229,6 @@ this.accountService.logout(this.accountService.accountValue.accessToken);
   }
 
 
-  ngOnInit() {
-    const url = 'https://jsonplaceholder.typicode.com/posts'
-    //this.dds$ = this.http.get<DD[]>(url)
-     //          .do(console.log)
-    //           .map(data => _.values(data));
-    //.map(data =>data)
-  }
 
   onSubmit() {
     this.submitted = true;
@@ -184,6 +241,25 @@ this.accountService.logout(this.accountService.accountValue.accessToken);
     console.log(this.form.value);
     //this.http.get('http://ip.jsontest.com/?callback=showMyIP').map(res =>res.json());
     console.log('sumbit');
+let tmp : SendOffer = {};
+tmp.content = this.form.value.content;
+tmp.addressId= this.form.value.addressId;
+tmp.type = this.form.value.type;
+tmp.price = this.form.value.price;
+tmp.title = this.form.value.title;
+tmp.author = this.form.value.author;
+tmp.categoryId = this.form.value.categoryId;
+
+    console.log(tmp);
+          this.http.post<SendOffer>(this.url + 'api/Offer/addoffers', tmp)//this.form.value)
+                         .subscribe((res) => {
+                                     
+                                     console.log(res);
+                                     //this.form.patchValue({
+                                     //  fileName1: res.fileName
+                                     //});
+                         });
+
     //if (this.myForm.value.bookName) {
     //if( this.myForm.value.bookName[0].value)
       //console.log('ruteruje');
@@ -200,27 +276,23 @@ this.accountService.logout(this.accountService.accountValue.accessToken);
   }
 
   selectValue(value) {
-    this.form.patchValue({"title": value});
+    this.form.patchValue({"title": value.title});
     this.showDropDown = false;
   }
 
   selectValue2(value) {
-    this.form.patchValue({"author": value});
+    this.form.patchValue({"author": value.title});
     this.showDropDown2 = false;
   }
 
   onStrokeSearch(event: any) {
-    //if (event.target.value) { 
-    //console.log("onstroke");
-    //console.log(event.target.value);
-    this.titles = [];
-    this.titles.push(event.target.value);
-    //}
+    this.stopTrackingLoop();
+    this.startTrackingLoop(event.target.value, 'offers');
   }
 
   onStrokeSearch2(event: any) {
-    this.authors = [];
-    this.authors.push(event.target.value);
+    this.stopTrackingLoop();
+    this.startTrackingLoop(event.target.value, 'offers');
   }
 
  
@@ -348,6 +420,36 @@ this.accountService.logout(this.accountService.accountValue.accessToken);
     }
   }
 
+  tracking : any;
+  
+  startTrackingLoop(val: string, path: string) {
+      if (val.length < 2)
+        return;
+      this.tracking = setInterval(() => {
+        console.log(val);
+        
+        const url2 = 'https://localhost:5001/api/Offer/' + path + '/' + val;
+        this.http.get<Offer[]>(url2).subscribe(
+          (response) => {
+            console.log("response offers recv");
+            console.log(response)
+            if (path == 'offers') {
+              this.titles = response;
+            }
+            else 
+              this.authors = response;
+          }
+        );
+  
+        clearInterval(this.tracking);
+        this.tracking = null;
+      }, 2000);
+  }
+  
+  stopTrackingLoop() {
+    clearInterval(this.tracking);
+    this.tracking = null;
+  }
 }
 
 

@@ -354,24 +354,19 @@ timett : any;
   }
 
   onStrokeSearch3(event: any) {
-    //console.log((event.target.value.length));
     if (this.selectCityService.queryDone && event.target.value.length >= 3)
       return;
     this.selectCityService.queryDone = false;
     if (event.target.value.length >= 3) {
         this.selectCityService.doQuery(event.target.value).subscribe( (response) => { 
-console.log(response);
+          console.log(response);
           SelectCityService.PLAYER_ONE = response;// as Address[];
-    this.simpleOption = this.selectCityService.getCharacters();
-    console.log(this.simpleOption);
+          this.simpleOption = this.selectCityService.getCharacters();
+          console.log(this.simpleOption);
         });
-    this.selectCityService.queryDone = true;
+        this.selectCityService.queryDone = true;
     }
-    //while (!this.selectCityService.queryDone);
     this.simpleOption = this.selectCityService.getCharacters();
-    //this.dataSub = this.selectCityService.loadCharacters().subscribe((options) => {
-    //  this.characters = options;
-    //});
   }
 
   onEnterSearch2(event:  KeyboardEvent) {

@@ -10,6 +10,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import {SelectModule} from 'ng-select';
 import {SelectOptionService} from '../../shared/elements/select-option.service';
+import {SelectCityService} from '../../_services/city_search/select-city.service';
 import {TagInputModule} from 'ngx-chips';
 import {SearchFilterPipe } from './filter-pipe';
 
@@ -33,7 +34,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     TagInputModule,
     TextMaskModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, SelectCityService],
   declarations: [
     AddBookComponent,
     SearchFilterPipe,
