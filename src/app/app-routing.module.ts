@@ -37,6 +37,10 @@ const routes: Routes = [
         path: 'profile-card',
         loadChildren: () => import('./theme/profile-card/profile-card.module').then(m => m.ProfileCardModule)
       },
+      {
+        path: 'offer',
+        loadChildren: () => import('./theme/offer/offer.module').then(m => m.OfferModule)
+      }
     ]
   },
   {
