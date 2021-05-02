@@ -20,7 +20,8 @@ name: string
 
 interface Category {
 id: number,
-name: string
+name: string,
+books: any[]
 }
 
 interface Book {

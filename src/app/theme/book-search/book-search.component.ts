@@ -51,6 +51,22 @@ gmina: string;
 offers: number[];
 }
 
+interface Category {
+id: number,
+name: string,
+books: any[]
+}
+
+interface Offer {
+id: number,
+title: string,
+author: string,
+categoryId: number,
+isbn: string,
+offers: any[],
+category: any
+}
+
 @Component({
   selector: 'app-book-search',
   templateUrl: './book-search.component.html',
@@ -59,26 +75,13 @@ offers: number[];
 })
 export class BookSearchComponent implements OnInit {
 
-    selectedCar: number;
-
-        cars = [
-                { id: 1, name: 'Volvo' },
-                        { id: 2, name: 'Saab' },
-                                { id: 3, name: 'Opel' },
-                                        { id: 4, name: 'Audi' },
-                                            ];
-
-  public testt = [
-    {value: '1', name: 'lab1'},
-    {value: '2', name: 'lab2'},
-    {value: '3', name: 'lab3'}
-  ];
 
   //public dds$ : Observable<DD[]>;
   stateForm: FormGroup;
 public testData : TitleCandidate;
   showDropDown = false;
-      states = ['Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado',
+  /*
+  states = ['Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado',
         'Connecticut', 'Delaware', 'District of Columbia', 'Florida'
           , 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky'
             , 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
@@ -86,11 +89,11 @@ public testData : TitleCandidate;
                 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico',
                   'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington',
                      'West Virginia', 'Wisconsin', 'Wyoming'];
-
+*/
       //cities = ['akapulko', 'pacanowo'];
 cities : Addresss[];
-  categories = [ 'Dowolna kategoria', 'Kryminały', 'Bajki', 'bajki2',  'bajki3', 'bajki4', 'bajki5', 'bajki6', 'bajki7', 'bajki8', 'bajki9', 'bajk10' ];
-
+  categories = [];// 'Dowolna kategoria', 'Kryminały', 'Bajki', 'bajki2',  'bajki3', 'bajki4', 'bajki5', 'bajki6', 'bajki7', 'bajki8', 'bajki9', 'bajk10' ];
+  states : Offer[];
   showDropDown2 = false;
 
   submitted: boolean;
@@ -101,10 +104,19 @@ cities : Addresss[];
   //url = 'https://localhost:5001/address/';
   //constructor(private http : HttpClient,private router:Router, private fb:FormBuilder ) {
   
-  constructor(private router:Router, private fb:FormBuilder, private http : HttpClient, public selectCityService: SelectCityService ) {
+  constructor(private router:Router, private fb:FormBuilder, private http : HttpClient, public selectCityService: SelectCityService) {
     //this.testData =gt
     const bookName = new FormControl('', Validators.required);
     this.initForm();
+    const url = 'https://localhost:5001/api/Offer/categories';
+    this.http.get<Category[]>(url).subscribe(
+      (response) => {
+        console.log("response categories recv");
+        console.log(response)
+        this.categories = response
+      }
+    );
+
   }
  
   initForm(): FormGroup {
@@ -212,7 +224,30 @@ characters: Array<IOption>;
       //if (!inputVal) {
       //  console.log(inputVal);
       //}
-      //this.router.navigate(['/other/simple-page']); 
+      console.log(this.stateForm.value.search);
+      this.stopTrackingLoop();
+      this.router.navigate(['/search-listing/' 
+                            + this.stateForm.value.search + '/'
+                            + this.stateForm.value.search2 + '/'
+                            + this.stateForm.value.category
+
+      ]);
+      return;
+      this.router.navigate(['/search-listing/', 
+                             { 
+                               title: this.stateForm.value.search,
+                               //city: this.stateForm.value.search2,
+                               //cat: this.stateForm.value.category
+                             }
+      ]);
+      return;
+      this.router.navigate(['/search-listing' + 
+                             '?searchListing=' + this.stateForm.value.search 
+                             //+
+                             //'&city=' + this.stateForm.value.search2 +
+                             //'&cat=' + this.stateForm.value.category
+
+      ]); 
     //}
     //else if (this.autocompleteItems.length) {
     //    console.log("autocompleteItems");
@@ -221,7 +256,7 @@ characters: Array<IOption>;
   }
 
   selectValue(value) {
-    this.stateForm.patchValue({"search": value});
+    this.stateForm.patchValue({"search": value.title});
     console.log("select value");
     this.showDropDown = false;
   }
@@ -237,8 +272,20 @@ tracking : any;
 
 startTrackingLoop(city : boolean) {
   if (!city) {
+    if (this.stateForm.value.search.length < 2)
+      return;
     this.tracking = setInterval(() => {
       console.log(this.stateForm.value.search);
+      
+      const url2 = 'https://localhost:5001/api/Offer/offers/' + this.stateForm.value.search;
+      this.http.get<Offer[]>(url2).subscribe(
+        (response) => {
+          console.log("response offers recv");
+          console.log(response)
+          this.states = response
+        }
+      );
+
       clearInterval(this.tracking);
       this.tracking = null;
     }, 2000);

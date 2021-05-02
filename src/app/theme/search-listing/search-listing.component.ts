@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from "rxjs/Observable";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
+import { switchMap } from 'rxjs/operators';
 
 interface Book {
 imgSrc: string,
@@ -27,6 +28,8 @@ export class SearchListingComponent implements OnInit {
   pageCount = 0;
   //public books$ : Observable<Book[]>;
   searchString : string;
+  cityId: number;
+  categoryId: number;
   books : Book[] = [
     { imgSrc: "asd", title: "Lalka", author: "Bolesław Prus", price: 10, exchange: 1,
       desc: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
@@ -154,11 +157,32 @@ export class SearchListingComponent implements OnInit {
     this.itemFirst = 0;
     this.route.queryParams.subscribe(
                       params => {
-                                 //console.log(params);
-                                 this.searchString = params.searchString;
+                                 console.log(params);
+                                 this.searchString = params.tit;
+                                 this.cityId = params.city;
+                                 this.categoryId = params.cat;
                                  //console.log(this.orderby);
                       }
     );
+
+
+
+    this.route.params.subscribe(params => {
+        this.searchString = params['title'];
+        this.cityId= params['city'];
+        this.categoryId = params['cat'];
+                                 console.log(params);
+    });
+
+    this.route.paramMap.pipe(switchMap(params => {
+        console.log(params);
+        this.searchString = String(params.get('tit'));
+        this.cityId = Number(params.get('city'));
+        this.categoryId = Number(params.get('cat'));
+
+        //this.selectedId = Number(params.get('id'));
+        //return this.service.getHeroes();
+    }));
   }
 
 

@@ -103,8 +103,11 @@ color: pink !important;
             
             <div clickOutside (clickOutside)="closeDropDown()" style="width: 100%;" class="">
               <div *ngIf='showDropDown' class='search-drop-down drop-down-title col-12 nopadding'>
+                <!--
                 <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of states | searchFilter: getSearchValue()">
-                  <a [innerHTML]="s | letterBold: getSearchValue()">
+                -->
+                <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of states">
+                  <a [innerHTML]="s.title | letterBold: getSearchValue()">
                     {{s}}
                   </a>
                 </div>
@@ -131,8 +134,8 @@ color: pink !important;
           -->
           <div class="col-12 col-md-4 nopadding autopadding margintop" style="margin:auto; height: 50px;">
             <select  (mousedown)="closeDropDown2(); closeDropDown()" name="select" class="form-control form-control-primary" style="height: 100%; -webkit-box-shadow: none; " formControlName="category">
-              <option  *ngFor="let item of categories; let i = index " value="{{i}}" class='search-results' >
-                  {{ item }}
+              <option  *ngFor="let item of categories; let i = index " value="{{item.id}}" class='search-results' >
+                  {{ item.name }}
               </option>
             </select>
           </div>
