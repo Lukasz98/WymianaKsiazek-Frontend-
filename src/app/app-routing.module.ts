@@ -22,7 +22,7 @@ const routes: Routes = [
         loadChildren: () => import('./theme/add-book/add-book.module').then(m => m.AddBookModule)
       },
       {
-        path: 'offer-view',
+        path: 'offer-view/:id',
         loadChildren: () => import('./theme/offer-view/offer-view.module').then(m => m.OfferViewModule)
       },
       {

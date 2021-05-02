@@ -232,22 +232,6 @@ characters: Array<IOption>;
                             + this.stateForm.value.category
 
       ]);
-      return;
-      this.router.navigate(['/search-listing/', 
-                             { 
-                               title: this.stateForm.value.search,
-                               //city: this.stateForm.value.search2,
-                               //cat: this.stateForm.value.category
-                             }
-      ]);
-      return;
-      this.router.navigate(['/search-listing' + 
-                             '?searchListing=' + this.stateForm.value.search 
-                             //+
-                             //'&city=' + this.stateForm.value.search2 +
-                             //'&cat=' + this.stateForm.value.category
-
-      ]); 
     //}
     //else if (this.autocompleteItems.length) {
     //    console.log("autocompleteItems");

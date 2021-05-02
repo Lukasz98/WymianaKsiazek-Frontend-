@@ -4,7 +4,10 @@ import { Observable } from "rxjs/Observable";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
+import { HttpClient } from "@angular/common/http";
 
+
+/*
 interface Book {
 imgSrc: string,
 title: string,
@@ -14,6 +17,33 @@ exchange: number,
 desc: string,
 city: string,
 };
+*/
+
+class Addresss {
+id: number;
+name: string;
+wojewodztwo: string;
+powiat: string;
+gmina: string;
+offers: number[];
+}
+
+interface Category {
+id: number,
+name: string,
+books: any[]
+}
+
+interface Offer { // to jest tak na prawde Book, ale na bekendzie nie ma oferty
+id: number,
+title: string,
+author: string,
+categoryId: number,
+isbn: string,
+offers: any[],
+category: any
+}
+
 
 @Component({
   selector: 'app-search-listing',
@@ -30,6 +60,8 @@ export class SearchListingComponent implements OnInit {
   searchString : string;
   cityId: number;
   categoryId: number;
+  
+  /*
   books : Book[] = [
     { imgSrc: "asd", title: "Lalka", author: "Bolesław Prus", price: 10, exchange: 1,
       desc: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
@@ -76,8 +108,9 @@ export class SearchListingComponent implements OnInit {
       city: "Nadkowice Górne"
     }
   ];
-
-  booksPage : Book[] = [];
+*/
+  books : Offer[] = [];
+  booksPage : Offer[] = [];
 
 
 // formularz
@@ -105,18 +138,17 @@ export class SearchListingComponent implements OnInit {
   opened2 : number;
 //~formularz
 
+  url = 'https://localhost:5001/'; 
 
-  constructor(private route: ActivatedRoute, private fb:FormBuilder) {
+  constructor(private route: ActivatedRoute, private fb:FormBuilder, private http : HttpClient) {
     //books$.push(
     this.itemLast = this.itemsOnPage;
     this.itemFirst = 0;
     
-    this.pageCount = Math.ceil(this.books.length / this.itemsOnPage);
 
     //if (this.books.length % this.itemsOnPage)
     //    this.pageCount += 1;
 
-    this.changePage(0);
     //this.booksPage.push(this.books[0]);
     //this.booksPage.push(this.books[1]);
     //this.booksPage.push(this.books[2]);
@@ -155,34 +187,27 @@ export class SearchListingComponent implements OnInit {
   ngOnInit() {
     this.itemLast = this.itemsOnPage;
     this.itemFirst = 0;
-    this.route.queryParams.subscribe(
-                      params => {
-                                 console.log(params);
-                                 this.searchString = params.tit;
-                                 this.cityId = params.city;
-                                 this.categoryId = params.cat;
-                                 //console.log(this.orderby);
-                      }
-    );
-
-
+    
+    
 
     this.route.params.subscribe(params => {
         this.searchString = params['title'];
         this.cityId= params['city'];
         this.categoryId = params['cat'];
-                                 console.log(params);
+        console.log(params);
+
+        this.http.get<Offer[]>(this.url + 'api/Offer/offers/' + this.searchString).subscribe(
+          (response) => {
+            console.log("response categories recv");
+            console.log(response)
+            this.books = response
+            this.pageCount = Math.ceil(this.books.length / this.itemsOnPage);
+            this.changePage(0);
+          }
+        );
+
     });
 
-    this.route.paramMap.pipe(switchMap(params => {
-        console.log(params);
-        this.searchString = String(params.get('tit'));
-        this.cityId = Number(params.get('city'));
-        this.categoryId = Number(params.get('cat'));
-
-        //this.selectedId = Number(params.get('id'));
-        //return this.service.getHeroes();
-    }));
   }
 
 

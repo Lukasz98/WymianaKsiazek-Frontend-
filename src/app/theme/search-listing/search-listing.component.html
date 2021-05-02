@@ -147,7 +147,7 @@ margin-left: 5px;
         <p class="text-c d-block">{{ item.price }}zł</p>
         <i *ngIf="item.exchange; else noexchange" class="fa fa-check"> Wymiana</i>
         <ng-template #noexchange><i class="fa fa-close"> Wymiana</i></ng-template>
-        <button class="btn btn-primary d-block ripple light">Więcej</button>
+        <button class="btn btn-primary d-block ripple light" [routerLink]="['/offer-view', item.id]">Więcej</button>
       </div>
     </div>
   </div>
