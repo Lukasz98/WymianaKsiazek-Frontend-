@@ -1,6 +1,8 @@
 import {Component, Directive, ElementRef, HostListener, OnInit} from '@angular/core';
 import {animate, AUTO_STYLE, state, style, transition, trigger} from '@angular/animations';
 import {MenuItems} from '../../shared/menu-items/menu-items';
+import { UserService } from '@app/_services/user.service';
+import { AccountService } from '@app/_services/account.service';
 
 @Component({
   selector: 'app-admin',
@@ -159,7 +161,17 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  constructor(public menuItems: MenuItems) {
+  user : any;
+
+  constructor(public menuItems: MenuItems, 
+                private accountService: AccountService,
+                private userService: UserService) {
+    
+    this.userService.getUser(this.accountService.accountValue.id);
+    this.user = this.userService.userValue;
+  console.log(this.user);  
+
+    //console.log('admin');
     this.animateSidebar = '';
     this.navType = 'st2';
     this.themeLayout = 'horizontal';
@@ -235,6 +247,14 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.setBackgroundPattern('theme1');
     /*document.querySelector('body').classList.remove('dark');*/
+  }
+
+  logout() {
+  console.log('logout');
+    this.accountService.logout(this.accountService.accountValue.accessToken);
+    this.userService.getUser(this.accountService.accountValue.id);
+    this.user = this.userService.userValue;
+    console.log(this.user);
   }
 
   onResize(event) {

@@ -78,10 +78,7 @@ category: any
 })
 export class AddBookComponent implements OnInit {
 
-  //public dds$ : Observable<DD[]>;
   form: FormGroup;
-  //stateForm2: FormGroup;
-  //restForm : FormGroup;
 
   showDropDown = false;
   showDropDown2 = false;
@@ -90,7 +87,6 @@ export class AddBookComponent implements OnInit {
   authors : any[] ;
   categories : Category[] = [];
 
-  //myForm: FormGroup;
   imgForm1 : FormGroup;
   imgForm2 : FormGroup;
   imgForm3 : FormGroup;
@@ -113,10 +109,9 @@ export class AddBookComponent implements OnInit {
   offerThumbnail = 1;
   url = 'https://localhost:5001/';
   
-private dataSub: Subscription = null;
-simpleOption: Array<IOption>;// = this.selectCityService.getCharacters();
-
-characters: Array<IOption>;
+  private dataSub: Subscription = null;
+  simpleOption: Array<IOption>;// = this.selectCityService.getCharacters();
+  characters: Array<IOption>;
 
 
 
@@ -131,13 +126,13 @@ characters: Array<IOption>;
     this.img1Loaded = true;
     this.img2Loaded = true;
     this.img3Loaded = true;
-    this.accountService.logout(this.accountService.accountValue.accessToken);
-    console.log(this.accountService);
-    if (this.accountService.accountValue) {
-      console.log(this.accountService.accountValue.accessToken);
-      this.accountService.logout(this.accountService.accountValue.accessToken);
-      console.log(this.accountService.account);//.value.token);
-    }
+    //this.accountService.logout(this.accountService.accountValue.accessToken);
+    //console.log(this.accountService);
+    //if (this.accountService.accountValue) {
+    //  console.log(this.accountService.accountValue.accessToken);
+    //  this.accountService.logout(this.accountService.accountValue.accessToken);
+    //  console.log(this.accountService.account);//.value.token);
+    //}
   }
  
   ngOnInit() {
@@ -239,40 +234,21 @@ characters: Array<IOption>;
     if (this.titleBlank || this.authorBlank)
       return;
     console.log(this.form.value);
-    //this.http.get('http://ip.jsontest.com/?callback=showMyIP').map(res =>res.json());
     console.log('sumbit');
-let tmp : SendOffer = {};
-tmp.content = this.form.value.content;
-tmp.addressId= this.form.value.addressId;
-tmp.type = this.form.value.type;
-tmp.price = this.form.value.price;
-tmp.title = this.form.value.title;
-tmp.author = this.form.value.author;
-tmp.categoryId = this.form.value.categoryId;
+    let tmp : SendOffer;// = { content: '', addressId: 0, type: false, price: 0 };
+    tmp.content = this.form.value.content;
+    tmp.addressId= this.form.value.addressId;
+    tmp.type = this.form.value.type;
+    tmp.price = this.form.value.price;
+    tmp.title = this.form.value.title;
+    tmp.author = this.form.value.author;
+    tmp.categoryId = this.form.value.categoryId;
 
     console.log(tmp);
-          this.http.post<SendOffer>(this.url + 'api/Offer/addoffers', tmp)//this.form.value)
+    this.http.post<SendOffer>(this.url + 'api/Offer/addoffers', tmp)//this.form.value)
                          .subscribe((res) => {
-                                     
                                      console.log(res);
-                                     //this.form.patchValue({
-                                     //  fileName1: res.fileName
-                                     //});
-                         });
-
-    //if (this.myForm.value.bookName) {
-    //if( this.myForm.value.bookName[0].value)
-      //console.log('ruteruje');
-      //var inputVal = this.myForm.value.bookName[0].value;
-      //if (!inputVal) {
-      //  console.log(inputVal);
-      //}
-      //this.router.navigate(['/other/simple-page']); 
-    //}
-    //else if (this.autocompleteItems.length) {
-    //    console.log("autocompleteItems");
-
-    //}
+    });
   }
 
   selectValue(value) {
@@ -452,20 +428,3 @@ tmp.categoryId = this.form.value.categoryId;
   }
 }
 
-
-
-/*
-  //members: TestModel[];
-  //public data:any = [];
-  //selectedOption : '0';
-  //simpleOption : '0';
-  //autocompleteItems = [];
-     //this.data = this.testserv.GetAllMembers().subscribe((members) => {  
-    //   console.log(members)
-    //this.members = members  
-    //});
-    //this.data = this.testserv.GetAllMembers().subscribe((members) => {  
- 
-
-
-*/

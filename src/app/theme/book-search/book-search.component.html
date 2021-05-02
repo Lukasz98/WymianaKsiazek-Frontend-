@@ -75,23 +75,7 @@ color: pink !important;
       </div>
     </div>
     <div class=" col-12 nopadding" style="margin: auto;  ">
-       <!--
-<ng-select [active]="cars" 
-           bindLabel="name" 
-                      bindValue="id" 
-                                 [(ngModel)]="selectedCar">
-                                 </ng-select>
-                                 <br><br>
-
--->
       <form  [formGroup]='stateForm' autocomplete="new-password" novalidate>
-<!--
-<ng-select [items]="testt" 
-            bindLabel="name" 
-            bindValue="value"
-           formControlName="search2">
-</ng-select>
--->        
 
         <div class="row col-12 nopadding" style="margin: auto;">
           
@@ -103,9 +87,6 @@ color: pink !important;
             
             <div clickOutside (clickOutside)="closeDropDown()" style="width: 100%;" class="">
               <div *ngIf='showDropDown' class='search-drop-down drop-down-title col-12 nopadding'>
-                <!--
-                <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of states | searchFilter: getSearchValue()">
-                -->
                 <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of states">
                   <a [innerHTML]="s.title | letterBold: getSearchValue()">
                     {{s}}
@@ -114,24 +95,6 @@ color: pink !important;
               </div>
             </div>
           </div>
-          <!--
-          <div style="margin: auto; " class=" col-12 col-md-4 autopadding nopadding margintop">
-            <input id='search2' autocomplete="off"  placeholder="miasto" formControlName='search2' 
-              (keyup.enter)="onEnterSearch2($event)"  (click)=' openDropDown2() ' 
-              (keyup)="onStrokeSearch2($event)" class=' input-underline search-bar col-12' type='text' 
-              style="width: 100%;">
-  
-            <div clickOutside (clickOutside)="closeDropDown2()" style="width: 100%;">
-              <div *ngIf='showDropDown2' class='search-drop-down drop-down-city col-12 nopadding'>
-                <div (click)='selectValue2(s)' class='search-results ' *ngFor="let s of cities | searchFilter: getSearchValue2()">
-                  <a [innerHTML]="s | letterBold: getSearchValue2()">
-                    {{s.name}}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          -->
           <div class="col-12 col-md-4 nopadding autopadding margintop" style="margin:auto; height: 50px;">
             <select  (mousedown)="closeDropDown2(); closeDropDown()" name="select" class="form-control form-control-primary" style="height: 100%; -webkit-box-shadow: none; " formControlName="category">
               <option  *ngFor="let item of categories; let i = index " value="{{item.id}}" class='search-results' >
@@ -139,23 +102,7 @@ color: pink !important;
               </option>
             </select>
           </div>
-          <!--
-            <div class="col-sm-12 col-xl-4">
-          -->
             <div class="col-12 col-md-7 autopadding nopadding margintop" style="margin: auto; height: 50px;">
-              <!--
-              <ng-select placeholder="Wybierz miasto" [ngClass]="'ng-select'" [allowClear]="true" [options]="simpleOption" [(ngModel)]="selectedOption">
-              <ng-select (keyup)="onStrokeSearch3($event)" placeholder="Wybierz miasto" [ngClass]="'ng-select'" [allowClear]="true" [options]="simpleOption" [searchFn]="cityCustomFilter" formControlName="search2">
-              </ng-select>
-              <ng-select  class=" custom search-bar input-underline" (keyup)="onStrokeSearch3($event)" placeholder="Wybierz miasto" 
-               [ngClass]="ng-select" [allowClear]="true" [options]="simpleOption" [items]="simpleOption" [searchFn]="cityCustomFilter" formControlName="search2">
-              </ng-select>
-              -->
-              <!--
-              <ng-select  class=" custom search-bar input-underline" (keyup)="onStrokeSearch3($event)" placeholder="Wybierz miasto" 
-               [allowClear]="true" [options]="simpleOption"  [searchFn]="cityCustomFilter" formControlName="search2">
-              </ng-select>
-              --> 
               <ng-select (keyup)="onStrokeSearch3($event)" placeholder="Wybierz miasto" [ngClass]="'ng-select'" [allowClear]="true" [options]="simpleOption" formControlName="search2">
               </ng-select>
             </div>
