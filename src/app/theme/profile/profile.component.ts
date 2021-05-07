@@ -119,9 +119,9 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  oferViewClicked(offer:Offer)
+  offerViewClicked(offer:Offer)
   {
-      this.router.navigate([`/offer/${offer.id}`]);
+    this.router.navigate([`/offer`], {queryParams: {id : offer.id}});
   }
 
   choseContact(contact: Contact)

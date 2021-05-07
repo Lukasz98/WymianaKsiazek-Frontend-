@@ -33,7 +33,7 @@
                                   <p class="text-c d-block">{{ item.price }}zł</p>
                                   <i *ngIf="item.type; else noexchange" class="fa fa-check"> Wymiana</i>
                                   <ng-template #noexchange><i class="fa fa-close"> Wymiana</i></ng-template>
-                                  <button class="btn btn-primary d-block ripple light" (cick)="offferViewClicked($item)">Więcej</button>
+                                  <button class="btn btn-primary d-block ripple light" (click)="offerViewClicked(item)">Więcej</button>
                                 </div>
                               </div>
                           </div>
