@@ -6,6 +6,8 @@ import { FormBuilder } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 import { HttpClient } from "@angular/common/http";
 
+import {IOption} from 'ng-select';
+import {SelectCityService} from '../../_services/city_search/select-city.service';
 
 /*
 interface Book {
@@ -112,6 +114,8 @@ export class SearchListingComponent implements OnInit {
   books : Offer[] = [];
   booksPage : Offer[] = [];
 
+  simpleOption: Array<IOption>;// = this.selectCityService.getCharacters();  
+  characters: Array<IOption>;
 
 // formularz
   stateForm: FormGroup;
@@ -140,7 +144,7 @@ export class SearchListingComponent implements OnInit {
 
   url = 'https://localhost:5001/'; 
 
-  constructor(private route: ActivatedRoute, private fb:FormBuilder, private http : HttpClient) {
+  constructor(private route: ActivatedRoute, private fb:FormBuilder, private http : HttpClient,  public selectCityService: SelectCityService) {
     //books$.push(
     this.itemLast = this.itemsOnPage;
     this.itemFirst = 0;
@@ -285,6 +289,22 @@ export class SearchListingComponent implements OnInit {
 
   onEnterSearch2(event:  KeyboardEvent) {
     this.onSubmit();
+  }
+  
+  onStrokeSearch3(event: any) {
+    if (this.selectCityService.queryDone && event.target.value.length >= 3)
+      return;
+    this.selectCityService.queryDone = false;
+    if (event.target.value.length >= 3) {
+        this.selectCityService.doQuery(event.target.value).subscribe( (response) => { 
+          console.log(response);
+          SelectCityService.PLAYER_ONE = response;// as Address[];
+          this.simpleOption = this.selectCityService.getCharacters();
+          console.log(this.simpleOption);
+        });
+        this.selectCityService.queryDone = true;
+    }
+    this.simpleOption = this.selectCityService.getCharacters();
   }
   
   mouseClickSearch() {

@@ -118,3 +118,35 @@ color: pink !important;
 </div>
 
 
+<div class="page-body" style="margin-top: 100px;">
+  <div class="col-12" style="max-width: 1000px; margin: auto;">
+    <h3  class="txt-highlight text-left m-t-20">
+    Ostatnio dodane:
+    </h3>
+    <p class="txt-highlight text-left m-t-20">
+    Ostatnio dodane:
+    </p>
+  </div>
+
+
+ <div class="row" style="max-width: 1000px; margin: auto;" >
+  <div *ngFor="let item of booksPage " class="col-xl-3 col-md-6" style="">
+    <div class="card user-card">
+      <div class="card-block text-center" style="padding: 0px; padding-top: 5px; ">
+        <div class="" style="">
+          <!--
+          <img height="200px" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F4.bp.blogspot.com%2F-nsJPARPvroM%2FVerAOx3o7KI%2FAAAAAAAAElQ%2Fz9orWEOiBsk%2Fs1600%2Flalka.jpg&f=1&nofb=1" class="" alt="User-Profile-Image">
+          -->
+          <img  src="assets/images/brak_zdjecia.png" class="" alt="User-Profile-Image">
+        </div>
+        <h6 class="m-t-25 m-b-10">{{ item.title }}</h6>
+        <p class="text-muted" >{{ item.author }}</p>
+        <p class="text-c d-block"  >{{ item.city }}</p>
+        <p class="text-c d-block">{{ item.price }}zł</p>
+        <i *ngIf="item.exchange; else noexchange" class="fa fa-check"> Wymiana</i>
+        <ng-template #noexchange><i class="fa fa-close"> Wymiana</i></ng-template>
+        <button class="btn btn-primary d-block ripple light" [routerLink]="['/offer-view', item.id]">Więcej</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -93,7 +93,13 @@ export class BookSearchComponent implements OnInit {
   url = 'https://localhost:5001/address/'; 
   tracking : any;
   timett : any;
-  
+
+  //booksPage : Offer[] = [];
+  booksPage : Offer[] = [
+    {id:1, title:'tytul',author:'autor',categoryId:2,isbn:null,offers:null,category:null}
+  ];
+
+
   constructor(private router:Router, private fb:FormBuilder, private http : HttpClient, public selectCityService: SelectCityService) {
     const bookName = new FormControl('', Validators.required);
     this.initForm();
