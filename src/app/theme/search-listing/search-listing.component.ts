@@ -1,9 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from "rxjs/Observable";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
+import { switchMap } from 'rxjs/operators';
+import { HttpClient } from "@angular/common/http";
 
+import {IOption} from 'ng-select';
+import {SelectCityService} from '../../_services/city_search/select-city.service';
+
+/*
 interface Book {
 imgSrc: string,
 title: string,
@@ -13,6 +19,33 @@ exchange: number,
 desc: string,
 city: string,
 };
+*/
+
+class Addresss {
+id: number;
+name: string;
+wojewodztwo: string;
+powiat: string;
+gmina: string;
+offers: number[];
+}
+
+interface Category {
+id: number,
+name: string,
+books: any[]
+}
+
+interface Offer { // to jest tak na prawde Book, ale na bekendzie nie ma oferty
+id: number,
+title: string,
+author: string,
+categoryId: number,
+isbn: string,
+offers: any[],
+category: any
+}
+
 
 @Component({
   selector: 'app-search-listing',
@@ -27,6 +60,10 @@ export class SearchListingComponent implements OnInit {
   pageCount = 0;
   //public books$ : Observable<Book[]>;
   searchString : string;
+  cityId: number;
+  categoryId: number;
+  
+  /*
   books : Book[] = [
     { imgSrc: "asd", title: "Lalka", author: "Bolesław Prus", price: 10, exchange: 1,
       desc: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
@@ -73,9 +110,12 @@ export class SearchListingComponent implements OnInit {
       city: "Nadkowice Górne"
     }
   ];
+*/
+  books : Offer[] = [];
+  booksPage : Offer[] = [];
 
-  booksPage : Book[] = [];
-
+  simpleOption: Array<IOption>;// = this.selectCityService.getCharacters();  
+  characters: Array<IOption>;
 
 // formularz
   stateForm: FormGroup;
@@ -102,18 +142,17 @@ export class SearchListingComponent implements OnInit {
   opened2 : number;
 //~formularz
 
+  url = 'https://localhost:5001/'; 
 
-  constructor(private route: ActivatedRoute, private fb:FormBuilder) {
+  constructor(private route: ActivatedRoute, private fb:FormBuilder, private http : HttpClient,  public selectCityService: SelectCityService) {
     //books$.push(
     this.itemLast = this.itemsOnPage;
     this.itemFirst = 0;
     
-    this.pageCount = Math.ceil(this.books.length / this.itemsOnPage);
 
     //if (this.books.length % this.itemsOnPage)
     //    this.pageCount += 1;
 
-    this.changePage(0);
     //this.booksPage.push(this.books[0]);
     //this.booksPage.push(this.books[1]);
     //this.booksPage.push(this.books[2]);
@@ -152,13 +191,27 @@ export class SearchListingComponent implements OnInit {
   ngOnInit() {
     this.itemLast = this.itemsOnPage;
     this.itemFirst = 0;
-    this.route.queryParams.subscribe(
-                      params => {
-                                 //console.log(params);
-                                 this.searchString = params.searchString;
-                                 //console.log(this.orderby);
-                      }
-    );
+    
+    
+
+    this.route.params.subscribe(params => {
+        this.searchString = params['title'];
+        this.cityId= params['city'];
+        this.categoryId = params['cat'];
+        console.log(params);
+
+        this.http.get<Offer[]>(this.url + 'api/Offer/offers/' + this.searchString).subscribe(
+          (response) => {
+            console.log("response categories recv");
+            console.log(response)
+            this.books = response
+            this.pageCount = Math.ceil(this.books.length / this.itemsOnPage);
+            this.changePage(0);
+          }
+        );
+
+    });
+
   }
 
 
@@ -236,6 +289,22 @@ export class SearchListingComponent implements OnInit {
 
   onEnterSearch2(event:  KeyboardEvent) {
     this.onSubmit();
+  }
+  
+  onStrokeSearch3(event: any) {
+    if (this.selectCityService.queryDone && event.target.value.length >= 3)
+      return;
+    this.selectCityService.queryDone = false;
+    if (event.target.value.length >= 3) {
+        this.selectCityService.doQuery(event.target.value).subscribe( (response) => { 
+          console.log(response);
+          SelectCityService.PLAYER_ONE = response;// as Address[];
+          this.simpleOption = this.selectCityService.getCharacters();
+          console.log(this.simpleOption);
+        });
+        this.selectCityService.queryDone = true;
+    }
+    this.simpleOption = this.selectCityService.getCharacters();
   }
   
   mouseClickSearch() {

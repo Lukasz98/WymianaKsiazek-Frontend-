@@ -13,6 +13,7 @@ import {SelectModule} from 'ng-select';
 import {SelectOptionService} from '../../shared/elements/select-option.service';
 import {TagInputModule} from 'ngx-chips';
 import {SearchFilterPipe } from './filter-pipe';
+import {SelectCityService} from '../../_services/city_search/select-city.service';
 
 import { ApiService } from './api.service';
 
@@ -31,7 +32,7 @@ import { ClickOutsideDirective } from './dropdown.directive';
     SelectModule,
     TagInputModule
   ],
-  providers: [ApiService],
+  providers: [ApiService,  SelectCityService],
   declarations: [
     SearchListingComponent,
     SearchFilterPipe,

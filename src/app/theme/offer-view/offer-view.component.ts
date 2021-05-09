@@ -20,7 +20,8 @@ name: string
 
 interface Category {
 id: number,
-name: string
+name: string,
+books: any[]
 }
 
 interface Book {
@@ -60,7 +61,7 @@ mainImageSrc = this.imageSrc1;
   constructor(private route: ActivatedRoute, private http : HttpClient ) {
     //this.offerData.content = "opis";
     //this.offerData.type = false;
-
+/*
 this.offerData = { "id": 1, "content": "Opis ogloszonka pobrany z serwerka",
 "createdOn": "2021-03-17T12:21:12.3162045",
 "updatedOn": "2021-03-17T12:21:12.3164304",
@@ -82,7 +83,7 @@ this.offerData = { "id": 1, "content": "Opis ogloszonka pobrany z serwerka",
 },
 "user": null
 };
-
+*/
 
     //const url = 'http://localhost:40403/api.php?title=asd';
     //const url = 'http://localhost:5000/Offer/1';

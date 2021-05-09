@@ -14,7 +14,6 @@
      [attr.layout-type]="layoutType"
      (window:resize)="onResize($event)"
   >
-  <!--<div class="pcoded-overlay-box"></div>-->
   <div class="pcoded-container navbar-wrapper">
     <nav class="navbar header-navbar pcoded-header"  [attr.header-theme]="headerTheme" [attr.pcoded-header-position]="pcodedHeaderPosition">
       <div class="navbar-wrapper">
@@ -28,12 +27,18 @@
           <a href="javascript:" class="mobile-options ripple light" (click)="toggleHeaderNavRight()">
             <i class="icon-more"></i>
           </a>
+          <!--
+          <button (click)="logout()">
+            Wyloguj
+          </button>
+          -->
         </div>
         <div class="navbar-container">
           <ul class="nav-left">
             <li class="ripple light">
               <div class="sidebar_toggle"><a href="javascript:"><i class="icon-menu"></i></a></div>
             </li>
+            <!--
             <li class="header-search">
               <div id="main-search" class="main-search morphsearch-search">
                 <div class="input-group">
@@ -43,6 +48,7 @@
                 </div>
               </div>
             </li>
+            -->
             <!--<li class="ripple light" appToggleFullScreen>
               <a href="javascript:">
                 <i class="icon-fullscreen"></i>
@@ -50,6 +56,15 @@
             </li>-->
           </ul>
           <ul [@mobileHeaderNavRight]="navRight" [ngClass]="navRight" class="nav-right">
+            <li class="ripple light"  style="cursor: pointer;">
+              <a [routerLink]="['/add-book']">Dodaj Ogłoszenie</a>
+            <li class="ripple light"  style="cursor: pointer;">
+              <a [routerLink]="['/auth/login']">Logowanie</a>
+            </li>
+            <li class="ripple light"  style="cursor: pointer;">
+              <a [routerLink]="['/auth/registration']">Rejestracja</a>
+            </li>
+            <!--
             <li (clickOutside)="notificationOutsideClick('live')" class="header-notification ripple light" [ngClass]="liveNotificationClass" (click)="toggleLiveNotification()">
               <a href="javascript:">
                 <i class="feather icon-bell"></i>
@@ -92,12 +107,15 @@
                 </li>
               </ul>
             </li>
+            -->
+            <!--
             <li class="ripple light">
               <a href="javascript:" (click)="toggleChat()">
                 <i class="icon-comments"></i>
                 <span class="badge bg-c-green"></span>
               </a>
             </li>
+            -->
             <li (clickOutside)="notificationOutsideClick('profile')" class="user-profile header-notification ripple light" [ngClass]="profileNotificationClass" (click)="toggleProfileNotification()">
               <a href="javascript:">
                 <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
@@ -105,29 +123,33 @@
                 <i class="icon-angle-down"></i>
               </a>
               <ul [@notificationBottom]="profileNotification" class="show-notification profile-notification" [ngClass]="profileNotificationClass">
+                <!--
                 <li class="ripple">
                   <a href="javascript:">
                     <i class="icon-settings"></i> Settings
                   </a>
                 </li>
-                <li class="ripple">
-                  <a [routerLink]="['/user/profile/']">
-                    <i class="icon-user"></i> Profile
-                  </a>
-                </li>
+                -->
                 <li class="ripple">
                   <a href="javascript:">
                     <i class="feather icon-email"></i> My Messages
                   </a>
                 </li>
+                <!--
                 <li class="ripple">
                   <a [routerLink]="['/page/auth/lock-screen/']" target="_blank">
                     <i class="icon-lock"></i> Lock Screen
                   </a>
                 </li>
+                -->
                 <li class="ripple">
-                  <a [routerLink]="['/page/auth/login/simple/']" target="_blank">
-                    <i class="icon-layout-sidebar-left"></i> Logout
+                  <a [routerLink]="['/profile/']">
+                    <i class="icon-user"></i> Profil
+                  </a>
+                </li>
+                <li class="ripple">
+                  <a [routerLink]="" (click)="logout()" target="">
+                    <i class="icon-layout-sidebar-left"></i> Wyloguj
                   </a>
                 </li>
               </ul>
@@ -136,7 +158,7 @@
         </div>
       </div>
     </nav>
-
+<!--
     <!-- Sidebar chat start -->
     <div [@slideInOut]="chatSlideInOut" id="sidebar" class="users p-chat-user showChat" [ngClass]="chatSlideInOut">
       <div class="had-container">
@@ -207,7 +229,9 @@
         </div>
       </div>
     </div>
+    -->
     <!-- Sidebar inner chat start-->
+    <!--
     <div [@slideInOut]="innerChatSlideInOut" class="showChat_inner">
       <div class="media chat-inner-header">
         <a class="back_chatBox">
@@ -255,10 +279,11 @@
         </div>
       </div>
     </div>
+    -->
     <!-- Sidebar inner chat end-->
-
-    <div class="pcoded-main-container" [style.margin-top]="headerFixedMargin"> <!--  -->
+    <div class="pcoded-main-container"> <!-- [style.margin-top]="headerFixedMargin">--> 
       <div class="pcoded-wrapper">
+          <!--
         <nav
           id="main_navbar"
           class="pcoded-navbar"
@@ -275,29 +300,8 @@
           (mouseleave)="hoverOutsideSidebar()"
         >
           <div class="pcoded-inner-navbar main-menu" appAccordion>
-            <!--<div class="">
-              <div class="main-menu-header">
-                <img class="img-menu-user img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
-                <div class="user-details">
-                  <p id="more-details" (click)="toggleOpenedSidebar()"> John Doe
-                    <i class="feather icon-chevron-down m-l-10"></i>
-                  </p>
-                </div>
-              </div>
-              <div class="main-menu-content">
-                <ul>
-                  <li [@mobileMenuTop]="isCollapsedSideBar" class="more-details" [ngClass]="isCollapsedSideBar">
-                    <a [routerLink]="['/user/profile']" class="ripple"><i class="feather icon-user"></i>View Profile</a>
-                    <a href="javascript:" class="ripple"><i class="feather icon-settings"></i>Settings</a>
-                    <a [routerLink]="['/page/auth/login/simple']" class="ripple" target="_blank"><i class="feather icon-log-out"></i>Logout</a>
-                  </li>
-                </ul>
-              </div>
-            </div>-->
 
-            <!--<perfect-scrollbar [style.max-width]="'235px'" [style.max-height]="sidebarFixedHeight" [config]="config" [ngClass]="perfectDisable">-->
               <div *ngFor="let asideItems of menuItems.getAll()" class="d-color">
-                <!--<div class="pcoded-navigation-label" [attr.menu-title-theme]="menuTitleTheme">{{asideItems.label}}</div>-->
                 <ul class="menu-main-item pcoded-item pcoded-left-item" [attr.item-border]="itemBorder" [attr.item-border-style]="itemBorderStyle" [attr.subitem-border]="subItemBorder" *ngFor="let asideItem of asideItems.main" appAccordionLink group="{{asideItem.state}}">
                   <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'external'" appAccordionLink group="{{asideItem.state}}">
                     <a [routerLinkActive]="['active']" class="ripple" href="{{asideItem.external}}" target="{{asideItem.target ? '_blank' : '_self'}}" appAccordionToggle1>
@@ -402,26 +406,12 @@
                   </li>
                 </ul>
               </div>
-              <!--<div class="d-color">
-                <ul class="menu-main-item pcoded-item pcoded-left-item">
-                  <li class="pcoded-hasmenu">
-                    <a href="javascript:;">
-                      <div class="ripple menu-ripple"></div>
-                      <span class="pcoded-micon"><i class="icon-hand-drag"></i></span>
-                      <span  class="pcoded-mtext"><strong>v1.4</strong></span>
-                      &lt;!&ndash;bindings={}&ndash;&gt;
-                      <span class="pcoded-mcaret"></span>
-                    </a>
-                  </li>
-                </ul>
-              </div>-->
-            <!--</perfect-scrollbar>-->
           </div>
         </nav>
+          -->
         <div class="pcoded-content">
           <app-breadcrumbs></app-breadcrumbs>
           <div class="pcoded-inner-content">
-            <!-- Main-body start -->
             <div class="main-body">
               <div class="page-wrapper m-t-40">
                 <router-outlet>
@@ -431,9 +421,6 @@
               </div>
             </div>
             <div id="styleSelector" [ngClass]="configOpenRightBar">
-              <!--<div class="selector-toggle">
-                <a href="javascript:" placement="left" class="ripple light" ngbTooltip="Live layout customizer" (click)="toggleRightbar()"></a>
-              </div>-->
               <ul>
                 <li>
                   <p class="selector-title main-title st-main-title"><b>Mega </b>Able Customizer</p><span class="text-muted">Live customizer with tons of options</span></li>
