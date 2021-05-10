@@ -113,6 +113,7 @@ export class SearchListingComponent implements OnInit {
 */
   books : Offer[] = [];
   booksPage : Offer[] = [];
+  //booksPage : Book[] = [];
 
   simpleOption: Array<IOption>;// = this.selectCityService.getCharacters();  
   characters: Array<IOption>;
