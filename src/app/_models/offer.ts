@@ -10,5 +10,5 @@ export interface Offer {
     price: number,
     address: Address,
     book: Book,
-    user: number
+    user: string
     }

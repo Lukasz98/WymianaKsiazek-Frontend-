@@ -13,6 +13,7 @@ import {Category} from "@app/_models/category";
 import {User} from "@app/_models/user";
 import {Contact} from "@app/_models/contact";
 import {Message} from "@app/_models/message";
+import {AddressService} from "@app/_services/address.service";
 
 @Component({
   selector: 'app-profile',
@@ -56,7 +57,8 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService,
-    private userService: UserService
+    private userService: UserService,
+    private addressService: AddressService
   ) {
     
   }
@@ -69,32 +71,40 @@ export class ProfileComponent implements OnInit {
     {userId: "4", userName: "takżenieTomek", messages: [{sender_id: "0", recv_id: "1", text: "hello", date: "21.04.2021", status: true}]},
     {userId: "5", userName: "takTomek", messages: [{sender_id: "0", recv_id: "1", text: "hello", date: "21.04.2021", status: true}]}];
     this.activeContact = this.contacts[this.contacts.length - 1];
+
+
+    if(!this.accountService.accountValue)
+    {
+      this.router.navigate(['/auth/login']);
+    }
     this.userService.getUser(this.accountService.accountValue.id);
     this.user = this.userService.userValue;
+
+
     this.user.offers = [
       { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: true,
         content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
-        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: 0
+        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: '0'
       },
       { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: false,
         content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
-        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: 0
+        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: '0'
       },
       { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: true,
         content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
-        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: 0
+        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: '0'
       },
       { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: false,
         content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
-        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: 0
+        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: '0'
       },
       { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: true,
         content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
-        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: 0
+        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: '0'
       },
       { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: true,
         content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
-        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: 0
+        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: '0'
       }
     ];
 
@@ -107,6 +117,11 @@ export class ProfileComponent implements OnInit {
       userName: [this.user.userName],
       address: [this.user.address.name]
     });
+  }
+
+  offerViewClicked(offer:Offer)
+  {
+    this.router.navigate([`/offer`], {queryParams: {id : offer.id}});
   }
 
   choseContact(contact: Contact)
@@ -151,7 +166,7 @@ export class ProfileComponent implements OnInit {
 
   timett : any;
   onStrokeSearch(event: any) {
-    
+    console.log(event);
     this.stopTrackingLoop();
     this.startTrackingLoop();
   }

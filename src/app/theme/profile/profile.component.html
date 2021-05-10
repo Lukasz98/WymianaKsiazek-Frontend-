@@ -21,7 +21,6 @@
                                 <span ngbDropdownToggle class="dropdown-toggle addon-btn text-muted pull-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
                                 </span>
                                 <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right b-none services-list">
-                                  <a class="dropdown-item" href="javascript:"><i class="icofont icofont-edit"></i> Edytuj</a>
                                   <a class="dropdown-item" href="javascript:"><i class="icofont icofont-ui-delete"></i> Usuń</a>
                                 </div>
                                 <div class="card-block text-center" style="">
@@ -34,7 +33,7 @@
                                   <p class="text-c d-block">{{ item.price }}zł</p>
                                   <i *ngIf="item.type; else noexchange" class="fa fa-check"> Wymiana</i>
                                   <ng-template #noexchange><i class="fa fa-close"> Wymiana</i></ng-template>
-                                  <button class="btn btn-primary d-block ripple light">Więcej</button>
+                                  <button class="btn btn-primary d-block ripple light" (click)="offerViewClicked(item)">Więcej</button>
                                 </div>
                               </div>
                           </div>

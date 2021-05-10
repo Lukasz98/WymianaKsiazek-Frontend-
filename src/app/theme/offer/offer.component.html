@@ -1,0 +1,64 @@
+<div style="margin:auto; max-width: 1200px;">
+    <div class="row col-14" style="">
+      <div style="margin:auto; ">
+        <div class="" id="bigThumbnail" >
+          <div class="thumbnail" id="bigThumbnailKid">
+            <div class="thumb ">
+                <img [src]="mainImageSrc" alt="" class="img-fluid ">
+            </div>
+          </div>
+        </div>
+
+        <div id="other-img" style="max-width: 410px; margin: auto;" class="row">
+          <div *ngIf="imageSrc1" (click)="setMainImg(1)" class="small col-4 nopadding">
+            <div class="thumbnail" style="">
+              <div class="thumb ">
+                  <img [src]="imageSrc1" alt="" class="img-fluid img-thumbnail img-small">
+              </div>
+            </div>
+          </div>
+          <div *ngIf="imageSrc2" (click)="setMainImg(2)" class="small col-4 nopadding">
+            <div class="thumbnail" style="">
+              <div class="thumb ">
+                <img [src]="imageSrc2" alt="" class="img-fluid img-thumbnail img-small">
+              </div>
+            </div>
+          </div>
+          <div *ngIf="imageSrc3" (click)="setMainImg(3)" class="small col-4 nopadding">
+            <div class="thumbnail" style="">
+              <div class="thumb ">
+                <img [src]="imageSrc3" alt="" class="img-fluid img-thumbnail img-small">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-7 col-lg-6 col-12 offset-0" id="right" >
+        <div *ngIf="offerData" class="card" style="width=100%;">
+          <div class="card-header">
+            <h2>{{ offerData.book.title }}</h2>
+            <h6>{{ offerData.book.author }}</h6>
+          </div>
+          <div class="card-block" style="min-height: 300px;">
+            <div class="row" style="border-bottom: solid; padding-bottom: 15px; border-width: 1px; border-color: rgb(240,240,240);">
+              <div class="col-6" style=" text-align: left;">{{ offerData.address.name }}</div>
+              <div class="col-6" style=" text-align: right;">Cena: {{ offerData.price }}zł</div>
+            </div>
+            <div class="row" style="padding: 15px; min-height: 200px;  border-bottom: solid; border-width: 1px; border-color: rgb(240,240,240);">
+              {{ offerData.content }}
+            </div>
+            <div class="row " style="padding: 15px; border-bottom: solid; border-width: 1px; border-color: rgb(240,240,240); line-height: 20px;">
+              <ng-template [ngIf]="offerData.type"><i class="fa fa-check" style="line-height: 20px"></i>&nbsp;Wymiana</ng-template>
+              <ng-template [ngIf]="!offerData.type"><i class="fa fa-close" style="line-height: 20px"></i>&nbsp;Wymiana </ng-template>
+            </div>
+            <div class="row" style="padding-top: 15px;">
+              <div class="" style="padding-left: 15px;">
+                <button class="btn btn-danger d-block" style="">Usuń</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<br><br>

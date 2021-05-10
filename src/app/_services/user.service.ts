@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 import {AccountService} from "@app/_services/account.service";
 
-const baseUrl = environment.apiUrl + "/api";
+const baseUrl = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +49,7 @@ export class UserService {
 
   getUser(userId:string)
   {
-    return this.http.get<any>(`${baseUrl}/Offer/Profile/${userId}`)
+    return this.http.get<any>(`${baseUrl}/Profile/${userId}`)
     .subscribe(user => {
       this.userSubject.next(user);
       localStorage.setItem('user', JSON.stringify(user));
