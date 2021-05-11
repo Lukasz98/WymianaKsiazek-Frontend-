@@ -167,7 +167,7 @@ export class AdminComponent implements OnInit {
                 private accountService: AccountService,
                 private userService: UserService) {
     
-    this.userService.getUser(this.accountService.accountValue.id);
+    //this.userService.getUser(this.accountService.accountValue.id);
     this.user = this.userService.userValue;
   console.log(this.user);  
 
