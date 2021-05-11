@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '@app/_services/alert.service';
+import { UserService } from '@app/_services/user.service';
 
 declare var FB:any;
 declare const gapi: any;
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private accountService: AccountService,
     private alertService: AlertService,
+    private userService: UserService
   ) {
 
     this.submitted = false;
@@ -114,6 +116,7 @@ export class LoginComponent implements OnInit {
             .subscribe({
                 next: () => {
                   // navigate to profile page probably
+                  this.userService.getUser(this.accountService.accountValue.id);
                   this.router.navigate(["/profile"]);
                 },
                 error: error => {
