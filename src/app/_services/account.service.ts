@@ -38,7 +38,7 @@ export class AccountService {
    }
 
    refreshToken(token: string) {
-    return this.http.post<any>(`${baseUrl}/users/token/refresh`, {token})
+    return this.http.post<any>(`${baseUrl}users/token/refresh`, {token})
         .pipe(map((account) => {
             this.accountSubject.next(account);
             this.startRefreshTokenTimer();
@@ -51,7 +51,7 @@ export class AccountService {
     }
 
    login(email: string, password:string) {
-     return this.http.post<any>(`${baseUrl}/users/token`, {email, password})
+     return this.http.post<any>(`${baseUrl}users/token`, {email, password})
      .pipe(map(account => {
         this.accountSubject.next(account);
         localStorage.setItem('account', JSON.stringify(account));
@@ -61,7 +61,7 @@ export class AccountService {
    }
 
    logout(token) {
-    return this.http.post<any>(`${baseUrl}/users/signout`, {token}).pipe(
+    return this.http.post<any>(`${baseUrl}users/signout`, {token}).pipe(
       finalize(() => {
         this.stopRefreshTokenTimer();
         this.accountSubject.next(null);
@@ -72,11 +72,11 @@ export class AccountService {
    }
 
    register(account: User) {
-    return this.http.post<any>(`${baseUrl}/users/register`, account);
+    return this.http.post<any>(`${baseUrl}users/register`, account);
    }
 
    facebookLogin(accessToken: string) {
-    return this.http.post<any>(`${baseUrl}/login/facebook`, {accessToken})
+    return this.http.post<any>(`${baseUrl}login/facebook`, {accessToken})
      .pipe(map(account => {
         this.accountSubject.next(account);
         localStorage.setItem('account', JSON.stringify(account));
@@ -86,7 +86,7 @@ export class AccountService {
    }
 
    googleLogin(token: string) {
-     return this.http.post<any>(`${baseUrl}/login/google`, {token})
+     return this.http.post<any>(`${baseUrl}login/google`, {token})
      .pipe(map(account => {
       this.accountSubject.next(account);
       localStorage.setItem('account', JSON.stringify(account));
@@ -96,14 +96,14 @@ export class AccountService {
    }
 
    verifyEmail(token: string) {
-    return this.http.post(`${baseUrl}/verify-email`, { token });
+    return this.http.post(`${baseUrl}verify-email`, { token });
 }
 
    forgotPassword(email: string) {
-    return this.http.post(`${baseUrl}/forgot-password`, { email });
+    return this.http.post(`${baseUrl}forgot-password`, { email });
    }
 
    resetPassword(password: string, token: string) {
-    return this.http.post(`${baseUrl}/reset-password`, {token, password});
+    return this.http.post(`${baseUrl}reset-password`, {token, password});
    }
 }

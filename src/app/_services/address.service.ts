@@ -27,7 +27,7 @@ export class AddressService {
 
   getAddresses(address:string)
   {
-    return this.http.get<any>(`${baseUrl}/Address/${address}`)
+    return this.http.get<any>(`${baseUrl}Address/${address}`)
     .subscribe(addresses => {
       this.addressesSubject.next(addresses);
       return addresses;

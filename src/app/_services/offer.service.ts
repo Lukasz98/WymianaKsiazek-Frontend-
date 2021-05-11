@@ -26,7 +26,7 @@ export class OfferService {
   }
 
   update(params) {
-    return this.http.put(`${baseUrl}/Offer/${this.offerValue.id}`, params)
+    return this.http.put(`${baseUrl}Offer/${this.offerValue.id}`, params)
         .pipe(map((offer: Offer) => {
             // update the current account if it was updated
             if (offer.id === this.offerValue.id) {
@@ -39,12 +39,12 @@ export class OfferService {
   }
 
   delete() {
-    return this.http.delete(`${baseUrl}/Offer/${this.offerValue.id}`);
+    return this.http.delete(`${baseUrl}Offer/${this.offerValue.id}`);
   }
 
   getOffer(offerId:string)
   {
-    return this.http.get<any>(`${baseUrl}/Offer/${offerId}`)
+    return this.http.get<any>(`${baseUrl}Offer/${offerId}`)
     .subscribe(offer => {
       this.offerSubject.next(offer);
       return offer;

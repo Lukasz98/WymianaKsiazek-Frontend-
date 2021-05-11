@@ -26,7 +26,7 @@ export class UserCardService {
 
   getUser(userId:string)
   {
-    return this.http.get<any>(`${baseUrl}/Offer/Profile/${userId}`)
+    return this.http.get<any>(`${baseUrl}Offer/Profile/${userId}`)
     .subscribe(user => {
       this.userSubject.next(user);
       localStorage.setItem('seller', JSON.stringify(user));
