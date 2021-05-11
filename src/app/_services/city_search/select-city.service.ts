@@ -3,6 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {IOption} from 'ng-select';
 
 import { HttpClient } from "@angular/common/http";
+import { environment } from '../../../environments/environment';
 
 class Address implements IOption {
 value: any;
@@ -25,7 +26,9 @@ export class SelectCityService {
     //{value: '4', label: 'John Doe'}
   ];
   public queryDone : boolean;
-  public urll = 'https://localhost:5001/address/'; 
+  //public urll = 'https://localhost:5001/address/'; 
+  public urll = environment.apiUrl + 'offers/address/';
+  
 
   constructor(public http : HttpClient) {
     //this.doQuery();
