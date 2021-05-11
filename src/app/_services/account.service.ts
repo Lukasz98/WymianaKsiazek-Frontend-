@@ -8,7 +8,7 @@ import { Account } from '../_models/account';
 import { Router } from '@angular/router';
 import {User} from "../_models/user";
 
-const baseUrl = environment.apiUrl + "/api/user";
+const baseUrl = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'

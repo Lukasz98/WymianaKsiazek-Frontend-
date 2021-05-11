@@ -5,7 +5,7 @@ import { User } from '@app/_models/user';
 import { environment } from '@environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-const baseUrl = environment.apiUrl + "/api";
+const baseUrl = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
