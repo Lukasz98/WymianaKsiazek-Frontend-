@@ -60,6 +60,8 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private addressService: AddressService
   ) {
+    this.userService.getUser(this.accountService.accountValue.id);
+    this.user = this.userService.userValue;
     
   }
 
@@ -77,8 +79,7 @@ export class ProfileComponent implements OnInit {
     {
       this.router.navigate(['/auth/login']);
     }
-    this.userService.getUser(this.accountService.accountValue.id);
-    this.user = this.userService.userValue;
+    
 
 
     this.user.offers = [
