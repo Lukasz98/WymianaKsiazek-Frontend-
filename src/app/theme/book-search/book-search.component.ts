@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 
 import {Subscription} from 'rxjs/Subscription';
-
+import { environment } from '../../../environments/environment';
 
 interface DD {
 userId: string,
@@ -101,9 +101,11 @@ export class BookSearchComponent implements OnInit {
 
 
   constructor(private router:Router, private fb:FormBuilder, private http : HttpClient, public selectCityService: SelectCityService) {
+    console.log(environment.apiUrl);
     const bookName = new FormControl('', Validators.required);
     this.initForm();
-    const url = 'https://localhost:5001/api/Offer/categories';
+    //const url = 'https://localhost:5001/api/Offer/categories';
+    const url = environment.apiUrl + 'categories';
     this.http.get<Category[]>(url).subscribe(
       (response) => {
         console.log("response categories recv");
@@ -162,7 +164,7 @@ export class BookSearchComponent implements OnInit {
            this.characters = options;
          });
 
-    const url = 'http://localhost:8000/api.php?title=asd';
+    //const url = 'http://localhost:8000/api.php?title=asd';
     
   }
 
@@ -199,8 +201,9 @@ export class BookSearchComponent implements OnInit {
       this.tracking = setInterval(() => {
         console.log(this.stateForm.value.search);
         
-        const url2 = 'https://localhost:5001/api/Offer/offers/' + this.stateForm.value.search;
-        this.http.get<Offer[]>(url2).subscribe(
+        const url = environment.apiUrl + 'offers/title/' + this.stateForm.value.search;
+        //const url2 = 'https://localhost:5001/api/Offer/offers/' + this.stateForm.value.search;
+        this.http.get<Offer[]>(url).subscribe(
           (response) => {
             console.log("response offers recv");
             console.log(response)
