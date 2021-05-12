@@ -201,7 +201,7 @@ export class SearchListingComponent implements OnInit {
         this.categoryId = params['cat'];
         console.log(params);
 
-        this.http.get<Offer[]>(this.url + 'api/Offer/offers/' + this.searchString).subscribe(
+        this.http.get<Offer[]>(environment.apiUrl + 'api/Offer/offers/' + this.searchString).subscribe(
           (response) => {
             console.log("response categories recv");
             console.log(response)

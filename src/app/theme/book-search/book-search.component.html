@@ -80,7 +80,7 @@ color: pink !important;
         <div class="row col-12 nopadding" style="margin: auto;">
           
           <div style="  margin: auto; " class="col-12 col-md-7 autopadding nopadding margintop">
-            <input id='search' autocomplete="off"  placeholder="tytuł, autor" formControlName='search' 
+            <input id='search' autocomplete="off"  placeholder="tytuł" formControlName='search' 
               (keyup.enter)="onEnterSearch($event)"  (click)=' openDropDown() ' 
               (keyup)="onStrokeSearch($event)" class=' input-underline search-bar col-12' type='text' 
               style="width:100%; ">
@@ -88,7 +88,7 @@ color: pink !important;
             <div clickOutside (clickOutside)="closeDropDown()" style="width: 100%;" class="">
               <div *ngIf='showDropDown' class='search-drop-down drop-down-title col-12 nopadding'>
                 <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of states">
-                  <a [innerHTML]="s.title | letterBold: getSearchValue()">
+                  <a [innerHTML]="s| letterBold: getSearchValue()">
                     {{s}}
                   </a>
                 </div>

@@ -27,7 +27,7 @@ export class SelectCityService {
   ];
   public queryDone : boolean;
   //public urll = 'https://localhost:5001/address/'; 
-  public urll = environment.apiUrl + 'offers/address/';
+  public urll = environment.apiUrl + 'address/';
   
 
   constructor(public http : HttpClient) {

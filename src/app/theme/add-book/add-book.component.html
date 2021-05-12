@@ -86,7 +86,7 @@ border-color: silver;
             <div clickOutside (clickOutside)="closeDropDown()">
               <div *ngIf='showDropDown' class='search-drop-down ' style="width: 100%;">
                 <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of titles ">
-                  <a [innerHTML]="s.title | letterBold: getSearchValue()">
+                  <a [innerHTML]="s | letterBold: getSearchValue()">
                     {{s}}
                   </a>
                 </div>
@@ -100,7 +100,7 @@ border-color: silver;
             <div clickOutside (clickOutside)="closeDropDown2()">
               <div *ngIf='showDropDown2' class='search-drop-down ' style="width: 100%;">
                 <div (click)='selectValue2(s)' class='search-results ' *ngFor="let s of authors ">
-                  <a [innerHTML]="s.title | letterBold: getSearchValue2()">
+                  <a [innerHTML]="s | letterBold: getSearchValue2()">
                     {{s}}
                   </a>
                 </div>

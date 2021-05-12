@@ -32,6 +32,7 @@ import {createAutoCorrectedDatePipe, createNumberMask, emailMask} from 'text-mas
 
 import { AccountService } from '@app/_services/account.service';
 import {Subscription} from 'rxjs/Subscription';
+import { environment } from '../../../environments/environment';
 
 interface ImgResponse {
 fileName: string;
@@ -60,6 +61,21 @@ author: string,
 categoryId: number
 }
 
+interface BookTest {
+title: string,
+author: string,
+isbn: string,
+categoryId: number
+}
+interface SendOffer2 {
+content: string,
+price: number,
+type: boolean,
+book: BookTest,
+addressId: number,
+token: string
+}
+
 interface Offer {
 id: number,
 title: string,
@@ -82,9 +98,10 @@ export class AddBookComponent implements OnInit {
 
   showDropDown = false;
   showDropDown2 = false;
-  titles : any[]; 
-
-  authors : any[] ;
+  
+  titles : string[];//any[]; 
+  authors : string[];//any[] ;
+  
   categories : Category[] = [];
 
   imgForm1 : FormGroup;
@@ -133,10 +150,17 @@ export class AddBookComponent implements OnInit {
     //  this.accountService.logout(this.accountService.accountValue.accessToken);
     //  console.log(this.accountService.account);//.value.token);
     //}
+    this.http.get<Category[]>(environment.apiUrl + 'categories').subscribe(
+      (response) => {
+        console.log("response categories recv");
+        console.log(response)
+        this.categories = response
+      }
+    );
   }
  
   ngOnInit() {
-  
+    /* 
     this.http.get<Category[]>(this.url + 'api/Offer/categories').subscribe(
       (response) => {
         console.log("response categories recv");
@@ -144,7 +168,7 @@ export class AddBookComponent implements OnInit {
         this.categories = response
       }
     );
-
+*/
 
     this.simpleOption = this.selectCityService.getCharacters();
         this.dataSub = this.selectCityService.loadCharacters().subscribe((options) => {
@@ -226,6 +250,35 @@ export class AddBookComponent implements OnInit {
 
 
   onSubmit() {
+    console.log(this.accountService);
+    if (this.accountService.accountValue) {
+      console.log(this.accountService.accountValue.accessToken);
+    //  this.accountService.logout(this.accountService.accountValue.accessToken);
+      console.log(this.accountService.account);//.value.token);
+    }
+    
+let tmp : SendOffer2 = {
+content: "opis",
+addressId  :1,
+type : false,
+price : 10,
+book : {
+title : 'tytul',
+author : 'tytul',
+isbn : '',
+categoryId : 0
+},
+token: this.accountService.accountValue.accessToken
+};
+    console.log(tmp);
+    this.http.post<SendOffer2>(environment.apiUrl + 'offer/addoffer', tmp)//this.form.value)
+                         .subscribe((res) => {
+                                     console.log(res);
+    });
+
+
+
+
     this.submitted = true;
     this.titleBlank = !this.form.value.title;
     this.authorBlank = !this.form.value.author;
@@ -235,6 +288,7 @@ export class AddBookComponent implements OnInit {
       return;
     console.log(this.form.value);
     console.log('sumbit');
+/*
     let tmp : SendOffer;// = { content: '', addressId: 0, type: false, price: 0 };
     tmp.content = this.form.value.content;
     tmp.addressId= this.form.value.addressId;
@@ -249,6 +303,22 @@ export class AddBookComponent implements OnInit {
                          .subscribe((res) => {
                                      console.log(res);
     });
+*/
+/*
+interface BookTest {
+title: string,
+author: string,
+isbn: string,
+categoryId: number
+}
+interface SendOffer2 {
+content: string,
+price: number,
+type: boolean,
+book: BookTest,
+addressId: number
+}
+*/
   }
 
   selectValue(value) {
@@ -257,18 +327,18 @@ export class AddBookComponent implements OnInit {
   }
 
   selectValue2(value) {
-    this.form.patchValue({"author": value.title});
+    this.form.patchValue({"author": value.author});
     this.showDropDown2 = false;
   }
 
   onStrokeSearch(event: any) {
     this.stopTrackingLoop();
-    this.startTrackingLoop(event.target.value, 'offers');
+    this.startTrackingLoop(event.target.value, 'titles');
   }
 
   onStrokeSearch2(event: any) {
     this.stopTrackingLoop();
-    this.startTrackingLoop(event.target.value, 'offers');
+    this.startTrackingLoop(event.target.value, 'authors');
   }
 
  
@@ -404,12 +474,17 @@ export class AddBookComponent implements OnInit {
       this.tracking = setInterval(() => {
         console.log(val);
         
-        const url2 = 'https://localhost:5001/api/Offer/' + path + '/' + val;
-        this.http.get<Offer[]>(url2).subscribe(
+        //const url2 = 'https://localhost:5001/api/Offer/' + path + '/' + val;
+        let getName = 'title';
+        if (path == 'authors')
+            getName = 'author';
+        let url = environment.apiUrl + "offers/" + path + '?' + getName + '=' + val;
+        //this.http.get<Offer[]>(url).subscribe(
+        this.http.get<string[]>(url).subscribe(
           (response) => {
             console.log("response offers recv");
             console.log(response)
-            if (path == 'offers') {
+            if (path == 'titles') {
               this.titles = response;
             }
             else 

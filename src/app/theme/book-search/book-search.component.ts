@@ -67,6 +67,11 @@ offers: any[],
 category: any
 }
 
+
+
+
+
+
 @Component({
   selector: 'app-book-search',
   templateUrl: './book-search.component.html',
@@ -79,7 +84,8 @@ export class BookSearchComponent implements OnInit {
   showDropDown = false;
   cities : Addresss[];
   categories = [];// 'Dowolna kategoria', 'Kryminały', 'Bajki', 'bajki2',  'bajki3', 'bajki4', 'bajki5', 'bajki6', 'bajki7', 'bajki8', 'bajki9', 'bajk10' ];
-  states : Offer[];
+  //states : Offer[];
+  states : string[];
   showDropDown2 = false;
 
   submitted: boolean;
@@ -105,14 +111,22 @@ export class BookSearchComponent implements OnInit {
     const bookName = new FormControl('', Validators.required);
     this.initForm();
     //const url = 'https://localhost:5001/api/Offer/categories';
-    const url = environment.apiUrl + 'categories';
-    this.http.get<Category[]>(url).subscribe(
+    this.http.get<Category[]>(environment.apiUrl + 'categories').subscribe(
       (response) => {
         console.log("response categories recv");
         console.log(response)
         this.categories = response
       }
     );
+    /*
+    this.http.get<Offer[]>(environment.apiUrl + 'offers').subscribe(
+      (response) => {
+        console.log("response offers recv");
+        console.log(response)
+        this.booksPage = response
+      }
+    );
+    */
   }
  
   initForm(): FormGroup {
@@ -182,7 +196,7 @@ export class BookSearchComponent implements OnInit {
   }
 
   selectValue(value) {
-    this.stateForm.patchValue({"search": value.title});
+    this.stateForm.patchValue({"search": value});
     console.log("select value");
     this.showDropDown = false;
   }
@@ -201,9 +215,10 @@ export class BookSearchComponent implements OnInit {
       this.tracking = setInterval(() => {
         console.log(this.stateForm.value.search);
         
-        const url = environment.apiUrl + 'offers/title/' + this.stateForm.value.search;
+        const url = environment.apiUrl + 'offers/titles?title=' + this.stateForm.value.search;
         //const url2 = 'https://localhost:5001/api/Offer/offers/' + this.stateForm.value.search;
-        this.http.get<Offer[]>(url).subscribe(
+        //this.http.get<Offer[]>(url).subscribe(
+        this.http.get<string[]>(url).subscribe(
           (response) => {
             console.log("response offers recv");
             console.log(response)
