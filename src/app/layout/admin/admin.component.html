@@ -59,10 +59,10 @@
             <li class="ripple light"  style="cursor: pointer;">
               <a [routerLink]="['/add-book']">Dodaj Ogłoszenie</a>
             <li class="ripple light"  style="cursor: pointer;">
-              <a [routerLink]="['/auth/login']">Logowanie</a>
+              <a *ngIf="!loged"  [routerLink]="['/auth/login']">Logowanie</a>
             </li>
             <li class="ripple light"  style="cursor: pointer;">
-              <a [routerLink]="['/auth/registration']">Rejestracja</a>
+              <a *ngIf="!loged" [routerLink]="['/auth/registration']">Rejestracja</a>
             </li>
             <!--
             <li (clickOutside)="notificationOutsideClick('live')" class="header-notification ripple light" [ngClass]="liveNotificationClass" (click)="toggleLiveNotification()">

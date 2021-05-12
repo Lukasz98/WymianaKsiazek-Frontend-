@@ -46,11 +46,12 @@ export class ForgotComponent implements OnInit {
     .pipe(first())
     .subscribe({
       next: () => {
-        this.alertService.success("Sprawdź maila czy coś.")
+        this.alertService.success("Na podany adres e-mail wysłaliśmy dalsze instrukcje.");
+        this.router.navigate(["/auth/login"]);
           // email with instructions
       },
       error: error => {
-        this.alertService.error(error);
+        this.alertService.error("Przypomnienie hasła nie powiodło się. Upewnij się, czy wpisałeś poprawny adres e-mail.");
           // invalid email alert
       }
     });

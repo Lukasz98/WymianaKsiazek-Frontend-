@@ -14,28 +14,28 @@
                 <alert></alert>
                 <div class="row m-b-20">
                   <div class="col-md-12">
-                    <h3 class="text-center">Wpisz nowe hasło</h3>
+                    <h3 class="text-center">Zmień Hasło</h3>
                   </div>
                 </div>
                 <div class="form-group form-primary">
-                  <input type="password" formControlName="password" class="form-control" 
-                      [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                  <input type="password" formControlName="oldpassword" class="form-control" 
+                      [ngClass]="{ 'is-invalid': submitted && f.oldpassword.errors }">
                   <span class="form-bar"></span>
-                  <label class="float-label form-control-label" for="password">Hasło</label>
-                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                      <div *ngIf="f.password.errors.required">Hasło nie może być puste.</div>
-                      <div *ngIf="f.password.errors.minlength">Hasło musi zawierać co najmniej 4 znaki.</div>
-                      <div *ngIf="f.password.errors.maxLength">Hasło nie może być dłuższe niż 128 znaków.</div>
+                  <label class="float-label form-control-label" for="oldpassword">Hasło</label>
+                  <div *ngIf="submitted && f.oldpassword.errors" class="invalid-feedback">
+                      <div *ngIf="f.oldpassword.errors.required">Hasło nie może być puste.</div>
+                      
                   </div>
               </div>
               <div class="form-group form-primary">
-                  <input type="password" formControlName="confirmPassword" class="form-control" 
-                      [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }">
+                  <input type="password" formControlName="newpassword" class="form-control" 
+                      [ngClass]="{ 'is-invalid': submitted && f.newpassword.errors }">
                   <span class="form-bar"></span>
-                  <label class="float-label form-control-label" for="password">Powtórz hasło</label>
-                  <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                      <div *ngIf="f.confirmPassword.errors.required">Hasło nie może być puste.</div>
-                      <div *ngIf="f.confirmPassword.errors.mustMatch">Hasła nie są takie same.</div>
+                  <label class="float-label form-control-label" for="newpassword">Nowe Hasło</label>
+                  <div *ngIf="submitted && f.newpassword.errors" class="invalid-feedback">
+                      <div *ngIf="f.newpassword.errors.required">Hasło nie może być puste.</div>
+                      <div *ngIf="f.newpassword.errors.minlength">Hasło musi zawierać co najmniej 4 znaki.</div>
+                      <div *ngIf="f.newpassword.errors.maxLength">Hasło nie może być dłuższe niż 128 znaków.</div>
                   </div>
               </div>
                 <div class="row">

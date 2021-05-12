@@ -42,14 +42,7 @@ export class ProfileComponent implements OnInit {
   user: User;
   form: FormGroup;
   showCities = false;
-  states = ['Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado',
-        'Connecticut', 'Delaware', 'District of Columbia', 'Florida'
-          , 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky'
-            , 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-              'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina',
-                'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico',
-                  'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington',
-                     'West Virginia', 'Wisconsin', 'Wyoming'];
+  states = [];
 
   constructor(
     private alertService: AlertService,
@@ -60,9 +53,15 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private addressService: AddressService
   ) {
-    this.userService.getUser(this.accountService.accountValue.id);
-    this.user = this.userService.userValue;
-    
+    if(!this.accountService.accountValue)
+    {
+      this.router.navigate(['/auth/login']);
+    }
+    else
+    {
+      this.userService.getUser(this.accountService.accountValue.id);
+      this.user = this.userService.userValue;
+    }
   }
 
   ngOnInit() {
@@ -79,35 +78,7 @@ export class ProfileComponent implements OnInit {
     {
       this.router.navigate(['/auth/login']);
     }
-    
-
-
-    this.user.offers = [
-      { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: true,
-        content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
-        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: '0'
-      },
-      { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: false,
-        content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
-        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: '0'
-      },
-      { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: true,
-        content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
-        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: '0'
-      },
-      { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: false,
-        content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
-        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: '0'
-      },
-      { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: true,
-        content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
-        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: '0'
-      },
-      { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: true,
-        content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
-        address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: '0'
-      }
-    ];
+    this.user = this.userService.userValue;
 
     this.user.address = {id: 0, name: ""};
 
@@ -136,6 +107,8 @@ export class ProfileComponent implements OnInit {
   }
 
   getSearchValue() {
+    //this.addressService.getAddresses(this.form.value.address);
+    //this.states = this.addressService.addressesValue;
     return this.form.value.address;
   }
 

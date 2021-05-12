@@ -3,6 +3,8 @@ import {animate, AUTO_STYLE, state, style, transition, trigger} from '@angular/a
 import {MenuItems} from '../../shared/menu-items/menu-items';
 import { UserService } from '@app/_services/user.service';
 import { AccountService } from '@app/_services/account.service';
+import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin',
@@ -162,14 +164,14 @@ export class AdminComponent implements OnInit {
   }
 
   user : any;
+  loged = false;
 
   constructor(public menuItems: MenuItems, 
                 private accountService: AccountService,
-                private userService: UserService) {
+                private router: Router) {
     
-    //this.userService.getUser(this.accountService.accountValue.id);
-    this.user = this.userService.userValue;
-  console.log(this.user);  
+    if(this.accountService.accountValue)
+      this.loged = true;
 
     //console.log('admin');
     this.animateSidebar = '';
@@ -250,11 +252,14 @@ export class AdminComponent implements OnInit {
   }
 
   logout() {
-  console.log('logout');
-    this.accountService.logout(this.accountService.accountValue.accessToken);
-    this.userService.getUser(this.accountService.accountValue.id);
-    this.user = this.userService.userValue;
-    console.log(this.user);
+    this.accountService.logout(this.accountService.accountValue.refreshToken).pipe(first()).
+    subscribe({
+      next: () => {
+        this.router.navigate(['/book-search']);
+      },
+
+      error: error => console.log(error)
+    });
   }
 
   onResize(event) {

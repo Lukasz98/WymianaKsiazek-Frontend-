@@ -33,14 +33,9 @@ export class ChangeComponent implements OnInit {
     document.querySelector('body').setAttribute('themebg-pattern', 'theme6');
 
     this.form = this.formBuilder.group({
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(128)]],
-      confirmPassword: ['', Validators.required],
-    }, {
-      validator: MustMatch('password', 'confirmPassword')
+      oldpassword: ['', [Validators.required]],
+      newpassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(128)]],
     });
-
-    this.token = this.route.snapshot.queryParams['access_token'];
-    this.router.navigate([], { relativeTo: this.route, replaceUrl: true });
   }
 
   get f() { return this.form.controls; }
@@ -53,7 +48,7 @@ export class ChangeComponent implements OnInit {
 
     this.alertService.clear();
     
-    this.accountService.resetPassword(this.token, this.f.password.value)
+    this.accountService.changePassword(this.f.oldpassword.value, this.f.newpassword.value)
     .pipe(first())
     .subscribe({
       next: () => {
@@ -64,7 +59,7 @@ export class ChangeComponent implements OnInit {
 
       },
       error: error => {
-        this.alertService.error(error);
+        this.alertService.error("Zmiana hasła się nie powiodła.");
           // invalid email alert
       }
     });

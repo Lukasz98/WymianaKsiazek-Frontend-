@@ -100,10 +100,15 @@ export class AccountService {
 }
 
    forgotPassword(email: string) {
-    return this.http.post(`${baseUrl}forgot-password`, { email });
+    return this.http.post(`${baseUrl}user/resetpassword/sendemail`, { email });
    }
 
    resetPassword(password: string, token: string) {
     return this.http.post(`${baseUrl}reset-password`, {token, password});
+   }
+
+   changePassword(oldPassword: string, newPassword: string)
+   {
+     return this.http.post(`${baseUrl}user/changepassword`, {oldPassword, newPassword});
    }
 }
