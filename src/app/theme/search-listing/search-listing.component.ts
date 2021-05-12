@@ -9,6 +9,7 @@ import { HttpClient } from "@angular/common/http";
 import {IOption} from 'ng-select';
 import {SelectCityService} from '../../_services/city_search/select-city.service';
 
+import { environment } from '../../../environments/environment';
 /*
 interface Book {
 imgSrc: string,
@@ -118,10 +119,16 @@ export class SearchListingComponent implements OnInit {
   simpleOption: Array<IOption>;// = this.selectCityService.getCharacters();  
   characters: Array<IOption>;
 
+
+  tracking : any;
+  timett : any;
+
 // formularz
   stateForm: FormGroup;
   showDropDown = false;
-      states = ['Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado',
+      states :string[];
+      /*
+      ['Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado',
         'Connecticut', 'Delaware', 'District of Columbia', 'Florida'
           , 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky'
             , 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
@@ -129,10 +136,10 @@ export class SearchListingComponent implements OnInit {
                 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico',
                   'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington',
                      'West Virginia', 'Wisconsin', 'Wyoming'];
-
+*/
       cities = ['akapulko', 'pacanowo'];
 
-  categories = [ 'Dowolna kategoria', 'Kryminały', 'Bajki', 'bajki2',  'bajki3', 'bajki4', 'bajki5', 'bajki6', 'bajki7', 'bajki8', 'bajki9', 'bajk10' ];
+  categories : Category[];// 'Dowolna kategoria', 'Kryminały', 'Bajki', 'bajki2',  'bajki3', 'bajki4', 'bajki5', 'bajki6', 'bajki7', 'bajki8', 'bajki9', 'bajk10' ];
 
   showDropDown2 = false;
 
@@ -145,7 +152,7 @@ export class SearchListingComponent implements OnInit {
 
   url = 'https://localhost:5001/'; 
 
-  constructor(private route: ActivatedRoute, private fb:FormBuilder, private http : HttpClient,  public selectCityService: SelectCityService) {
+  constructor(private router:Router, private route: ActivatedRoute, private fb:FormBuilder, private http : HttpClient,  public selectCityService: SelectCityService) {
     //books$.push(
     this.itemLast = this.itemsOnPage;
     this.itemFirst = 0;
@@ -157,6 +164,13 @@ export class SearchListingComponent implements OnInit {
     //this.booksPage.push(this.books[0]);
     //this.booksPage.push(this.books[1]);
     //this.booksPage.push(this.books[2]);
+    this.http.get<Category[]>(environment.apiUrl + 'categories').subscribe(
+      (response) => {
+        console.log("response categories recv");
+        console.log(response)
+        this.categories = response
+      }
+    );
   
     this.initForm();
   }
@@ -260,6 +274,13 @@ export class SearchListingComponent implements OnInit {
     console.log(this.stateForm.value);
     this.submitted = true;
     console.log('sumbit');
+    console.log(this.stateForm.value.search);
+    this.stopTrackingLoop();
+    this.router.navigate(['/search-listing/' 
+                            + this.stateForm.value.search + '/'
+                            + this.stateForm.value.search2 + '/'
+                            + this.stateForm.value.category
+    ]);
   }
 
   selectValue(value) {
@@ -274,9 +295,9 @@ export class SearchListingComponent implements OnInit {
     this.showDropDown2 = false;
   }
 
-  onStrokeSearch(event: any) {
-    console.log("onstroke");
-  }
+  //onStrokeSearch(event: any) {
+  //  console.log("onstroke");
+ // }
 
   onEnterSearch(event:  KeyboardEvent) {
     this.onSubmit();
@@ -313,5 +334,37 @@ export class SearchListingComponent implements OnInit {
     this.onSubmit();
   }
   //~formularz
+
+  startTrackingLoop() {
+      if (this.stateForm.value.search.length < 2)
+        return;
+      this.tracking = setInterval(() => {
+        console.log(this.stateForm.value.search);
+        
+        const url = environment.apiUrl + 'offers/titles?title=' + this.stateForm.value.search;
+        //const url2 = 'https://localhost:5001/api/Offer/offers/' + this.stateForm.value.search;
+        //this.http.get<Offer[]>(url).subscribe(
+        this.http.get<string[]>(url).subscribe(
+          (response) => {
+            console.log("response offers recv");
+            console.log(response)
+            this.states = response
+          }
+        );
+  
+        clearInterval(this.tracking);
+        this.tracking = null;
+      }, 2000);
+  }
+
+  stopTrackingLoop() {
+    clearInterval(this.tracking);
+    this.tracking = null;
+  }
+
+  onStrokeSearch(event: any) {
+    this.stopTrackingLoop();
+    this.startTrackingLoop();
+  }
 
 }

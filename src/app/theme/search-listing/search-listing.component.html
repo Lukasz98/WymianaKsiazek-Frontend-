@@ -69,7 +69,7 @@ margin-left: 5px;
             <div clickOutside (clickOutside)="closeDropDown()" style="width: 100%;" class="">
               <div *ngIf='showDropDown' class='search-drop-down drop-down-title col-12 nopadding'>
                 <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of states">
-                  <a [innerHTML]="s.title | letterBold: getSearchValue()">
+                  <a [innerHTML]="s | letterBold: getSearchValue()">
                     {{s}}
                   </a>
                 </div>

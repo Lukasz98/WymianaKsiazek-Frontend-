@@ -72,8 +72,8 @@ content: string,
 price: number,
 type: boolean,
 book: BookTest,
-addressId: number,
-token: string
+addressId: number
+//token: string
 }
 
 interface Offer {
@@ -267,8 +267,8 @@ title : 'tytul',
 author : 'tytul',
 isbn : '',
 categoryId : 0
-},
-token: this.accountService.accountValue.accessToken
+}
+//token: this.accountService.accountValue.accessToken
 };
     console.log(tmp);
     this.http.post<SendOffer2>(environment.apiUrl + 'offer/addoffer', tmp)//this.form.value)
@@ -353,6 +353,8 @@ addressId: number
       const [file] = event.target.files;
       reader.readAsDataURL(file);
     
+      let addImgUrl = environment.apiUrl + 'addImg';
+
       if (!this.imageSrc1) {
       console.log("tutej");
         reader.onload = () => {
@@ -361,7 +363,8 @@ addressId: number
          
           //console.log(this.imgForm1.value);
           this.imgForm1.patchValue({ fileSource: reader.result });
-          this.http.post<ImgResponse>('https://localhost:5001/api/Img/addImg', this.imgForm1.value)
+          //this.http.post<ImgResponse>('https://localhost:5001/api/Img/addImg', this.imgForm1.value)
+          this.http.post<ImgResponse>(addImgUrl, this.imgForm1.value)
                          .subscribe((res) => {
                                      this.img1Loaded = true;
                                      console.log(res);
@@ -377,7 +380,8 @@ addressId: number
           this.img2Loaded = false;
 
           this.imgForm2.patchValue({ fileSource: reader.result });
-          this.http.post<ImgResponse>('https://localhost:5001/api/Img/addImg', this.imgForm2.value)
+          //this.http.post<ImgResponse>('https://localhost:5001/api/Img/addImg', this.imgForm2.value)
+          this.http.post<ImgResponse>(addImgUrl, this.imgForm2.value)
                          .subscribe(res => {
                                      this.img2Loaded = true;
                                      console.log(res);
@@ -393,7 +397,8 @@ addressId: number
           this.img3Loaded = false;
 
           this.imgForm3.patchValue({ fileSource: reader.result });
-          this.http.post<ImgResponse>('https://localhost:5001/api/Img/addImg', this.imgForm3.value)
+          //this.http.post<ImgResponse>('https://localhost:5001/api/Img/addImg', this.imgForm3.value)
+          this.http.post<ImgResponse>(addImgUrl, this.imgForm3.value)
                          .subscribe(res => {
                                      this.img3Loaded = true;
                                      console.log(res);
