@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from "rxjs/Observable";
 import { HttpClient } from "@angular/common/http";
+import { environment } from '../../../environments/environment';
+import { User } from '../../_models/user';
 /*
 interface Book {
 imgSrc: string,
@@ -21,7 +23,6 @@ name: string
 interface Category {
 id: number,
 name: string,
-books: any[]
 }
 
 interface Book {
@@ -41,7 +42,7 @@ type: boolean,
 price: number,
 address: Address,
 book: Book,
-user: number
+user: User
 }
 
 @Component({
@@ -87,19 +88,11 @@ this.offerData = { "id": 1, "content": "Opis ogloszonka pobrany z serwerka",
 
     //const url = 'http://localhost:40403/api.php?title=asd';
     //const url = 'http://localhost:5000/Offer/1';
-    const url = 'https://localhost:5001/api/Offer/1';
-    this.http.get<Offer>(url).subscribe(
-      (response) => {
-        console.log("response recv");
-        console.log(response)
-        this.offerData = response
-        console.log(this.offerData);
+    //const url = 'https://localhost:5001/api/Offer/35';
    //console.log(this.d);
     //for (let i = 0; i < this.d.title.length; i++) {
     //    console.log(i);
     //}
-        }
-     );
   }
 
   setMainImg(n: number) {
@@ -114,11 +107,23 @@ this.offerData = { "id": 1, "content": "Opis ogloszonka pobrany z serwerka",
 
 
   ngOnInit() {
-    //this.route.queryParams.subscribe(
-    //                  params => {
-    //                             this.searchString = params.searchString;
-    //                  }
-    //);
+    let offerId = 0;
+    this.route.params.subscribe(
+                      params => {
+                       //          offerId = params.id;
+                                 console.log(params['id']);
+    const url = environment.apiUrl + 'offer/' + params['id'];
+    this.http.get<Offer>(url).subscribe(
+      (response) => {
+        console.log("response recv");
+        console.log(response)
+        this.offerData = response
+        console.log(this.offerData);
+        }
+     );
+                     }
+
+    );
   }
 
 }

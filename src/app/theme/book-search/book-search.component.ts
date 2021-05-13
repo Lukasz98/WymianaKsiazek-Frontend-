@@ -118,7 +118,7 @@ export class BookSearchComponent implements OnInit {
         this.categories = response
       }
     );
-    /*
+   /* 
     this.http.get<Offer[]>(environment.apiUrl + 'offers').subscribe(
       (response) => {
         console.log("response offers recv");

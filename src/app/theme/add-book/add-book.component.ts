@@ -257,25 +257,6 @@ export class AddBookComponent implements OnInit {
       console.log(this.accountService.account);//.value.token);
     }
     
-let tmp : SendOffer2 = {
-content: "opis",
-addressId  :1,
-type : false,
-price : 10,
-book : {
-title : 'tytul',
-author : 'tytul',
-isbn : '',
-categoryId : 0
-}
-//token: this.accountService.accountValue.accessToken
-};
-    console.log(tmp);
-    this.http.post<SendOffer2>(environment.apiUrl + 'offer/addoffer', tmp)//this.form.value)
-                         .subscribe((res) => {
-                                     console.log(res);
-    });
-
 
 
 
@@ -288,6 +269,25 @@ categoryId : 0
       return;
     console.log(this.form.value);
     console.log('sumbit');
+
+let tmp : SendOffer2 = {
+content: this.form.value.content,
+addressId  : this.form.value.addressId,
+type : this.form.value.type,
+price : this.form.value.price,
+book : {
+title : this.form.value.title,
+author : this.form.value.author,
+isbn : '',
+categoryId : this.form.value.categoryId
+}
+};
+    console.log(tmp);
+    this.http.post<SendOffer2>(environment.apiUrl + 'offer/addoffer', tmp)//this.form.value)
+                         .subscribe((res) => {
+                                     console.log(res);
+    });
+
 /*
     let tmp : SendOffer;// = { content: '', addressId: 0, type: false, price: 0 };
     tmp.content = this.form.value.content;
