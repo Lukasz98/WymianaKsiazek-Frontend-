@@ -105,8 +105,13 @@ padding: 0 !important;
                       {{ offerData.content }}
                     </div>
                     <div class="row " style="padding: 15px; border-bottom: solid; border-width: 1px; border-color: rgb(240,240,240); line-height: 20px;">
-                      <ng-template [ngIf]="offerData.type"><i class="fa fa-check" style="line-height: 20px"></i>&nbsp;Wymiana</ng-template>
-                      <ng-template [ngIf]="!offerData.type"><i class="fa fa-close" style="line-height: 20px"></i>&nbsp;Wymiana </ng-template>
+                      <div class="col-6" style="text-align: left; margin: auto;">
+                        <ng-template [ngIf]="offerData.type"><i class="fa fa-check" style="line-height: 20px"></i>&nbsp;Wymiana</ng-template>
+                        <ng-template [ngIf]="!offerData.type"><i class="fa fa-close" style="line-height: 20px"></i>&nbsp;Wymiana </ng-template>
+                      </div>
+                      <div class="col-6" style="text-align: right; margin: auto;">
+                        {{offerData.book.category.name}}
+                      </div>
                     </div>
                     <div class="row" style="padding-top: 15px;">
                       <div class="col-6" style="text-align: left; margin: auto;">Od {{ offerData.user.userName }}</div>

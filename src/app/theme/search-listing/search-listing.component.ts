@@ -47,6 +47,11 @@ offers: any[],
 category: any
 }
 
+interface SearchModel {
+address: number,
+category: number,
+title: string
+}
 
 @Component({
   selector: 'app-search-listing',
@@ -214,8 +219,12 @@ export class SearchListingComponent implements OnInit {
         this.cityId= params['city'];
         this.categoryId = params['cat'];
         console.log(params);
-
-        this.http.get<Offer[]>(environment.apiUrl + 'api/Offer/offers/' + this.searchString).subscribe(
+        let searchModel :SearchModel = {
+          address: this.cityId,
+          title: this.searchString,
+          category: this.categoryId
+        };
+        this.http.get<Offer[]>(environment.apiUrl + 'offers/search3?Address=' + this.cityId + '&Title='+ this.searchString + '&Category='+ this.categoryId).subscribe(
           (response) => {
             console.log("response categories recv");
             console.log(response)
