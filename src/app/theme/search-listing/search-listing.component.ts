@@ -21,7 +21,7 @@ desc: string,
 city: string,
 };
 */
-
+/*
 class Addresss {
 id: number;
 name: string;
@@ -46,13 +46,51 @@ isbn: string,
 offers: any[],
 category: any
 }
-
+*/
 interface SearchModel {
 address: number,
 category: number,
 title: string
 }
 
+class Address {
+id: number;
+name: string;
+//wojewodztwo: string;
+//powiat: string;
+//gmina: string;
+//offers: number[];
+}
+
+interface Category {
+id: number,
+name: string,
+}
+
+interface Book {
+id: number,
+title: string,
+author: string,
+category: Category,
+isbn: string,
+}
+
+interface Offer {
+id: number,
+content: string,
+createdOn: string,
+updatedOn: string,
+type: boolean,
+price: number,
+imgName1: string,
+imgName2: string,
+imgName3: string,
+icon: number,
+
+address: Address,
+book: Book,
+user: any
+}
 @Component({
   selector: 'app-search-listing',
   templateUrl: './search-listing.component.html',

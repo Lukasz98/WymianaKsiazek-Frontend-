@@ -27,12 +27,13 @@ import 'rxjs/add/operator/map';
 
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
-
+import { HttpHeaders } from '@angular/common/http';
 import {createAutoCorrectedDatePipe, createNumberMask, emailMask} from 'text-mask-addons/dist/textMaskAddons';
 
 import { AccountService } from '@app/_services/account.service';
 import {Subscription} from 'rxjs/Subscription';
 import { environment } from '../../../environments/environment';
+import { UserService } from '@app/_services/user.service';
 
 interface ImgResponse {
 fileName: string;
@@ -133,7 +134,9 @@ export class AddBookComponent implements OnInit {
 
 
   constructor(private router:Router, private fb:FormBuilder,  private accountService: AccountService, private http : HttpClient, 
-                public selectCityService: SelectCityService) {
+                public selectCityService: SelectCityService,
+                private userService: UserService
+                ) {
     this.initForm();
 
     this.imgForm1 = this.fb.group({ fileSource: [null] });
@@ -185,8 +188,8 @@ export class AddBookComponent implements OnInit {
                                fileName1: [null],
                                fileName2: [null], 
                                fileName3: [null],
-                               type: [null],
-                               price: [null],
+                               type: [0],
+                               price: [0],
                                thumbnailNum: [this.offerThumbnail],
                                addressId: [null]
                        });
@@ -255,6 +258,7 @@ export class AddBookComponent implements OnInit {
       console.log(this.accountService.accountValue.accessToken);
     //  this.accountService.logout(this.accountService.accountValue.accessToken);
       console.log(this.accountService.account);//.value.token);
+      //console.log(AccountService.account);//.value.token);
     }
     
 
@@ -283,11 +287,37 @@ categoryId : this.form.value.categoryId
 }
 };
     console.log(tmp);
+    
+
+
+let token = this.accountService.accountValue.accessToken;
+    if(this.accountService.accountValue)
+    {
+        console.log(this.userService.userValue);//.token;
+        //token = this.userService.userValue.token;
+    }
+    let headers: HttpHeaders = new HttpHeaders();
+    //headers = headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    
+    headers = headers.append('Content-Type', "application/json");
+    //headers = headers.append('Content-Type', "application/json-patch+json");
+    headers = headers.append('Authorization', 'Bearer ' + token);
+    //this.user = this.userService.userValue;
+   console.log(headers); 
+    //const headers2 = {'Content-Type': "application/json",  'Authorization': token};
+    //const headers2 = { 'Authorization': token};
+    /*
+    this.http.post(environment.apiUrl + 'offer/addoffer', tmp, { 'headers': headers2, withCredentials=true});//this.form.value)
+                         .subscribe((res) => {
+                                     console.log(res);
+    });
+   */ 
+    //this.http.post<SendOffer2>(environment.apiUrl + 'offer/addoffer', tmp, { 'headers': headers})//this.form.value)
     this.http.post<SendOffer2>(environment.apiUrl + 'offer/addoffer', tmp)//this.form.value)
                          .subscribe((res) => {
                                      console.log(res);
     });
-
+    
 /*
     let tmp : SendOffer;// = { content: '', addressId: 0, type: false, price: 0 };
     tmp.content = this.form.value.content;

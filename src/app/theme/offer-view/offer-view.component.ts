@@ -4,6 +4,10 @@ import { Observable } from "rxjs/Observable";
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../../environments/environment';
 import { User } from '../../_models/user';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/pl';
+registerLocaleData(localeFr, 'pl');
+
 /*
 interface Book {
 imgSrc: string,
@@ -127,6 +131,10 @@ this.offerData = { "id": 1, "content": "Opis ogloszonka pobrany z serwerka",
                      );
               }
     );
+  }
+
+  toDate(str) {
+    return new Date(str).toDateString();
   }
 
 }

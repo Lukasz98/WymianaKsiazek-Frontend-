@@ -13,6 +13,8 @@ import {BreadcrumbsComponent} from './layout/admin/breadcrumbs/breadcrumbs.compo
 import { AlertModule } from './theme/alert/alert.module';
 import { ProfileCardComponent } from './theme/profile-card/profile-card.component';
 
+import {Interceptor} from './_helpers/interceptor';
+import { HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,13 @@ import { ProfileCardComponent } from './theme/profile-card/profile-card.componen
     AppRoutingModule,
     SharedModule
   ],
-  providers: [MenuItems],
+  providers: [MenuItems,
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: Interceptor,
+    multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

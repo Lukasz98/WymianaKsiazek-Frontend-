@@ -20,11 +20,12 @@ export class AccountService {
 
   constructor(private http: HttpClient, private router: Router) {
     this.accountSubject = new BehaviorSubject<Account>(JSON.parse(localStorage.getItem('account')));
-    this.account = this.accountSubject.asObservable();
+    this.account =this.accountSubject.asObservable();
+    //this.account = this.accountSubject.asObservable();
    }
 
    public get accountValue(): Account {
-     return this.accountSubject.value;
+     return  this.accountSubject.value;
    }
 
    private refreshTokenTimeout;
@@ -61,6 +62,7 @@ export class AccountService {
    }
 
    logout(token) {
+  console.log("logo");
     return this.http.post<any>(`${baseUrl}users/signout`, {token}).pipe(
       finalize(() => {
         this.stopRefreshTokenTimer();

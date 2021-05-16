@@ -60,7 +60,7 @@ export class BreadcrumbsComponent {
             }
           });
         } while (currentRoute);
-        this.titleService.setTitle(this.title + ' | Mega Able Angular Admin Template');
+        this.titleService.setTitle(this.title);// + ' | Mega Able Angular Admin Template');
       });
   }
 }

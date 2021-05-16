@@ -42,29 +42,43 @@ status: number;
 title: Array<string>;
 }
 
-class Addresss {
+class Address {
 id: number;
 name: string;
-wojewodztwo: string;
-powiat: string;
-gmina: string;
-offers: number[];
+//wojewodztwo: string;
+//powiat: string;
+//gmina: string;
+//offers: number[];
 }
 
 interface Category {
 id: number,
 name: string,
-books: any[]
+}
+
+interface Book {
+id: number,
+title: string,
+author: string,
+category: Category,
+isbn: string,
 }
 
 interface Offer {
 id: number,
-title: string,
-author: string,
-categoryId: number,
-isbn: string,
-offers: any[],
-category: any
+content: string,
+createdOn: string,
+updatedOn: string,
+type: boolean,
+price: number,
+imgName1: string,
+imgName2: string,
+imgName3: string,
+icon: number,
+
+address: Address,
+book: Book,
+user: any
 }
 
 
@@ -82,7 +96,7 @@ export class BookSearchComponent implements OnInit {
 
   stateForm: FormGroup;
   showDropDown = false;
-  cities : Addresss[];
+  //cities : Addresss[];
   categories = [];// 'Dowolna kategoria', 'Kryminały', 'Bajki', 'bajki2',  'bajki3', 'bajki4', 'bajki5', 'bajki6', 'bajki7', 'bajki8', 'bajki9', 'bajk10' ];
   //states : Offer[];
   states : string[];
@@ -101,9 +115,9 @@ export class BookSearchComponent implements OnInit {
   timett : any;
 
   //booksPage : Offer[] = [];
-  booksPage : Offer[] = [
-    {id:1, title:'tytul',author:'autor',categoryId:2,isbn:null,offers:null,category:null}
-  ];
+  booksPage : Offer[] = [];
+    //{id:1, title:'tytul',author:'autor',categoryId:2,isbn:null,offers:null,category:null}
+  //];
 
 
   constructor(private router:Router, private fb:FormBuilder, private http : HttpClient, public selectCityService: SelectCityService) {
@@ -118,15 +132,15 @@ export class BookSearchComponent implements OnInit {
         this.categories = response
       }
     );
-   /* 
-    this.http.get<Offer[]>(environment.apiUrl + 'offers').subscribe(
+    
+    this.http.get<Offer[]>(environment.apiUrl + 'offers/last/8').subscribe(
       (response) => {
         console.log("response offers recv");
         console.log(response)
         this.booksPage = response
       }
     );
-    */
+    
   }
  
   initForm(): FormGroup {

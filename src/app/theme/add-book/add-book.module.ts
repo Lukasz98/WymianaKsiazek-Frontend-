@@ -21,6 +21,9 @@ import { ClickOutsideDirective } from './dropdown.directive';
 
 import { TextMaskModule } from 'angular2-text-mask';
 
+import {Interceptor} from '../../_helpers/interceptor';
+import { HTTP_INTERCEPTORS} from '@angular/common/http';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -34,7 +37,13 @@ import { TextMaskModule } from 'angular2-text-mask';
     TagInputModule,
     TextMaskModule
   ],
-  providers: [ApiService, SelectCityService],
+  providers: [ApiService, SelectCityService,
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: Interceptor,
+    multi: true
+    }
+  ],
   declarations: [
     AddBookComponent,
     SearchFilterPipe,

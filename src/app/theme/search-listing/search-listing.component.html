@@ -175,9 +175,9 @@ margin-left: 5px;
           -->
           <img  src="assets/images/brak_zdjecia.png" class="" alt="User-Profile-Image">
         </div>
-        <h6 class="m-t-25 m-b-10">{{ item.title }}</h6>
-        <p class="text-muted" >{{ item.author }}</p>
-        <p class="text-c d-block"  >{{ item.city }}</p>
+        <h6 class="m-t-25 m-b-10">{{ item.book.title }}</h6>
+        <p class="text-muted" >{{ item.book.author }}</p>
+        <p class="text-c d-block"  >{{ item.address.name }}</p>
         <p class="text-c d-block">{{ item.price }}zł</p>
         <i *ngIf="item.exchange; else noexchange" class="fa fa-check"> Wymiana</i>
         <ng-template #noexchange><i class="fa fa-close"> Wymiana</i></ng-template>

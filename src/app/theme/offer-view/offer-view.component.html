@@ -114,8 +114,9 @@ padding: 0 !important;
                       </div>
                     </div>
                     <div class="row" style="padding-top: 15px;">
-                      <div class="col-6" style="text-align: left; margin: auto;">Od {{ offerData.user.userName }}</div>
-                      <div class="col-6" style="text-align: right; margin: auto;"> Telefon: 987987932</div>
+                      <ng-template [ngIf]="offerData.user"><div class="col-6" style="text-align: left; margin: auto;">Od {{ offerData.user.userName }}</div></ng-template>
+                      <ng-template [ngIf]="!offerData.user"><div class="col-6" style="text-align: left; margin: auto;"></div></ng-template>
+                      <div class="col-6" style="text-align: right; margin: auto;">Dodano {{toDate(offerData.createdOn) | date:'fullDate':'+0200':'pl'}}</div>
                     </div>
                     <div class="row" style="padding-top: 15px;">
                       <div class="" style="padding-left: 15px;">
