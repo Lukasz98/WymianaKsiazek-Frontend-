@@ -118,7 +118,9 @@
             -->
             <li *ngIf="loged" (clickOutside)="notificationOutsideClick('profile')" class="user-profile header-notification ripple light" [ngClass]="profileNotificationClass" (click)="toggleProfileNotification()">
               <a href="javascript:">
+              <!--
                 <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+              -->
                 <span>{{ userName }}</span>
                 <i class="icon-angle-down"></i>
               </a>
