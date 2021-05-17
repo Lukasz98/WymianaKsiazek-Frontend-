@@ -49,7 +49,7 @@ export class UserService {
 
   getUser(userId:string)
   {
-    return this.http.get<any>(`${baseUrl}Profile/${userId}`)
+    return this.http.get<any>(`${baseUrl}user/MyProfile`)
     .subscribe(user => {
       this.userSubject.next(user);
       localStorage.setItem('user', JSON.stringify(user));
