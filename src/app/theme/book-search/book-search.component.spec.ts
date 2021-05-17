@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BookSeachComponent } from './book-search.component';
-import {FormSelectComponent} from '../form/form-select/form-select.component';
+import { BookSearchComponent } from './book-search.component';
+//import {FormSelectComponent} from '../form/form-select/form-select.component';
 
 describe('BookSearchComponent', () => {
   let component: BookSearchComponent;
