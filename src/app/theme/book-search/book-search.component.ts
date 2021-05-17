@@ -196,16 +196,24 @@ export class BookSearchComponent implements OnInit {
     
   }
 
+  cityChange(event) {
+  console.log("tralka");
+console.log(event);
+  }
+
   onSubmit() {
     console.log(this.stateForm.value);
     this.submitted = true;
     console.log('sumbit');
     console.log(this.stateForm.value.search);
     this.stopTrackingLoop();
-    this.router.navigate(['/search-listing/' 
+
+    this.router.navigate(['/wyniki/' 
                             + this.stateForm.value.search + '/'
                             + this.stateForm.value.search2 + '/'
-                            + this.stateForm.value.category
+                            + this.stateForm.value.category + '/'
+                            + this.selectCityService.getString(this.stateForm.value.search2) + '/'
+                            + this.categories.find( s => s.id == this.stateForm.value.category).name 
     ]);
   }
 

@@ -9,9 +9,9 @@ const routes: Routes = [
     path: '',
     component: AddBookComponent,
     data: {
-      title: 'Add Book',
+      title: 'Dodaj ogłoszenie',
       icon: 'icon-layout-sidebar-left',
-      caption: 'add book page',
+      caption: 'nowe ogłoszenie',
       status: true
     }
   }

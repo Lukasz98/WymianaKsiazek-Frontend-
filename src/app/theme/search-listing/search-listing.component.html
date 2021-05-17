@@ -157,7 +157,10 @@ margin-left: 5px;
 <div class="page-body" >
   <div class="col-12" style="max-width: 1000px; margin: auto;">
     <h3  class="txt-highlight text-left m-t-20">
+    <!--
       Wyniki dla: <i>'{{ searchString }}', {{categoryId}}, {{cityId}} </i>
+    -->
+      Wyniki dla: <i>{{ title }}</i>
     </h3>
     <p class="txt-highlight text-left m-t-20">
       Strona {{ this.currPage + 1 }} z {{ this.pageCount - 1 + 1 }}
@@ -181,7 +184,7 @@ margin-left: 5px;
         <p class="text-c d-block">{{ item.price }}zł</p>
         <i *ngIf="item.exchange; else noexchange" class="fa fa-check"> Wymiana</i>
         <ng-template #noexchange><i class="fa fa-close"> Wymiana</i></ng-template>
-        <button class="btn btn-primary d-block ripple light" [routerLink]="['/offer-view', item.id]">Więcej</button>
+        <button class="btn btn-primary d-block ripple light" [routerLink]="['/oferta', item.id]">Więcej</button>
       </div>
     </div>
   </div>

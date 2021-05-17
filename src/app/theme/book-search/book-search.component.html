@@ -112,7 +112,7 @@ color: pink !important;
             </select>
           </div>
             <div class="col-12 col-md-7 autopadding nopadding margintop" style="margin: auto; height: 50px;">
-              <ng-select (keyup)="onStrokeSearch3($event)" placeholder="Wybierz miasto" [ngClass]="'ng-select'" [allowClear]="true" [options]="simpleOption" formControlName="search2">
+              <ng-select (change)="cityChange($event)" (keyup)="onStrokeSearch3($event)" placeholder="Wybierz miasto" [ngClass]="'ng-select'" [allowClear]="true" [options]="simpleOption" formControlName="search2">
               </ng-select>
             </div>
           
@@ -156,7 +156,7 @@ color: pink !important;
         <p class="text-c d-block">{{ item.price }}zł</p>
         <i *ngIf="item.exchange; else noexchange" class="fa fa-check"> Wymiana</i>
         <ng-template #noexchange><i class="fa fa-close"> Wymiana</i></ng-template>
-        <button class="btn btn-primary d-block ripple light" [routerLink]="['/offer-view', item.id]">Więcej</button>
+        <button class="btn btn-primary d-block ripple light" [routerLink]="['/oferta', item.id]">Więcej</button>
       </div>
     </div>
   </div>

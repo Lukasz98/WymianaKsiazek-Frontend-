@@ -9,9 +9,9 @@ const routes: Routes = [
     path: '',
     component: BookSearchComponent,
     data: {
-      title: 'Book search',
+      title: 'Szukaj',
       icon: 'icon-layout-sidebar-left',
-      caption: 'book search page',
+      caption: 'wyszukiwanie ogłoszeń',
       status: true
     }
   }

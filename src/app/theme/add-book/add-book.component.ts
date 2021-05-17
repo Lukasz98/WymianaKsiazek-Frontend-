@@ -276,15 +276,15 @@ export class AddBookComponent implements OnInit {
 
 let tmp : SendOffer2 = {
 content: this.form.value.content,
-addressId  : this.form.value.addressId,
-type : this.form.value.type,
 price : this.form.value.price,
+type : this.form.value.type,
 book : {
 title : this.form.value.title,
 author : this.form.value.author,
 isbn : '',
 categoryId : this.form.value.categoryId
-}
+},
+addressId  : this.form.value.addressId
 };
     console.log(tmp);
     
@@ -313,7 +313,8 @@ let token = this.accountService.accountValue.accessToken;
     });
    */ 
     //this.http.post<SendOffer2>(environment.apiUrl + 'offer/addoffer', tmp, { 'headers': headers})//this.form.value)
-    this.http.post<SendOffer2>(environment.apiUrl + 'offer/addoffer', tmp)//this.form.value)
+    //this.http.post<SendOffer2>(environment.apiUrl + 'offer/addoffer', tmp)//this.form.value)
+    this.http.post(environment.apiUrl + 'offer/addoffer', tmp, {responseType: 'text'})
                          .subscribe((res) => {
                                      console.log(res);
     });

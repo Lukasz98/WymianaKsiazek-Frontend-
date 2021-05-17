@@ -106,7 +106,7 @@ export class SearchListingComponent implements OnInit {
   searchString : string;
   cityId: number;
   categoryId: number;
-  
+  title: string = ""; 
   /*
   books : Book[] = [
     { imgSrc: "asd", title: "Lalka", author: "Bolesław Prus", price: 10, exchange: 1,
@@ -249,14 +249,22 @@ export class SearchListingComponent implements OnInit {
   ngOnInit() {
     this.itemLast = this.itemsOnPage;
     this.itemFirst = 0;
-    
-    
+    this.title = "";
 
     this.route.params.subscribe(params => {
         this.searchString = params['title'];
         this.cityId= params['city'];
         this.categoryId = params['cat'];
         console.log(params);
+        console.log(this.cityId);
+
+    this.title = "";
+        if (this.searchString && this.searchString !== "null")
+            this.title = this.searchString + ", ";
+        if (params['cityName'] && params['cityName'] !== 'null' && params['cityName'].length > 1)
+            this.title += params['cityName'] + ', ';
+        if (params['catName'] && params['catName'] !== 'null')
+            this.title += params['catName'];
         let searchModel :SearchModel = {
           address: this.cityId,
           title: this.searchString,
@@ -323,10 +331,19 @@ export class SearchListingComponent implements OnInit {
     console.log('sumbit');
     console.log(this.stateForm.value.search);
     this.stopTrackingLoop();
-    this.router.navigate(['/search-listing/' 
+    /*
+    this.router.navigate(['/wyniki/' 
                             + this.stateForm.value.search + '/'
                             + this.stateForm.value.search2 + '/'
                             + this.stateForm.value.category
+    ]);
+    */
+    this.router.navigate(['/wyniki/' 
+                            + this.stateForm.value.search + '/'
+                            + this.stateForm.value.search2 + '/'
+                            + this.stateForm.value.category + '/'
+                            + this.selectCityService.getString(this.stateForm.value.search2) + '/'
+                            + this.categories.find( s => s.id == this.stateForm.value.category).name 
     ]);
   }
 

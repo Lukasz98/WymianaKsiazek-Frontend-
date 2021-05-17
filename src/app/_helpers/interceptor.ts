@@ -16,11 +16,18 @@ export class Interceptor implements HttpInterceptor {
         const isApiUrl = req.url.startsWith(environment.apiUrl);
         console.log("tiu");
         console.log(req);
+        console.log(account);
         if (isLoggedIn && isApiUrl)
         {
             req = req.clone(
                 {
-                    setHeaders: {Authorization: `Bearer ${account.accessToken}`}
+                    setHeaders: {
+
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${account.accessToken}`
+                    //Authorization: `Bearer ${account.refreshToken}`
+                    //setHeaders: {Authorization: `${account.accessToken}`}
+}
                 }
             );
         }

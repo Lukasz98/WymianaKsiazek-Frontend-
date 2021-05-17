@@ -10,23 +10,23 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'book-search',
+        redirectTo: 'szukaj',
         pathMatch: 'full'
       },
       {
-        path: 'book-search',
+        path: 'szukaj',
         loadChildren: () => import('./theme/book-search/book-search.module').then(m => m.BookSearchModule)
       },
       {
-        path: 'add-book',
+        path: 'dodaj-ogloszenie',
         loadChildren: () => import('./theme/add-book/add-book.module').then(m => m.AddBookModule)
       },
       {
-        path: 'offer-view/:id',
+        path: 'oferta/:id',
         loadChildren: () => import('./theme/offer-view/offer-view.module').then(m => m.OfferViewModule)
       },
       {
-        path: 'search-listing/:title/:city/:cat',
+        path: 'wyniki/:title/:city/:cat/:cityName/:catName',
         loadChildren: () => import('./theme/search-listing/search-listing.module').then(m => m.SearchListingModule)
       },
       {
@@ -36,11 +36,14 @@ const routes: Routes = [
       {
         path: 'profile-card',
         loadChildren: () => import('./theme/profile-card/profile-card.module').then(m => m.ProfileCardModule)
-      },
+      }
+      /*
+      ,
       {
         path: 'offer',
         loadChildren: () => import('./theme/offer/offer.module').then(m => m.OfferModule)
       }
+      */
     ]
   },
   {

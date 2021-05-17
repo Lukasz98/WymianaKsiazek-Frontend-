@@ -38,6 +38,14 @@ export class SelectCityService {
         return this.cloneOptions(SelectCityService.PLAYER_ONE);
     }
 
+    getString(id) {
+        if (!id) {
+            return " ";
+        }
+        let tmp = SelectCityService.PLAYER_ONE.find(s => s.id == id);
+        return tmp.name + ', gm. ' + tmp.gmina + ', woj. ' + tmp.wojewodztwo;
+    }
+
     //doQuery(input) : Observable<Address[]> {
     doQuery(input) {
 
