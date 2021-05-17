@@ -51,11 +51,11 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private accountService: AccountService,
     private userService: UserService,
-    private addressService: AddressService
+    private addressService: AddressService,
   ) {
     if(!this.accountService.accountValue)
     {
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/szukaj']);
     }
     else
     {
@@ -76,11 +76,13 @@ export class ProfileComponent implements OnInit {
 
     if(!this.accountService.accountValue)
     {
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/szukaj']);
     }
-    this.user = this.userService.userValue;
-
-    this.user.address = {id: 0, name: ""};
+    else
+    {
+      this.user = this.userService.userValue;
+      this.user.address = {id: 0, name: ""};
+    }
 
     this.form = this.formBuilder.group({
       firstName: [this.user.firstName],
@@ -151,14 +153,15 @@ export class ProfileComponent implements OnInit {
   }
 
   addOffer() {
-    this.router.navigateByUrl('/add-book');
+    this.router.navigateByUrl('/dodaj-ogloszenie');
   }
 
   logOut() {
     this.accountService.logout(this.accountService.accountValue.refreshToken).pipe(first()).
     subscribe({
       next: () => {
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/szukaj']);
+
       },
 
       error: error => console.log(error)

@@ -59,10 +59,10 @@
             <li class="ripple light"  style="cursor: pointer;">
               <a [routerLink]="['/dodaj-ogloszenie']">Dodaj Ogłoszenie</a>
             <li class="ripple light"  style="cursor: pointer;">
-              <a *ngIf="!loged"  [routerLink]="['/auth/login']">Logowanie</a>
+              <a *ngIf="!accountService2.accountValue"  [routerLink]="['/auth/login']">Logowanie</a>
             </li>
             <li class="ripple light"  style="cursor: pointer;">
-              <a *ngIf="!loged" [routerLink]="['/auth/registration']">Rejestracja</a>
+              <a *ngIf="!accountService2.accountValue" [routerLink]="['/auth/registration']">Rejestracja</a>
             </li>
             <!--
             <li  (clickOutside)="notificationOutsideClick('live')" class="header-notification ripple light" [ngClass]="liveNotificationClass" (click)="toggleLiveNotification()">
@@ -116,7 +116,7 @@
               </a>
             </li>
             -->
-            <li *ngIf="loged" (clickOutside)="notificationOutsideClick('profile')" class="user-profile header-notification ripple light" [ngClass]="profileNotificationClass" (click)="toggleProfileNotification()">
+            <li *ngIf="accountService2.accountValue" (clickOutside)="notificationOutsideClick('profile')" class="user-profile header-notification ripple light" [ngClass]="profileNotificationClass" (click)="toggleProfileNotification()">
               <a href="javascript:">
                 <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
                 <span>{{ userName }}</span>

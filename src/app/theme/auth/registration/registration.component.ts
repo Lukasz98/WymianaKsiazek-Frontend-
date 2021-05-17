@@ -49,12 +49,12 @@ export class RegistrationComponent implements OnInit {
     
     this.accountService.register(this.form.value).pipe(first()).subscribe({
         next: () => {
-          this.alertService.success('Sprawdź maila czy coś', { keepAfterRouteChange: true });
+          this.alertService.success('Sprawdź e-mail aby dokończyć rejestrację.', { keepAfterRouteChange: true });
           this.router.navigate(['/auth/login']);
           // email verification and alert
         },
         error: (error) => {
-          this.alertService.error(error);
+          this.alertService.error("Rejestracja nie powiodła się. Upewnij się, że podany adres e-mail nie jest już zajęty.");
           // rejestracja nie powiodła się (zajęty emial?) Jakiś alert pewnie.
         }
     });
