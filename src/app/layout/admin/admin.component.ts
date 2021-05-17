@@ -166,12 +166,16 @@ export class AdminComponent implements OnInit {
   user : any;
   loged = false;
 
+  userName : string = "";
+
   constructor(public menuItems: MenuItems, 
                 private accountService: AccountService,
                 private router: Router) {
     
-    if(this.accountService.accountValue)
+    if(this.accountService.accountValue) {
       this.loged = true;
+      this.userName = this.accountService.accountValue.email;
+    }
 
     //console.log('admin');
     this.animateSidebar = '';

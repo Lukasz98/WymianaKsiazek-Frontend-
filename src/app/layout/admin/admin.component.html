@@ -57,7 +57,7 @@
           </ul>
           <ul [@mobileHeaderNavRight]="navRight" [ngClass]="navRight" class="nav-right">
             <li class="ripple light"  style="cursor: pointer;">
-              <a [routerLink]="['/add-book']">Dodaj Ogłoszenie</a>
+              <a [routerLink]="['/dodaj-ogloszenie']">Dodaj Ogłoszenie</a>
             <li class="ripple light"  style="cursor: pointer;">
               <a *ngIf="!loged"  [routerLink]="['/auth/login']">Logowanie</a>
             </li>
@@ -65,7 +65,7 @@
               <a *ngIf="!loged" [routerLink]="['/auth/registration']">Rejestracja</a>
             </li>
             <!--
-            <li (clickOutside)="notificationOutsideClick('live')" class="header-notification ripple light" [ngClass]="liveNotificationClass" (click)="toggleLiveNotification()">
+            <li  (clickOutside)="notificationOutsideClick('live')" class="header-notification ripple light" [ngClass]="liveNotificationClass" (click)="toggleLiveNotification()">
               <a href="javascript:">
                 <i class="feather icon-bell"></i>
                 <span class="badge bg-c-red"></span>
@@ -116,10 +116,10 @@
               </a>
             </li>
             -->
-            <li (clickOutside)="notificationOutsideClick('profile')" class="user-profile header-notification ripple light" [ngClass]="profileNotificationClass" (click)="toggleProfileNotification()">
+            <li *ngIf="loged" (clickOutside)="notificationOutsideClick('profile')" class="user-profile header-notification ripple light" [ngClass]="profileNotificationClass" (click)="toggleProfileNotification()">
               <a href="javascript:">
                 <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                <span>Łukasz</span>
+                <span>{{ userName }}</span>
                 <i class="icon-angle-down"></i>
               </a>
               <ul [@notificationBottom]="profileNotification" class="show-notification profile-notification" [ngClass]="profileNotificationClass">
