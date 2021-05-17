@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 import { Account } from '../_models/account';
 import { Router } from '@angular/router';
 import {User} from "../_models/user";
+import { UserService } from './user.service';
 
 const baseUrl = environment.apiUrl;
 
@@ -17,6 +18,7 @@ export class AccountService {
 
   private accountSubject: BehaviorSubject<Account>;
   public account: Observable<Account>;
+  public loged = false;
 
   constructor(private http: HttpClient, private router: Router) {
     this.accountSubject = new BehaviorSubject<Account>(JSON.parse(localStorage.getItem('account')));
@@ -54,6 +56,7 @@ export class AccountService {
    login(email: string, password:string) {
      return this.http.post<any>(`${baseUrl}users/token`, {email, password})
      .pipe(map(account => {
+       this.loged = true;
         this.accountSubject.next(account);
         localStorage.setItem('account', JSON.stringify(account));
         this.startRefreshTokenTimer();
@@ -65,6 +68,7 @@ export class AccountService {
   console.log("logo");
     return this.http.post<any>(`${baseUrl}users/signout`, {token}).pipe(
       finalize(() => {
+        this.loged = false;
         this.stopRefreshTokenTimer();
         this.accountSubject.next(null);
         localStorage.removeItem('account');

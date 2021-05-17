@@ -48,16 +48,19 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
   });
 
+  /*
+
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) { return; }
         js = d.createElement(s); js.id = id;
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+    }(document, 'script', 'facebook-jssdk'));*/
     
   }
   
+  /*
   checkLoginState():void {
     FB.getLoginStatus(function(response) {
       if (response.status === 'connected') {   
@@ -104,6 +107,7 @@ export class LoginComponent implements OnInit {
        
   }
 
+  */
   logInButtonClicked():void { 
     this.submitted = true;
 
@@ -117,14 +121,16 @@ export class LoginComponent implements OnInit {
                 next: () => {
                   // navigate to profile page probably
                   this.userService.getUser(this.accountService.accountValue.id);
-                  this.router.navigate(["/profile"]);
+                  this.router.navigate(["/szukaj"]);
                 },
                 error: error => {
-                  this.alertService.error(error);
+                  this.alertService.error("Logowanie się nie powiodło. Upewnij się że adres e-mail oraz hasło są poprawne.");
                   // logowanie nie powiodło się (zły email albo hasło) alert
                 }
             });
   }
+
+  /*
 
   googleInit() {
     gapi.load('auth2', () => {
@@ -171,4 +177,5 @@ export class LoginComponent implements OnInit {
     this.facebookInit();
   }
 
+  */
 }

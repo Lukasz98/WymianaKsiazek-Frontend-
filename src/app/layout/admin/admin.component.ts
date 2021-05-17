@@ -164,17 +164,23 @@ export class AdminComponent implements OnInit {
   }
 
   user : any;
-  loged = false;
+  public loged: Boolean = false;
 
   userName : string = "";
 
   constructor(public menuItems: MenuItems, 
                 private accountService: AccountService,
-                private router: Router) {
+                private router: Router,
+                private userService: UserService,
+                public accountService2: AccountService) {
     
     if(this.accountService.accountValue) {
       this.loged = true;
       this.userName = this.accountService.accountValue.email;
+      this.userService.getUser(this.accountService.accountValue.id);
+    }
+    else {
+      this.loged = false;
     }
 
     //console.log('admin');
@@ -252,6 +258,12 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.setBackgroundPattern('theme1');
+    this.loged = this.accountService.loged;
+    if(!this.accountService.accountValue)
+    {
+      this.loged = false;
+    }
+    
     /*document.querySelector('body').classList.remove('dark');*/
   }
 
@@ -259,7 +271,8 @@ export class AdminComponent implements OnInit {
     this.accountService.logout(this.accountService.accountValue.refreshToken).pipe(first()).
     subscribe({
       next: () => {
-        this.router.navigate(['/book-search']);
+        this.loged = false;
+        this.router.navigate(['/szukaj']);
       },
 
       error: error => console.log(error)

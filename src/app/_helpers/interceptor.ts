@@ -23,10 +23,10 @@ export class Interceptor implements HttpInterceptor {
                 {
                     setHeaders: {
 
-                    'Content-Type': 'application/json',
+                    //'Content-Type': 'application/json',
                     Authorization: `Bearer ${account.accessToken}`
                     //Authorization: `Bearer ${account.refreshToken}`
-                    //setHeaders: {Authorization: `${account.accessToken}`}
+                    //setHeaders: {Authorization: `Bearer ${account.accessToken}`}
 }
                 }
             );

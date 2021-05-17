@@ -28,7 +28,7 @@ export class UserService {
   }
 
   update(params) {
-    return this.http.put(`${baseUrl}User/${this.userValue.id}`, params)
+    return this.http.put(`${baseUrl}user/update/${this.userValue.id}`, params)
         .pipe(map((user: User) => {
             // update the current account if it was updated
             if (user.id === this.userValue.id) {
@@ -41,7 +41,7 @@ export class UserService {
   }
 
   delete() {
-    return this.http.delete(`${baseUrl}User/${this.userValue.id}`)
+    return this.http.delete(`${baseUrl}user/delete/${this.userValue.id}`)
         .pipe(finalize(() => {
             this.accountService.logout(this.accountService.accountValue.refreshToken);
         }));
@@ -49,7 +49,7 @@ export class UserService {
 
   getUser(userId:string)
   {
-    return this.http.get<any>(`${baseUrl}Profile/${userId}`)
+    return this.http.get<any>(`${baseUrl}user/MyProfile`)
     .subscribe(user => {
       this.userSubject.next(user);
       localStorage.setItem('user', JSON.stringify(user));
