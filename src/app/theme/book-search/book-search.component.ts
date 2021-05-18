@@ -136,8 +136,8 @@ export class BookSearchComponent implements OnInit {
     this.http.get<Offer[]>(environment.apiUrl + 'offers/last/8').subscribe(
       (response) => {
         console.log("response offers recv");
-        console.log(response)
         this.booksPage = response
+        console.log(this.booksPage);
       }
     );
     
