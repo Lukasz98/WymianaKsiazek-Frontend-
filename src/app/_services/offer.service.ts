@@ -38,8 +38,8 @@ export class OfferService {
     }));
   }
 
-  delete() {
-    return this.http.delete(`${baseUrl}Offer/${this.offerValue.id}`);
+  delete(id) {
+    return this.http.delete(`${baseUrl}Offer/${id}`);
   }
 
   getOffer(offerId:string)

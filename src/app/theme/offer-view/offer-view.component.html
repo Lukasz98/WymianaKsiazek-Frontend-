@@ -122,7 +122,11 @@ padding: 0 !important;
                       <div class="" style="padding-left: 15px;">
                         <button class="btn btn-primary d-block" style="">Wyślij wiadomość</button>
                       </div>
+                      <div *ngIf="deleteOffer" class="col-8" style="padding-right: 15px;">
+                        <button class="btn btn-danger d-block pull-right" style="" (click)="deleteOff()">Usuń</button>
+                      </div>
                     </div>
+                    
                   </div>
                 </div>
               </div>

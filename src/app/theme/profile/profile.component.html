@@ -20,22 +20,24 @@
                         <div class="row" style="margin: auto;" >
                           <div *ngFor="let item of user.offers " class="col-xl-3 col-md-6" style="">
                               <div ngbDropdown class="card user-card">
-                                <span ngbDropdownToggle class="dropdown-toggle addon-btn text-muted pull-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
+                                <!--<span ngbDropdownToggle class="dropdown-toggle addon-btn text-muted pull-right service-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="tooltip">
                                 </span>
                                 <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right b-none services-list">
                                   <a class="dropdown-item" href="javascript:"><i class="icofont icofont-ui-delete"></i> Usuń</a>
-                                </div>
+                                </div>-->
                                 <div class="card-block text-center" style="">
                                   <div class="" style="">
-                                    <img height="200px" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F4.bp.blogspot.com%2F-nsJPARPvroM%2FVerAOx3o7KI%2FAAAAAAAAElQ%2Fz9orWEOiBsk%2Fs1600%2Flalka.jpg&f=1&nofb=1" class="" alt="User-Profile-Image">
+                                    <!--<img height="200px" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F4.bp.blogspot.com%2F-nsJPARPvroM%2FVerAOx3o7KI%2FAAAAAAAAElQ%2Fz9orWEOiBsk%2Fs1600%2Flalka.jpg&f=1&nofb=1" class="" alt="User-Profile-Image">
+                                  --><img  src="assets/images/brak_zdjecia.png" class="" alt="zdjecie">
                                   </div>
+                                  
                                   <h6 class="m-t-25 m-b-10">{{ item.book.title }}</h6>
                                   <p class="text-muted" >{{ item.book.author }}</p>
                                   <p class="text-c d-block"  >{{ item.address.name }}</p>
                                   <p class="text-c d-block">{{ item.price }}zł</p>
                                   <i *ngIf="item.type; else noexchange" class="fa fa-check"> Wymiana</i>
                                   <ng-template #noexchange><i class="fa fa-close"> Wymiana</i></ng-template>
-                                  <button class="btn btn-primary d-block ripple light" (click)="offerViewClicked(item)">Więcej</button>
+                                  <button class="btn btn-primary d-block ripple light" [routerLink]="['/oferta', item.id]">Więcej</button>
                                 </div>
                               </div>
                           </div>
@@ -54,9 +56,9 @@
                   <div class="card">
                     <div class="card-header">
                       <h5 class="card-header-text">Dane</h5>
-                      <button id="edit-btn" type="button" class="btn btn-sm btn-primary pull-right ripple light" (click)="toggleEditProfile()">
+                      <!--<button id="edit-btn" type="button" class="btn btn-sm btn-primary pull-right ripple light" (click)="toggleEditProfile()">
                         <i class="icofont {{ editProfileIcon }}"></i> Eytuj Profil
-                      </button>
+                      </button>-->
                     </div>
                     <div class="card-body">
                       <div class="view-info" *ngIf="editProfile">
@@ -68,7 +70,7 @@
                                   <div class="table-responsive">
                                     <table class="table m-0">
                                       <tbody>
-                                      <tr>
+                                      <!--<tr>
                                         <th scope="row">
                                           <div class="data-container">
                                             <div class="adnot">
@@ -79,7 +81,7 @@
                                             </div>
                                           </div>
                                         </th>
-                                      </tr>
+                                      </tr>-->
                                       <tr>
                                         <th scope="row">
                                           <div class="data-container">
@@ -101,7 +103,7 @@
                                   <div class="table-responsive">
                                     <table class="table m-0">
                                       <tbody>
-                                      <tr>
+                                      <!--<tr>
                                         <th scope="row">
                                           <div class="data-container">
                                             <div class="adnot">
@@ -112,7 +114,7 @@
                                             </div>
                                           </div>
                                         </th>
-                                      </tr>
+                                      </tr>-->
                                       <tr>
                                         <th scope="row">
                                           <div class="data-container">
