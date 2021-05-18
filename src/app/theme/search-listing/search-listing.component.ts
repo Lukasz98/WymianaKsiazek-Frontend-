@@ -258,6 +258,13 @@ export class SearchListingComponent implements OnInit {
         console.log(params);
         console.log(this.cityId);
 
+    this.books = [];
+    this.booksPage = [];
+    this.itemLast = 0;
+    //this.itemsOnPage = 0;
+    this.itemFirst = 0;
+    this.pageCount = 0;
+    this.title = "";
     this.title = "";
         if (this.searchString && this.searchString !== "null")
             this.title = this.searchString + ", ";
@@ -338,6 +345,8 @@ export class SearchListingComponent implements OnInit {
                             + this.stateForm.value.category
     ]);
     */
+
+
     this.router.navigate(['/wyniki/' 
                             + this.stateForm.value.search + '/'
                             + this.stateForm.value.search2 + '/'
