@@ -52,8 +52,8 @@ export class ChangeComponent implements OnInit {
     .pipe(first())
     .subscribe({
       next: () => {
-        this.alertService.success('Hasło zresetowane, możesz się teraz zalogować.', { keepAfterRouteChange: true });
-        this.router.navigate(['../login'], { relativeTo: this.route });
+        //this.alertService.success('Hasło zresetowane, możesz się teraz zalogować.', { keepAfterRouteChange: true });
+        this.router.navigate(['/profil']);
           
         // back to login and alert
 

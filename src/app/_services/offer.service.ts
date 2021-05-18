@@ -39,7 +39,7 @@ export class OfferService {
   }
 
   delete(id) {
-    return this.http.delete(`${baseUrl}Offer/${id}`);
+    return this.http.delete(`${baseUrl}offers/delete/${id}`);
   }
 
   getOffer(offerId:string)

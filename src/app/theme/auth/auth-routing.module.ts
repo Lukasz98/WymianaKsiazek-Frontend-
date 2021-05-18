@@ -5,16 +5,17 @@ const routes: Routes = [
   {
     path: '',
     data: {
-      title: 'Authentication',
+      title: 'Użytkownik',
+      caption: 'użytkownik',
       status: false
     },
     children: [
       {
-        path: 'login',
+        path: 'logowanie',
         loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
       },
       {
-        path: 'registration',
+        path: 'rejestracja',
         loadChildren: () => import('./registration/registration.module').then(m => m.RegistrationModule)
       },
       {
@@ -22,7 +23,7 @@ const routes: Routes = [
         loadChildren: () => import('./forgot/forgot.module').then(m => m.ForgotModule)
       },
       { //TODO: delete it and make real with services
-        path: 'change',
+        path: 'zmiana-hasła',
         loadChildren: () => import('./change/change.module').then(m => m.ChangeModule)
       }
     ]

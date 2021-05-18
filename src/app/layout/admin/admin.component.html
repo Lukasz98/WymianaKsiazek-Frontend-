@@ -59,10 +59,10 @@
             <li class="ripple light"  style="cursor: pointer;">
               <a [routerLink]="['/dodaj-ogloszenie']">Dodaj Ogłoszenie</a>
             <li class="ripple light"  style="cursor: pointer;">
-              <a *ngIf="!accountService2.accountValue"  [routerLink]="['/auth/login']">Logowanie</a>
+              <a *ngIf="!accountService2.accountValue"  [routerLink]="['/użytkownik/logowanie']">Logowanie</a>
             </li>
             <li class="ripple light"  style="cursor: pointer;">
-              <a *ngIf="!accountService2.accountValue" [routerLink]="['/auth/registration']">Rejestracja</a>
+              <a *ngIf="!accountService2.accountValue" [routerLink]="['/użytkownik/rejestracja']">Rejestracja</a>
             </li>
             <!--
             <li  (clickOutside)="notificationOutsideClick('live')" class="header-notification ripple light" [ngClass]="liveNotificationClass" (click)="toggleLiveNotification()">
@@ -145,15 +145,15 @@
                 </li>
                 -->
                 <li class="ripple">
-                  <a [routerLink]="['/profile/']">
+                  <a [routerLink]="['/profil/']">
                     <i class="icon-user"></i> Profil
                   </a>
                 </li>
-                <li class="ripple">
+                <!--<li class="ripple">
                   <a [routerLink]="" (click)="logout()" target="">
                     <i class="icon-layout-sidebar-left"></i> Wyloguj
                   </a>
-                </li>
+                </li>-->
               </ul>
             </li>
           </ul>

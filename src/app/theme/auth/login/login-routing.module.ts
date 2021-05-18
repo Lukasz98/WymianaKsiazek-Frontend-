@@ -7,7 +7,8 @@ const routes: Routes = [
     path: '',
     component: LoginComponent,
     data: {
-      title: 'Login'
+      title: 'Logowanie',
+      caption: 'logowanie'
     }
   }
 ];

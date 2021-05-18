@@ -7,7 +7,8 @@ const routes: Routes = [
     path: '',
     component: ChangeComponent,
     data: {
-      title: 'Change'
+      title: 'Zmiana Hasła',
+      caption: 'zmiana hasła'
     }
   }
 ];

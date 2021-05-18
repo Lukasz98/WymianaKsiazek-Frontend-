@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from "rxjs/Observable";
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../../environments/environment';
@@ -69,7 +69,7 @@ imageSrc2 : string;
 imageSrc3 : string;
 mainImageSrc = this.imageSrc1;
 
-  constructor(private route: ActivatedRoute, private http : HttpClient, private accountService: AccountService, private offerService: OfferService ) {
+  constructor(private route: ActivatedRoute, private http : HttpClient, private accountService: AccountService, private offerService: OfferService, private router: Router ) {
     //this.offerData.content = "opis";
     //this.offerData.type = false;
 /*
@@ -144,7 +144,12 @@ this.offerData = { "id": 1, "content": "Opis ogloszonka pobrany z serwerka",
 
   deleteOff()
   {
-    this.offerService.delete(this.id);
+    this.offerService.delete(this.id).pipe()
+    .subscribe(
+      () => {
+        this.router.navigate(['/profil']);
+      }
+    );
   }
 
   toDate(str) {

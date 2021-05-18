@@ -30,7 +30,7 @@ const routes: Routes = [
         loadChildren: () => import('./theme/search-listing/search-listing.module').then(m => m.SearchListingModule)
       },
       {
-        path: 'profile',
+        path: 'profil',
         loadChildren: () => import('./theme/profile/profile.module').then(m => m.ProfileModule)
       },
       {
@@ -51,7 +51,7 @@ const routes: Routes = [
     component: AuthComponent,
     children: [
       {
-        path: 'auth',
+        path: 'użytkownik',
         loadChildren: () => import('./theme/auth/auth.module').then(m => m.AuthModule)
       }
     ]
