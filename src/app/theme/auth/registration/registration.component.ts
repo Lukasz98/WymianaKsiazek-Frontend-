@@ -49,8 +49,16 @@ export class RegistrationComponent implements OnInit {
     
     this.accountService.register(this.form.value).pipe(first()).subscribe({
         next: () => {
-          this.alertService.success('Sprawdź e-mail aby dokończyć rejestrację.', { keepAfterRouteChange: true });
-          this.router.navigate(['/użytkownik/logowanie']);
+          this.alertService.success('Rejestracja zakończona. Potwierdź adres e-mail po czym będziesz mógł się zalogować. ', { keepAfterRouteChange: true});
+          this.form = this.formBuilder.group({
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(128)]],
+            confirmPassword: ['', Validators.required],
+            //acceptTerms: [false, Validators.requiredTrue]
+          }, {
+            validator: MustMatch('password', 'confirmPassword')
+            });
+          //this.router.navigate(['/użytkownik/logowanie']);
           // email verification and alert
         },
         error: (error) => {
