@@ -154,7 +154,7 @@ color: pink !important;
         <p class="text-muted" >{{ item.book.author }}</p>
         <p class="text-c d-block"  >{{ item.address.name }}</p>
         <p class="text-c d-block">{{ item.price }}zł</p>
-        <i *ngIf="item.exchange; else noexchange" class="fa fa-check"> Wymiana</i>
+        <i *ngIf="item.type; else noexchange" class="fa fa-check"> Wymiana</i>
         <ng-template #noexchange><i class="fa fa-close"> Wymiana</i></ng-template>
         <button class="btn btn-primary d-block ripple light" [routerLink]="['/oferta', item.id]">Więcej</button>
       </div>
