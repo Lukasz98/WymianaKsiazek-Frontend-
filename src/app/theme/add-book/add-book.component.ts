@@ -75,6 +75,10 @@ type: boolean,
 book: BookTest,
 addressId: number
 //token: string
+imgName1: string,
+imgName2: string,
+imgName3: string,
+icon: number
 }
 
 interface Offer {
@@ -84,7 +88,7 @@ author: string,
 categoryId: number,
 isbn: string,
 offers: any[],
-category: any
+category: any,
 }
 
 @Component({
@@ -115,6 +119,7 @@ export class AddBookComponent implements OnInit {
   titleBlank: boolean;
   authorBlank: boolean;
   priceBlank: boolean;
+  cityBlank: boolean;
 
 
   opened : number;
@@ -267,9 +272,11 @@ export class AddBookComponent implements OnInit {
     this.submitted = true;
     this.titleBlank = !this.form.value.title;
     this.authorBlank = !this.form.value.author;
+    this.cityBlank = !this.form.value.addressId;
+    console.log(this.form.value.addressId);
     if (!this.img1Loaded || !this.img2Loaded || !this.img3Loaded)
       return;
-    if (this.titleBlank || this.authorBlank)
+    if (this.titleBlank || this.authorBlank || this.cityBlank)
       return;
     console.log(this.form.value);
     console.log('sumbit');
@@ -284,7 +291,12 @@ author : this.form.value.author,
 isbn : '',
 categoryId : this.form.value.categoryId
 },
-addressId  : this.form.value.addressId
+addressId  : this.form.value.addressId,
+  
+imgName1 :  this.form.value.fileName1,
+imgName2 :  this.form.value.fileName2,
+imgName3 :  this.form.value.fileName3,
+icon : this.offerThumbnail
 };
     console.log(tmp);
     
@@ -307,14 +319,14 @@ let token = this.accountService.accountValue.accessToken;
     //const headers2 = {'Content-Type': "application/json",  'Authorization': token};
     //const headers2 = { 'Authorization': token};
     /*
-    this.http.post(environment.apiUrl + 'offer/addoffer', tmp, { 'headers': headers2, withCredentials=true});//this.form.value)
+    this.http.post(environment.apiUrl + 'offer/addoffer2', tmp, { 'headers': headers2, withCredentials=true});//this.form.value)
                          .subscribe((res) => {
                                      console.log(res);
     });
    */ 
     //this.http.post<SendOffer2>(environment.apiUrl + 'offer/addoffer', tmp, { 'headers': headers})//this.form.value)
     //this.http.post<SendOffer2>(environment.apiUrl + 'offer/addoffer', tmp)//this.form.value)
-    this.http.post(environment.apiUrl + 'offer/addoffer', tmp, {responseType: 'text'})
+    this.http.post(environment.apiUrl + 'offer/addoffer2', tmp, {responseType: 'text'})
                          .subscribe((res) => {
                                      console.log(res);
     });

@@ -148,7 +148,10 @@ color: pink !important;
           <!--
           <img height="200px" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F4.bp.blogspot.com%2F-nsJPARPvroM%2FVerAOx3o7KI%2FAAAAAAAAElQ%2Fz9orWEOiBsk%2Fs1600%2Flalka.jpg&f=1&nofb=1" class="" alt="User-Profile-Image">
           -->
-          <img  src="assets/images/brak_zdjecia.png" class="" alt="zdjecie">
+          <img *ngIf="!item.imgName1 && !item.imgName2 && !item.imgName3" src="assets/images/brak_zdjecia.png" class="" alt="zdjecie">
+          <img *ngIf="item.imgName1 && (item.icon == 0 || item.icon == 1)" src="{{apiUrl}}img/{{item.imgName1}}" class="" alt="zdjecie">
+          <img *ngIf="item.imgName2 && item.icon == 2" src="{{apiUrl}}img/{{item.imgName2}}" class="" alt="zdjecie">
+          <img *ngIf="item.imgName3 && item.icon == 3" src="{{apiUrl}}img/{{item.imgName3}}" class="" alt="zdjecie">
         </div>
         <h6 class="m-t-25 m-b-10">{{ item.book.title }}</h6>
         <p class="text-muted" >{{ item.book.author }}</p>

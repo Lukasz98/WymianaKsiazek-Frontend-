@@ -107,54 +107,6 @@ export class SearchListingComponent implements OnInit {
   cityId: number;
   categoryId: number;
   title: string = ""; 
-  /*
-  books : Book[] = [
-    { imgSrc: "asd", title: "Lalka", author: "Bolesław Prus", price: 10, exchange: 1,
-      desc: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Podkowice Dolne"
-    },
-    { imgSrc: "asd", title: "Krzyżacy", author: "Henryk Sienkiewicz", price: 15, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Bonifacy", author: "Henryk Sienkiewicz", price: 20, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Bogdaniacy", author: "Henryk Sienkiewicz", price: 25, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Belchioracy", author: "Henryk Sienkiewicz", price: 30, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Benedyktiacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Baldwiniacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Beniaminiacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Bernardiacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Błażejacy", author: "Henryk Sienkiewicz", price: 35, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    },
-    { imgSrc: "asd", title: "Boguchwalacy", author: "Henryk Sienkiewicz", price: 40, exchange: 0,
-      desc: "To jest skrócony opis 2. Ipsum lorem kipsum giupsum morem lipsum.",
-      city: "Nadkowice Górne"
-    }
-  ];
-*/
   books : Offer[] = [];
   booksPage : Offer[] = [];
   //booksPage : Book[] = [];
@@ -170,16 +122,6 @@ export class SearchListingComponent implements OnInit {
   stateForm: FormGroup;
   showDropDown = false;
       states :string[];
-      /*
-      ['Alabama', 'Alaska',  'Arizona', 'Arkansas', 'California', 'Colorado',
-        'Connecticut', 'Delaware', 'District of Columbia', 'Florida'
-          , 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky'
-            , 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-              'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina',
-                'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico',
-                  'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington',
-                     'West Virginia', 'Wisconsin', 'Wyoming'];
-*/
       cities = ['akapulko', 'pacanowo'];
 
   categories : Category[];// 'Dowolna kategoria', 'Kryminały', 'Bajki', 'bajki2',  'bajki3', 'bajki4', 'bajki5', 'bajki6', 'bajki7', 'bajki8', 'bajki9', 'bajk10' ];
@@ -192,14 +134,14 @@ export class SearchListingComponent implements OnInit {
   opened : number;
   opened2 : number;
 //~formularz
-
+apiUrl : string;
   url = 'https://localhost:5001/'; 
 
   constructor(private router:Router, private route: ActivatedRoute, private fb:FormBuilder, private http : HttpClient,  public selectCityService: SelectCityService) {
     //books$.push(
     this.itemLast = this.itemsOnPage;
     this.itemFirst = 0;
-    
+    this.apiUrl = environment.apiUrl;
 
     //if (this.books.length % this.itemsOnPage)
     //    this.pageCount += 1;

@@ -21,34 +21,49 @@ desc: string,
 city: string,
 };
 */
-interface Address {
-id: number,
+class Address {
+id: number;
 name: string
+
 }
 
-interface Category {
-id: number,
-name: string,
+class Category {
+id: number;
+name: string;
 }
 
-interface Book {
-id: number,
-title: string,
-author: string,
-isbn: string,
+class Book {
+id: number;
+title: string;
+author: string;
+isbn: string;
 category: Category
+constructor()
+{
+this.category = new Category();
+}
 }
 
-interface Offer {
-id: number,
-content: string,
-createdOn: string,
-updatedOn: string,
-type: boolean,
-price: number,
-address: Address,
-book: Book,
-user: User
+class Offer {
+id: number;
+content: string;
+createdOn: string;
+updatedOn: string;
+type: boolean;
+price: number;
+address: Address;
+book: Book;
+user: User;
+imgName1: string = "";
+imgName2: string = "";
+imgName3: string = "";
+icon: number
+
+constructor()
+{
+this.book = new Book();
+this.address = new Address();
+}
 }
 
 @Component({
@@ -58,7 +73,7 @@ user: User
 })
 export class OfferViewComponent implements OnInit {
 
-offerData : Offer;
+offerData : Offer = new Offer();
 deleteOffer: Boolean;
 
 //imageSrc1 = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.galleries.smcloud.net%2Ft%2Fgalleries%2Fgf-69dd-mFo5-3Nuy_sowa-guma-664x442-nocrop.jpg&f=1&nofb=1";
@@ -107,19 +122,21 @@ this.offerData = { "id": 1, "content": "Opis ogloszonka pobrany z serwerka",
 
   setMainImg(n: number) {
     if (n == 1)
-        this.mainImageSrc = this.imageSrc1;
+        this.mainImageSrc = this.offerData.imgName1;
     else if (n == 2)
-        this.mainImageSrc = this.imageSrc2;
+        this.mainImageSrc = this.offerData.imgName2;
     else if (n == 3)
-        this.mainImageSrc = this.imageSrc3;
+        this.mainImageSrc = this.offerData.imgName3;
         
   }
-
+loaded: boolean;
   id;
-
+apiUrl : string;
   ngOnInit() {
+    this.apiUrl = environment.apiUrl;
     this.route.params.subscribe(
                       params => {
+                    
                     const url = environment.apiUrl + 'offer/' + params['id'];
                     this.id = params['id'];
                     this.http.get<Offer>(url).subscribe(
@@ -134,7 +151,14 @@ this.offerData = { "id": 1, "content": "Opis ogloszonka pobrany z serwerka",
                         //console.log(this.offerData);
                         
                         //this.imageSrc1 = "assets/images/brak_zdjecia.png";
-                        this.mainImageSrc = "assets/images/brak_zdjecia.png";
+                        //this.mainImageSrc = "assets/images/brak_zdjecia.png";
+                        if (this.offerData.imgName1 && (this.offerData.icon == 0 || this.offerData.icon == 1))
+                            this.mainImageSrc = this.offerData.imgName1;
+                        else if (this.offerData.imgName2 && this.offerData.icon == 2)
+                            this.mainImageSrc = this.offerData.imgName2;
+                        else if (this.offerData.imgName3 && this.offerData.icon == 3)
+                            this.mainImageSrc = this.offerData.imgName3;
+                        this.loaded = true; 
                         //this.mainImageSrc = this.imageSrc1;
                         }
                      );
@@ -153,6 +177,7 @@ this.offerData = { "id": 1, "content": "Opis ogloszonka pobrany z serwerka",
   }
 
   toDate(str) {
+    if (str)
     return new Date(str).toDateString();
   }
 

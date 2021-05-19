@@ -61,30 +61,41 @@ padding: 0 !important;
                 <div class="" id="bigThumbnail" >
                   <div class="thumbnail" id="bigThumbnailKid">
                     <div class="thumb ">
+                        
+                        <img *ngIf="!mainImageSrc && loaded" src="assets/images/brak_zdjecia.png" alt="" class="img-fluid ">
+                        <img *ngIf="mainImageSrc" src="{{apiUrl}}img/{{mainImageSrc}}" alt="" class="img-fluid ">
+                    <!--
                         <img [src]="mainImageSrc" alt="" class="img-fluid ">
+                        -->
+                        <!--
+                        <img *ngIf="!offerData.imgName1 && !offerData.imgName2 && !offerData.imgName3" src="assets/images/brak_zdjecia.png" class="img-fluid" alt="zdjecie">
+                        <img *ngIf="offerData.imgName1 && (offerData.icon == 0 || offerData.icon == 1)" src="{{apiUrl}}img/{{offerData.imgName1}}" class="img-fluid" alt="zdjecie">
+                        <img *ngIf="offerData.imgName2 && offerData.icon == 2" src="{{apiUrl}}img/{{offerData.imgName2}}" class="img-fluid" alt="zdjecie">
+                        <img *ngIf="offerData.imgName3 && offerData.icon == 3" src="{{apiUrl}}img/{{offerData.imgName3}}" class="img-fluid" alt="zdjecie">
+                        -->
                     </div>
                   </div>
                 </div>
 
                 <div id="other-img" style="max-width: 410px; margin: auto;" class="row">
-                  <div *ngIf="imageSrc1" (click)="setMainImg(1)" class="small col-4 nopadding">
+                  <div *ngIf="offerData.imgName1" (click)="setMainImg(1)" class="small col-4 nopadding">
                     <div class="thumbnail" style="">
                       <div class="thumb ">
-                          <img [src]="imageSrc1" alt="" class="img-fluid img-thumbnail img-small">
+                          <img src="{{apiUrl}}img/{{offerData.imgName1}}" alt="" class="img-fluid img-thumbnail img-small">
                       </div>
                     </div>
                   </div>
-                  <div *ngIf="imageSrc2" (click)="setMainImg(2)" class="small col-4 nopadding">
+                  <div *ngIf="offerData.imgName2" (click)="setMainImg(2)" class="small col-4 nopadding">
                     <div class="thumbnail" style="">
                       <div class="thumb ">
-                        <img [src]="imageSrc2" alt="" class="img-fluid img-thumbnail img-small">
+                        <img src="{{apiUrl}}img/{{offerData.imgName2}}" alt="" class="img-fluid img-thumbnail img-small">
                       </div>
                     </div>
                   </div>
-                  <div *ngIf="imageSrc3" (click)="setMainImg(3)" class="small col-4 nopadding">
+                  <div *ngIf="offerData.imgName3" (click)="setMainImg(3)" class="small col-4 nopadding">
                     <div class="thumbnail" style="">
                       <div class="thumb ">
-                        <img [src]="imageSrc3" alt="" class="img-fluid img-thumbnail img-small">
+                        <img src="{{apiUrl}}img/{{offerData.imgName3}}" alt="" class="img-fluid img-thumbnail img-small">
                       </div>
                     </div>
                   </div>

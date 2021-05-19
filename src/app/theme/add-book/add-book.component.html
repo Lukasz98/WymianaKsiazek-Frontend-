@@ -121,8 +121,9 @@ border-color: silver;
             <ng-select (keyup)="onStrokeSearch3($event)" placeholder="Wybierz miasto" [ngClass]="'ng-select'" [allowClear]="true" [options]="simpleOption" formControlName="addressId">
             </ng-select>
           </div>
+            <span *ngIf="submitted && cityBlank" class="messages"><p class="text-danger error">Wybierz miasto</p></span> 
 
-          <div style="background-color: white; padding:20px;" class=" marginTop">
+          <div class=" marginTop autopadding" style="background-color: white; padding:20px;" >
             <div class="checkbox-fade fade-in-default" style="line-height: 30px;">
               <label>
                 <input type="checkbox" value="" formControlName="type">

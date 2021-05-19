@@ -118,10 +118,10 @@ export class BookSearchComponent implements OnInit {
   booksPage : Offer[] = [];
     //{id:1, title:'tytul',author:'autor',categoryId:2,isbn:null,offers:null,category:null}
   //];
-
+apiUrl : string;
 
   constructor(private router:Router, private fb:FormBuilder, private http : HttpClient, public selectCityService: SelectCityService) {
-    console.log(environment.apiUrl);
+    this.apiUrl = environment.apiUrl;
     const bookName = new FormControl('', Validators.required);
     this.initForm();
     //const url = 'https://localhost:5001/api/Offer/categories';
