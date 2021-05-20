@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl:'https://localhost:5001/',
-  //apiUrl:'https://wymienksiazkeapi.azurewebsites.net/',
+  //apiUrl:'https://localhost:5001/',
+  apiUrl:'https://wymienksiazkeapi.azurewebsites.net/',
   //apiUrl:'https://wymianaksiazekapiservicetest.azurewebsites.net/',
   facebookAppId: '259160792393197'
 }
