@@ -153,7 +153,10 @@ export class AddBookComponent implements OnInit {
     this.img3Loaded = true;
     //this.accountService.logout(this.accountService.accountValue.accessToken);
     //console.log(this.accountService);
-    //if (this.accountService.accountValue) {
+    if (!this.accountService.accountValue) {
+        this.router.navigate(['/użytkownik/logowanie']); 
+    
+    }
     //  console.log(this.accountService.accountValue.accessToken);
     //  this.accountService.logout(this.accountService.accountValue.accessToken);
     //  console.log(this.accountService.account);//.value.token);
@@ -329,6 +332,8 @@ let token = this.accountService.accountValue.accessToken;
     this.http.post(environment.apiUrl + 'offer/addoffer2', tmp, {responseType: 'text'})
                          .subscribe((res) => {
                                      console.log(res);
+
+    this.router.navigate(['/oferta/' + res]); 
     });
     
 /*
