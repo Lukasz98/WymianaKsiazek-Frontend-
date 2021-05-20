@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Message } from '@app/_models/message';
-import * as signalR from '@aspnet/signalr';
 import { environment } from '@environments/environment';
 import {ChatService} from '@app/_services/chat.service';
 import { FormBuilder, FormGroup } from '@angular/forms';

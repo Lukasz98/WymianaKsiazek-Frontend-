@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Contact } from '@app/_models/contact';
 import { Message } from '@app/_models/message';
-import * as signalR from '@aspnet/signalr';
+import * as signalR from '@microsoft/signalr'
 import { environment } from '@environments/environment';
 import { Angular2TinymceLibService } from 'angular2-tinymce';
 import { BehaviorSubject, Observable } from 'rxjs';
