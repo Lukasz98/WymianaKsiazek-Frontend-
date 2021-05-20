@@ -42,7 +42,8 @@ overflow: visible !important;
           </ul>
           <ul [@mobileHeaderNavRight]="navRight" [ngClass]="navRight" class="nav-right">
             <li class="ripple light"  style="cursor: pointer;">
-              <a [routerLink]="['/dodaj-ogloszenie']">Dodaj Ogłoszenie</a>
+              <a *ngIf="accountService2.accountValue" [routerLink]="['/dodaj-ogloszenie']">Dodaj Ogłoszenie</a>
+              <a *ngIf="!accountService2.accountValue" [routerLink]="['/użytkownik/logowanie']">Dodaj Ogłoszenie</a>
             <li class="ripple light"  style="cursor: pointer;">
               <a *ngIf="!accountService2.accountValue"  [routerLink]="['/użytkownik/logowanie']">Logowanie</a>
             </li>
