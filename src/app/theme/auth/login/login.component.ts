@@ -6,6 +6,7 @@ import { environment } from '@environments/environment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '@app/_services/alert.service';
 import { UserService } from '@app/_services/user.service';
+import { ChatService } from '@app/_services/chat.service';
 
 declare var FB:any;
 declare const gapi: any;
@@ -27,15 +28,11 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private accountService: AccountService,
     private alertService: AlertService,
-    private userService: UserService
+    private userService: UserService,
+    private chatService: ChatService
   ) {
 
     this.submitted = false;
-    if (this.accountService.accountValue) {
-      //navigate to profile page
-      //this.router.navigate(['/']);
-    }
-    
   }
 
   get f() { return this.form.controls; }
@@ -121,6 +118,8 @@ export class LoginComponent implements OnInit {
                 next: () => {
                   // navigate to profile page probably
                   this.userService.getUser(this.accountService.accountValue.id);
+                  this.chatService.clear();
+                  this.chatService.getContacts(this.accountService.accountValue.id);
                   this.router.navigate(["/szukaj"]);
                 },
                 error: error => {

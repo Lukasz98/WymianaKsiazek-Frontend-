@@ -1,7 +1,8 @@
 import { Message } from "./message";
 
 export class Contact {
-    userId: string;
+    id: string;
     userName: string;
-    messages: Array<Message>;
+    sentMessages: Array<Message>;
+    recvMessages: Array<Message>;
 }

@@ -254,13 +254,12 @@
                 <div [@fadeInOutTranslate] class="m-t-15">
                   <div class="row">
                     <div class="col-lg-3">
-                      <!-- user contact card left side start -->
                       <div class="card">
                         <div class="card-header contact-user">
                           <h4>Kontakty</h4>
                         </div>
                         <div class="card-body scroll">
-                          <ui *ngFor="let contact of contacts" class="contacts">
+                          <ui *ngFor="let contact of chatService.contactsValue" class="contacts">
                             <li (click)="choseContact(contact)">
                               <div class="d-flex bd-highlight">
                                 <div class="m-b-5"> 
@@ -268,7 +267,6 @@
                               </div>
                                 <div class="user_info">
                                   <span>{{contact.userName}}</span>
-                                  <p>{{contact.messages[contact.messages.length - 1].text}}</p>
                                 </div>
                               </div>
                             </li>
@@ -286,126 +284,32 @@
                             </div>
                           </div>
                           <div class="card-body scroll">
-                            <div class="d-flex justify-content-start mb-4" *ngFor="let message of activeContact.messages">
-                              <div ng-class="{message.sender_id === activeContact.userId ? 'msg_cotainer_send' : 'msg_cotainer' }">
-                                {{message.text}}
-                                <span class="msg_time">{{message.date}}</span>
+                            <div *ngFor="let message of chatService.messagesValue">
+                              <div *ngIf="message.sent" class="d-flex justify-content-end mb-4" >
+                                  <div class="msg_cotainer_send">
+                                    {{message.messageText}}
+                                    <!--<span class="msg_time">{{message.sentOn}}</span>-->
+                                  </div>
                               </div>
-                            </div>
-                            <div class="d-flex justify-content-end mb-4">
-                              <div class="msg_cotainer_send">
-                                Hi Khalid i am good tnx how about you?
-                                <span class="msg_time_send">8:55 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                I am good too, thank you for your chat template
-                                <span class="msg_time">9:00 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-end mb-4">
-                              <div class="msg_cotainer_send">
-                                You are welcome
-                                <span class="msg_time_send">9:05 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                I am looking for your next templates
-                                <span class="msg_time">9:07 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-end mb-4">
-                              <div class="msg_cotainer_send">
-                                Ok, thank you have a good day
-                                <span class="msg_time_send">9:10 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                Bye, see you
-                                <span class="msg_time">9:12 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                Bye, see you
-                                <span class="msg_time">9:12 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                Bye, see you
-                                <span class="msg_time">9:12 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                Bye, see you
-                                <span class="msg_time">9:12 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                Bye, see you
-                                <span class="msg_time">9:12 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                Bye, see you
-                                <span class="msg_time">9:12 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                Bye, see you
-                                <span class="msg_time">9:12 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                Bye, see you
-                                <span class="msg_time">9:12 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                Bye, see you
-                                <span class="msg_time">9:12 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                Bye, see you
-                                <span class="msg_time">9:12 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                Bye, see you
-                                <span class="msg_time">9:12 AM, Today</span>
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                              <div class="msg_cotainer">
-                                Bye, see you
-                                <span class="msg_time">9:12 AM, Today</span>
+                              <div *ngIf="!message.sent" class="d-flex justify-content-start mb-4" >
+                                  <div class="msg_cotainer">
+                                      {{message.messageText}}
+                                      <!--<span class="msg_time_send">{{message.sentOn}}</span>-->
+                                  </div>
                               </div>
                             </div>
                           </div>
                           <div class="card-footer">
                             <div class="right-icon-control">
-                              <form class="form-material">
+                              <form class="form-material" [formGroup]="form2">
                                   <div class="form-group form-primary">
-                                      <input type="text" name="footer-email" class="form-control" required="">
+                                      <input type="text" id="send" name="send" class="form-control" formControlName="send">
                                       <span class="form-bar"></span>
                                       <label class="float-label">Twoja wiadomość...</label>
                                   </div>
                               </form>
                               <div class="form-icon ">
-                                  <button class="btn btn-primary btn-icon  waves-effect waves-light">
+                                  <button class="btn btn-primary btn-icon  waves-effect waves-light" (click)="sendMessage()">
                                       <i class="fa fa-paper-plane"></i>
                                   </button>
                               </div>
