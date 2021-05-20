@@ -49,7 +49,7 @@ export class RegistrationComponent implements OnInit {
     
     this.accountService.register(this.form.value).pipe(first()).subscribe({
         next: () => {
-          this.alertService.success('Rejestracja zakończona. Potwierdź adres e-mail po czym będziesz mógł się zalogować. ', { keepAfterRouteChange: true});
+          this.alertService.success('Rejestracja zakończona. Potwierdź adres e-mail po czym będziesz mógł się zalogować. ', { keepAfterRouteChange: true, autoClose: false});
           this.form = this.formBuilder.group({
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(128)]],
