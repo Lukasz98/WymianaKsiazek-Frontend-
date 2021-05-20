@@ -9,8 +9,18 @@ margin-bottom: 0px;
 }
 
 img {
-height: 200px;
+min-height: 30%;
+min-width: 30%;
+max-height: 200px;
 max-width: 200px;
+width: auto;
+height: auto;
+}
+.img-holder {
+height: 200px;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 .nomargin {
@@ -96,72 +106,15 @@ margin-left: 5px;
       </form>
     </div>
 
-<!--
-    <div class=" col-12 nopadding" style="margin: auto;  ">
-      <form  [formGroup]='stateForm' autocomplete="new-password" novalidate>
-        <div class="row col-12 nopadding" style="margin: auto;">
-          
-          <div style="  margin: auto; " class="col-12 col-md-7 autopadding nopadding margintop">
-            <input id='search' autocomplete="off"  placeholder="tytuł, autor" formControlName='search' 
-              (keyup.enter)="onEnterSearch($event)"  (click)=' openDropDown() ' 
-              (keyup)="onStrokeSearch($event)" class=' input-underline search-bar col-12' type='text' 
-              style="width:100%; ">
-            
-            <div clickOutside (clickOutside)="closeDropDown()" style="width: 100%;" class="">
-              <div *ngIf='showDropDown' class='search-drop-down drop-down-title col-12 nopadding'>
-                <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of states | searchFilter: getSearchValue()">
-                  <a [innerHTML]="s | letterBold: getSearchValue()">
-                    {{s}}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div style="margin: auto; " class=" col-12 col-md-4 autopadding nopadding margintop">
-            <input id='search2' autocomplete="off"  placeholder="miasto" formControlName='search2' 
-              (keyup.enter)="onEnterSearch2($event)"  (click)=' openDropDown2() ' 
-              (keyup)="onStrokeSearch2($event)" class=' input-underline search-bar col-12' type='text' 
-              style="width: 100%;">
-  
-            <div clickOutside (clickOutside)="closeDropDown2()" style="width: 100%;">
-              <div *ngIf='showDropDown2' class='search-drop-down drop-down-city col-12 nopadding'>
-                <div (click)='selectValue2(s)' class='search-results ' *ngFor="let s of cities | searchFilter: getSearchValue2()">
-                  <a [innerHTML]="s | letterBold: getSearchValue2()">
-                    {{s}}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-12 col-md-7 nopadding autopadding margintop" style="margin:auto; height: 50px;">
-            <select (mousedown)="closeDropDown2(); closeDropDown()"  name="select" class="form-control form-control-primary" style="height: 100%; -webkit-box-shadow: none; " formControlName="category">
-              <option  *ngFor="let item of categories; let i = index " value="{{i}}" >
-                  {{ item }}
-              </option>
-            </select>
-          </div>
-          
-          <div class="col-12 col-md-4  autopadding nopadding margintop" style="margin:auto; text-align: center; ">
-             <button type="submit" (click)="onSubmit()" class="btn btn-primary m-b-0 ripple light " style="line-height: 20px; width: 200px;" ><i class="fa fa-search" style="line-height: 20px;" ></i>Szukaj</button>
-          </div>
-        </div>
-      </form>
-    </div>
--->
   </div>
 </div>
 
 
 <div class="page-body" >
   <div class="col-12" style="max-width: 1000px; margin: auto;">
-    <h3  class="txt-highlight text-left m-t-20">
-    <!--
-      Wyniki dla: <i>'{{ searchString }}', {{categoryId}}, {{cityId}} </i>
-    -->
+    <h4  class="txt-highlight text-left m-t-20">
       Wyniki dla: <i>{{ title }}</i>
-    </h3>
+    </h4>
     <p class="txt-highlight text-left m-t-20">
       Strona {{ this.currPage + 1 }} z {{ this.pageCount - 1 + 1 }}
     </p>
@@ -169,10 +122,16 @@ margin-left: 5px;
 
 
  <div class="row" style="max-width: 1000px; margin: auto;" >
+  <div  class="col-12 " style="margin-top: 50px;">
+    <svg  *ngIf="!loaded" id="loader2" viewBox="0 0 100 100" style="width:120px; height:120px;">
+      <circle id="circle-loader2" cx="50" cy="50" r="45"></circle>
+    </svg>
+  </div>
+
   <div *ngFor="let item of booksPage " class="col-xl-3 col-md-6" style="">
     <div class="card user-card">
       <div class="card-block text-center" style="padding: 0px; padding-top: 5px; ">
-        <div class="" style="">
+        <div class="img-holder" style="height:200px;">
         
           <img *ngIf="!item.imgName1 && !item.imgName2 && !item.imgName3" src="assets/images/brak_zdjecia.png" class="" alt="zdjecie">
           <img *ngIf="item.imgName1 && (item.icon == 0 || item.icon == 1)" src="{{apiUrl}}img/{{item.imgName1}}" class="" alt="zdjecie">

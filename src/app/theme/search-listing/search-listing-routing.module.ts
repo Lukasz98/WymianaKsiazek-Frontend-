@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: SearchListingComponent,
     data: {
-      title: 'Wyszukiwania',
+      title: 'Wymień Książkę - Wyniki',
       icon: 'icon-layout-sidebar-left',
       caption: 'wyszukiwania',
       status: true

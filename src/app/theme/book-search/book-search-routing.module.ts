@@ -9,9 +9,9 @@ const routes: Routes = [
     path: '',
     component: BookSearchComponent,
     data: {
-      title: 'Szukaj',
+      title: 'Wymień Książkę',
       icon: 'icon-layout-sidebar-left',
-      caption: 'wyszukiwanie ogłoszeń',
+      caption: 'Wymieniaj i sprzedawaj',
       status: true
     }
   }

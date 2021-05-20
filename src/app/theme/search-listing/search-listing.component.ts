@@ -136,8 +136,10 @@ export class SearchListingComponent implements OnInit {
 //~formularz
 apiUrl : string;
   url = 'https://localhost:5001/'; 
+  loaded: boolean;
 
   constructor(private router:Router, private route: ActivatedRoute, private fb:FormBuilder, private http : HttpClient,  public selectCityService: SelectCityService) {
+    this.loaded = false;
     //books$.push(
     this.itemLast = this.itemsOnPage;
     this.itemFirst = 0;
@@ -219,13 +221,18 @@ apiUrl : string;
           title: this.searchString,
           category: this.categoryId
         };
+    this.loaded = false;
         this.http.get<Offer[]>(environment.apiUrl + 'offers/search3?Address=' + this.cityId + '&Title='+ this.searchString + '&Category='+ this.categoryId).subscribe(
           (response) => {
+            this.loaded = true;
             console.log("response categories recv");
             console.log(response)
             this.books = response
             this.pageCount = Math.ceil(this.books.length / this.itemsOnPage);
             this.changePage(0);
+          },
+          (error) => {
+            this.loaded = true;
           }
         );
 
@@ -364,9 +371,10 @@ apiUrl : string;
             console.log("response offers recv");
             console.log(response)
             this.states = response
+          },
+          (error) => {
           }
-        );
-  
+        )
         clearInterval(this.tracking);
         this.tracking = null;
       }, 2000);

@@ -7,9 +7,9 @@ const routes: Routes = [
     path: '',
     component: OfferViewComponent,
     data: {
-      title: 'Oferta',
+      title: 'Wymień Książkę - Oferta',
       icon: 'icon-layout-sidebar-left',
-      caption: 'podgląd oferty',
+      caption: 'Podgląd oferty',
       status: true
     }
   }

@@ -119,8 +119,10 @@ export class BookSearchComponent implements OnInit {
     //{id:1, title:'tytul',author:'autor',categoryId:2,isbn:null,offers:null,category:null}
   //];
 apiUrl : string;
+  loaded : boolean;
 
   constructor(private router:Router, private fb:FormBuilder, private http : HttpClient, public selectCityService: SelectCityService) {
+    this.loaded = false;
     this.apiUrl = environment.apiUrl;
     const bookName = new FormControl('', Validators.required);
     this.initForm();
@@ -133,11 +135,16 @@ apiUrl : string;
       }
     );
     
+    this.loaded = false;
     this.http.get<Offer[]>(environment.apiUrl + 'offers/last/8').subscribe(
       (response) => {
+    this.loaded = true;
         console.log("response offers recv");
         this.booksPage = response
         console.log(this.booksPage);
+      },
+      (error) => {
+        this.loaded = true;
       }
     );
     
