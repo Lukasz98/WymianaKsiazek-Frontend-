@@ -120,6 +120,7 @@ export class LoginComponent implements OnInit {
                   this.userService.getUser(this.accountService.accountValue.id);
                   this.chatService.clear();
                   this.chatService.getContacts(this.accountService.accountValue.id);
+                  this.chatService.init();
                   this.router.navigate(["/szukaj"]);
                 },
                 error: error => {

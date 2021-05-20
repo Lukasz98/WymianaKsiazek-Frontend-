@@ -59,22 +59,26 @@ export class ChatService {
 
     this.messagesSubject = new BehaviorSubject<Array<Message>>([]);
     this.messages = this.messagesSentSubject.asObservable();
+    
+   }
 
+   init()
+   {
     this.connection = new signalR.HubConnectionBuilder()
-      .configureLogging(signalR.LogLevel.Debug)
-      .withUrl(`${baseUrl}chat`, {accessTokenFactory: () => this.accountService.accountValue.accessToken})
-      .build();
+    .configureLogging(signalR.LogLevel.Debug)
+    .withUrl(`${baseUrl}chat`, {accessTokenFactory: () => this.accountService.accountValue.accessToken})
+    .build();
 
-      this.connection.start().then(function () {
-        console.log('Połączenie nawiązane poprawnie');
-      });
+    this.connection.start().then(function () {
+      console.log('Połączenie nawiązane poprawnie');
+    });
 
-      this.connection.on("ReceiveMessage", (message: Message) => {
-        message.sent = false;
-        console.log(message);
-        this.messagesRecvValue.push(message);
-        this.messagesValue.push(message);
-      });
+    this.connection.on("ReceiveMessage", (message: Message) => {
+      message.sent = false;
+      console.log(message);
+      this.messagesRecvValue.push(message);
+      this.messagesValue.push(message);
+    });
    }
 
    sendMessage(from: string, sendTo: string, message : string)
