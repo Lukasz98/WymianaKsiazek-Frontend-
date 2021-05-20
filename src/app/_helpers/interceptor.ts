@@ -14,8 +14,8 @@ export class Interceptor implements HttpInterceptor {
         const account = this.accountService.accountValue;
         const isLoggedIn = account && account.accessToken;
         const isApiUrl = req.url.startsWith(environment.apiUrl);
-        console.log("tiu");
-        console.log(req);
+        //console.log("tiu");
+        //console.log(req);
         console.log(account);
         if (isLoggedIn && isApiUrl)
         {
@@ -31,7 +31,7 @@ export class Interceptor implements HttpInterceptor {
                 }
             );
         }
-        console.log(req);
+        //console.log(req);
         return next.handle(req);
     }
 

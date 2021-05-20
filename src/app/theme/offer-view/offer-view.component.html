@@ -130,8 +130,8 @@ padding: 0 !important;
                       <div class="col-6" style="text-align: right; margin: auto;">Dodano: {{toDate(offerData.createdOn) | date:'fullDate':'+0200':'pl'}}</div>
                     </div>
                     <div class="row" style="padding-top: 15px;">
-                      <div class="" style="padding-left: 15px;">
-                        <button class="btn btn-primary d-block" style="">Wyślij wiadomość</button>
+                      <div *ngIf="loged" class="" style="padding-left: 15px;">
+                        <button class="btn btn-primary d-block" (click)="sendMessage(offerData.user)">Wyślij wiadomość</button>
                       </div>
                       <div *ngIf="deleteOffer" class="col-8" style="padding-right: 15px;">
                         <button class="btn btn-danger d-block pull-right" style="" (click)="deleteOff()">Usuń</button>

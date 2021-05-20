@@ -75,6 +75,7 @@ export class OfferViewComponent implements OnInit {
 
 offerData : Offer = new Offer();
 deleteOffer: Boolean;
+loged:Boolean;
 
 //imageSrc1 = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.galleries.smcloud.net%2Ft%2Fgalleries%2Fgf-69dd-mFo5-3Nuy_sowa-guma-664x442-nocrop.jpg&f=1&nofb=1";
 //imageSrc2 = "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fbooklips.pl%2Fwp-content%2Fuploads%2F2015%2F07%2Fsowa-karta-biblioteczna2.jpg&f=1&nofb=1";
@@ -84,7 +85,8 @@ imageSrc2 : string;
 imageSrc3 : string;
 mainImageSrc = this.imageSrc1;
 
-  constructor(private route: ActivatedRoute, private http : HttpClient, private accountService: AccountService, private offerService: OfferService, private router: Router ) {
+  constructor(private route: ActivatedRoute, private http : HttpClient, private accountService: AccountService, private offerService: OfferService, private router: Router) {
+    this.loged = false;
     //this.offerData.content = "opis";
     //this.offerData.type = false;
 /*
@@ -146,6 +148,7 @@ apiUrl : string;
                         this.offerData = response;
                         if(this.accountService.accountValue)
                         {
+                          this.loged = true;
                           this.deleteOffer = this.accountService.accountValue.id === this.offerData.user.id;
                         }
                         //console.log(this.offerData);
@@ -164,6 +167,14 @@ apiUrl : string;
                      );
               }
     );
+  }
+
+  sendMessage(user:User)
+  {
+      this.router.navigate(['/wiadomości'], {queryParams: {
+        userId: user.id,
+        userName: user.userName
+      }})
   }
 
   deleteOff()

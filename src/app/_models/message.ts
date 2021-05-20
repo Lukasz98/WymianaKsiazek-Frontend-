@@ -1,7 +1,8 @@
 export class Message {
-    public sender_id:string;
-    public recv_id:string;
-    public text:string;
-    public date:string;
-    public status:boolean;
+    public id:string;
+    public senderId:string;
+    public recipientId:string;
+    public messageText:string;
+    public sentOn:string;
+    public sent:Boolean;
 }

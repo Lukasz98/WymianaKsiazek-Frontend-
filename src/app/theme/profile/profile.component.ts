@@ -14,6 +14,7 @@ import {User} from "@app/_models/user";
 import {Contact} from "@app/_models/contact";
 import {Message} from "@app/_models/message";
 import {AddressService} from "@app/_services/address.service";
+import { ChatService } from '@app/_services/chat.service';
 
 @Component({
   selector: 'app-profile',
@@ -41,6 +42,7 @@ export class ProfileComponent implements OnInit {
   editProfileIcon = 'icofont-edit';
   user: User;
   form: FormGroup;
+  form2: FormGroup;
   showCities = false;
   states = [];
 
@@ -52,6 +54,7 @@ export class ProfileComponent implements OnInit {
     private accountService: AccountService,
     private userService: UserService,
     private addressService: AddressService,
+    public chatService: ChatService
   ) {
     if(!this.accountService.accountValue)
     {
@@ -61,18 +64,16 @@ export class ProfileComponent implements OnInit {
     {
       this.userService.getUser(this.accountService.accountValue.id);
       this.user = this.userService.userValue;
+      
+    }
+    if(this.chatService.contactsValue)
+    {
+      //this.activeContact = this.chatService.contactsValue[0];
+      //this.chatService.getMessages(this.activeContact.id);
     }
   }
 
   ngOnInit() {
-    this.contacts = [{userId: "0", userName: "Tomek", messages: [{sender_id: "0", recv_id: "1", text: "hello", date: "21.04.2021", status: true}]},
-    {userId: "1", userName: "nieTomek", messages: [{sender_id: "0", recv_id: "1", text: "hello", date: "21.04.2021", status: true}]},
-    {userId: "2", userName: "teżnieTomek", messages: [{sender_id: "0", recv_id: "1", text: "hello", date: "21.04.2021", status: true}]},
-    {userId: "3", userName: "równieżnieTomek", messages: [{sender_id: "0", recv_id: "1", text: "hello", date: "21.04.2021", status: true}]},
-    {userId: "4", userName: "takżenieTomek", messages: [{sender_id: "0", recv_id: "1", text: "hello", date: "21.04.2021", status: true}]},
-    {userId: "5", userName: "takTomek", messages: [{sender_id: "0", recv_id: "1", text: "hello", date: "21.04.2021", status: true}]}];
-    this.activeContact = this.contacts[this.contacts.length - 1];
-
 
     if(!this.accountService.accountValue)
     {
@@ -84,12 +85,24 @@ export class ProfileComponent implements OnInit {
       this.user.address = {id: 0, name: ""};
     }
 
+    if(this.chatService.contactsValue)
+    {
+      this.activeContact = this.chatService.contactsValue[0];
+      console.log(this.chatService.contactsValue);
+      if(this.chatService.contactsValue[0])
+        this.chatService.getMessages(this.activeContact.id);
+    }
+
     this.form = this.formBuilder.group({
       firstName: [this.user.firstName],
       lastName: [this.user.lastName],
       email: [this.user.email],
       userName: [this.user.userName],
       address: [this.user.address.name]
+    });
+
+    this.form2 = this.formBuilder.group({
+      send: ['']
     });
   }
 
@@ -101,6 +114,7 @@ export class ProfileComponent implements OnInit {
   choseContact(contact: Contact)
   {
       this.activeContact = contact;
+      this.chatService.getMessages(this.activeContact.id);
   }
 
   openDropDown() {
@@ -184,6 +198,17 @@ export class ProfileComponent implements OnInit {
           this.alertService.error(error);
         }
       });
+  }
+
+  get f() { return this.form2.controls; }
+
+  sendMessage()
+  {
+      this.chatService.sendMessage(this.accountService.accountValue.id, this.activeContact.id, this.f.send.value);
+      console.log(this.f.send.value);
+      this.form = this.formBuilder.group({
+        send: ['']
+    });
   }
 
 }
