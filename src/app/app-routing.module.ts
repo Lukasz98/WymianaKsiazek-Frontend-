@@ -10,11 +10,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'szukaj',
+        redirectTo: 'index',
         pathMatch: 'full'
       },
       {
-        path: 'szukaj',
+        path: 'index',
         loadChildren: () => import('./theme/book-search/book-search.module').then(m => m.BookSearchModule)
       },
       {

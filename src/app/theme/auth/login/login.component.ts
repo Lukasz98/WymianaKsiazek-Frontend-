@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
               console.log(returnUrl);
               if(returnUrl)
               {
-                this.router.navigate(['/szukaj']);
+                this.router.navigate(['']);
               }
             }
           );
@@ -136,7 +136,7 @@ export class LoginComponent implements OnInit {
                   this.chatService.clear();
                   this.chatService.getContacts(this.accountService.accountValue.id);
                   this.chatService.init();
-                  this.router.navigate(["/szukaj"]);
+                  this.router.navigate([""]);
                 },
                 error: error => {
                   this.alertService.error("Logowanie się nie powiodło. Upewnij się że adres e-mail oraz hasło są poprawne.");

@@ -183,7 +183,7 @@ export class ProfileComponent implements OnInit {
     this.accountService.logout(this.accountService.accountValue.refreshToken).pipe(first()).
     subscribe({
       next: () => {
-        this.router.navigate(['/szukaj']);
+        this.router.navigate(['']);
 
       },
 
