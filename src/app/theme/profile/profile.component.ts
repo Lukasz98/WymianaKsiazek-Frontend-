@@ -15,6 +15,7 @@ import {Contact} from "@app/_models/contact";
 import {Message} from "@app/_models/message";
 import {AddressService} from "@app/_services/address.service";
 import { ChatService } from '@app/_services/chat.service';
+import {AuthGuard} from '@app/_helpers/auth.guard';
 
 @Component({
   selector: 'app-profile',
@@ -54,23 +55,23 @@ export class ProfileComponent implements OnInit {
     private accountService: AccountService,
     private userService: UserService,
     private addressService: AddressService,
-    public chatService: ChatService
+    public chatService: ChatService,
+    private guard: AuthGuard
   ) {
-    if(!this.accountService.accountValue)
-    {
-      this.router.navigate(['/szukaj']);
-    }
-    else
+
+    this.guard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
+
+    if(this.accountService.accountValue)
     {
       this.userService.getUser(this.accountService.accountValue.id);
       this.user = this.userService.userValue;
-      
-    }
+    } 
+    
     if(this.chatService.contactsValue.length == 0)
     {
-      this.chatService.getContacts(this.accountService.accountValue.id);
-      //this.activeContact = this.chatService.contactsValue[0];
-      //this.chatService.getMessages(this.activeContact.id);
+        this.chatService.getContacts(this.accountService.accountValue.id);
+        //this.activeContact = this.chatService.contactsValue[0];
+        //this.chatService.getMessages(this.activeContact.id);
     }
   }
 

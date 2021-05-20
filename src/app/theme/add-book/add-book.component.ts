@@ -25,7 +25,7 @@ import 'rxjs/add/operator/map';
 ////import {HttpModule} from '@angular/http';
 //import {serialize} from 'json-typescript-mapper';
 
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import {createAutoCorrectedDatePipe, createNumberMask, emailMask} from 'text-mask-addons/dist/textMaskAddons';
@@ -34,6 +34,7 @@ import { AccountService } from '@app/_services/account.service';
 import {Subscription} from 'rxjs/Subscription';
 import { environment } from '../../../environments/environment';
 import { UserService } from '@app/_services/user.service';
+import { AuthGuard } from '@app/_helpers/auth.guard';
 
 interface ImgResponse {
 fileName: string;
@@ -140,7 +141,8 @@ export class AddBookComponent implements OnInit {
 
   constructor(private router:Router, private fb:FormBuilder,  private accountService: AccountService, private http : HttpClient, 
                 public selectCityService: SelectCityService,
-                private userService: UserService
+                private userService: UserService,
+                private guard: AuthGuard, private route: ActivatedRoute
                 ) {
     this.initForm();
 
@@ -153,10 +155,7 @@ export class AddBookComponent implements OnInit {
     this.img3Loaded = true;
     //this.accountService.logout(this.accountService.accountValue.accessToken);
     //console.log(this.accountService);
-    if (!this.accountService.accountValue) {
-        this.router.navigate(['/użytkownik/logowanie']); 
-    
-    }
+    this.guard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
     //  console.log(this.accountService.accountValue.accessToken);
     //  this.accountService.logout(this.accountService.accountValue.accessToken);
     //  console.log(this.accountService.account);//.value.token);

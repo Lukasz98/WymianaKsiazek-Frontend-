@@ -4,7 +4,8 @@ import { environment } from '@environments/environment';
 import {ChatService} from '@app/_services/chat.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AccountService } from '@app/_services/account.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
+import { AuthGuard } from '@app/_helpers/auth.guard';
 
 const baseUrl = environment.apiUrl;
 
@@ -18,7 +19,14 @@ export class ChatComponent implements OnInit {
   form:FormGroup;
 
 
-  constructor(private formBuilder: FormBuilder, public chatService: ChatService, private accountService: AccountService, private route: ActivatedRoute) { 
+  constructor(private formBuilder: FormBuilder, 
+    public chatService: ChatService, 
+    private accountService: AccountService, 
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private guard: AuthGuard) { 
+
+    this.guard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
 
     this.chatService.clear();
     this.route.queryParams.subscribe(

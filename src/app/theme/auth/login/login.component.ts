@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { AccountService } from '@app/_services/account.service';
 import { first } from 'rxjs/operators';
 import { environment } from '@environments/environment';
@@ -31,6 +31,21 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private chatService: ChatService
   ) {
+    router.events
+      .subscribe((event: NavigationStart) => {
+        if (event.navigationTrigger === 'popstate') {
+          this.route.queryParams.subscribe(
+            params => { 
+              const returnUrl = params['returnUrl'];
+              console.log(returnUrl);
+              if(returnUrl)
+              {
+                this.router.navigate(['/szukaj']);
+              }
+            }
+          );
+        }
+      });
 
     this.submitted = false;
   }
