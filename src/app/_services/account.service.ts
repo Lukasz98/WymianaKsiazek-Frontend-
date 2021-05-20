@@ -37,13 +37,15 @@ export class AccountService {
        // set a timeout to refresh the token a minute before it expires
        var exp = new Date(this.accountValue.expires);
        const timeout = exp.getTime() - Date.now() - (60 * 1000);
-       this.refreshTokenTimeout = setTimeout(() => this.refreshToken(this.accountValue.refreshToken).subscribe(), timeout);
+       this.refreshTokenTimeout = setTimeout(() => this.refreshToken(this.accountValue.refreshToken).subscribe(() => {console.log("refreshed" + Date.now())}), timeout);
    }
 
    refreshToken(token: string) {
     return this.http.post<any>(`${baseUrl}users/token/refresh`, {token})
         .pipe(map((account) => {
             this.accountSubject.next(account);
+            console.log(this.accountValue.expires);
+            localStorage.setItem('account', JSON.stringify(account));
             this.startRefreshTokenTimer();
             return account;
         }));
@@ -56,7 +58,6 @@ export class AccountService {
    login(email: string, password:string) {
      return this.http.post<any>(`${baseUrl}users/token`, {email, password})
      .pipe(map(account => {
-       this.loged = true;
         this.accountSubject.next(account);
         localStorage.setItem('account', JSON.stringify(account));
         this.startRefreshTokenTimer();
