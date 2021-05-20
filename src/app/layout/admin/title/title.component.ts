@@ -25,7 +25,7 @@ export class TitleComponent {
           });
         } while (currentRoute);
         if (title !== undefined ) {
-          this.titleService.setTitle(title);// + ' | Mega Able Angular Admin Template');
+          this.titleService.setTitle(title + ' - Wymien Ksiazke');
         }
       });
   }
