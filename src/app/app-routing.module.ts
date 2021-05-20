@@ -38,7 +38,7 @@ const routes: Routes = [
         loadChildren: () => import('./theme/profile-card/profile-card.module').then(m => m.ProfileCardModule)
       },
       {
-        path: 'wiadomości',
+        path: 'wiadomosci',
         loadChildren: () => import('./theme/chat/chat.module').then(m => m.ChatModule)
       }
       /*

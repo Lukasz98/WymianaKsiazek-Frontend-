@@ -171,7 +171,7 @@ apiUrl : string;
 
   sendMessage(user:User)
   {
-      this.router.navigate(['/wiadomości'], {queryParams: {
+      this.router.navigate(['/wiadomosci'], {queryParams: {
         userId: user.id,
         userName: user.userName
       }})
