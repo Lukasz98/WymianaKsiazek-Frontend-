@@ -20,7 +20,7 @@ export class ProfileCardComponent implements OnInit {
 
     this.user = this.userCardService.userValue;
 
-    this.user = {id: '0', email: 'test', firstName: 'e', lastName: 'f', userName: 'user', address: {id: 0, name: "here"},
+    /*this.user = {id: '0', email: 'test', firstName: 'e', lastName: 'f', userName: 'user', address: {id: 0, name: "here"},
      offers: [
       { imgSrc: "asd", id: 0, book: {title: "Lalka", author: "Bolesław Prus", category: {id: 0, name: "Bajki"}}, price: 10, type: true,
         content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
@@ -46,7 +46,7 @@ export class ProfileCardComponent implements OnInit {
         content: "To jest skrócony opis. Ipsum lorem kipsum giupsum morem lipsum.",
         address: {id: 0, name: "Podkowice Dolne"}, createdOn: "21.04.2021", updatedOn: "21.04.2021", user: '0'
       }
-    ]};
+    ]};*/
   }
 
 }
