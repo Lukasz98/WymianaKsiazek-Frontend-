@@ -66,8 +66,9 @@ export class ProfileComponent implements OnInit {
       this.user = this.userService.userValue;
       
     }
-    if(this.chatService.contactsValue)
+    if(this.chatService.contactsValue.length == 0)
     {
+      this.chatService.getContacts(this.accountService.accountValue.id);
       //this.activeContact = this.chatService.contactsValue[0];
       //this.chatService.getMessages(this.activeContact.id);
     }
@@ -85,7 +86,14 @@ export class ProfileComponent implements OnInit {
       this.user.address = {id: 0, name: ""};
     }
 
-    if(this.chatService.contactsValue)
+    if(this.chatService.contactsValue.length == 0)
+    {
+      this.chatService.getContacts(this.accountService.accountValue.id);
+      //this.activeContact = this.chatService.contactsValue[0];
+      //this.chatService.getMessages(this.activeContact.id);
+    }
+
+    if(this.chatService.contactsValue.length != 0)
     {
       this.activeContact = this.chatService.contactsValue[0];
       console.log(this.chatService.contactsValue);
@@ -114,7 +122,7 @@ export class ProfileComponent implements OnInit {
   choseContact(contact: Contact)
   {
       this.activeContact = contact;
-      this.chatService.getMessages(this.activeContact.id);
+      this.chatService.getMessages(contact.id);
   }
 
   openDropDown() {
