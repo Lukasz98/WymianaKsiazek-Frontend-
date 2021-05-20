@@ -96,7 +96,8 @@ export class SelectCityService {
 
     private cloneOptions(options: Array<Address>): Array<IOption> {
         //return null;
-        return options.map(option => ({ value: option.id, label: option.name + ' id. ' + option.id + ' gm. ' + option.gmina + ' pow. ' + option.powiat + ' woj. ' + option.wojewodztwo}));
+        return options.map(option => ({ value: option.id, label: option.name + ' gm. ' + option.gmina + ' pow. ' + option.powiat + ' woj. ' + option.wojewodztwo}));
+        //return options.map(option => ({ value: option.id, label: option.name + ' id. ' + option.id + ' gm. ' + option.gmina + ' pow. ' + option.powiat + ' woj. ' + option.wojewodztwo}));
         //return options.map(option => ({ value: option.id, label: option.name }));//+ ' id. ' + option.id + ' gm. ' + option.gmina + ' pow. ' + option.powiat + ' woj. ' + option.wojewodztwo}));
     }
 }

@@ -5,7 +5,8 @@ import { Offer } from '@app/_models/offer';
 import { User } from "@app/_models/user";
 import { environment } from '@environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize, first, map } from 'rxjs/operators';
+import { UserService } from './user.service';
 
 const baseUrl = environment.apiUrl;
 
@@ -16,7 +17,7 @@ export class OfferService {
   private offerSubject: BehaviorSubject<Offer>;
   public offer: Observable<Offer>;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private userService: UserService) {
     this.offerSubject = new BehaviorSubject<Offer>(null);
     this.offer = this.offerSubject.asObservable();
   }
@@ -39,7 +40,8 @@ export class OfferService {
   }
 
   delete(id) {
-    return this.http.delete(`${baseUrl}offer/delete/${id}`);
+    return this.http.delete(`${baseUrl}offer/delete${id}`);
+    
   }
 
   getOffer(offerId:string)
