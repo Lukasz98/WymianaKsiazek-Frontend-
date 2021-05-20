@@ -64,8 +64,12 @@ export class ProfileComponent implements OnInit {
     {
       this.userService.getUser(this.accountService.accountValue.id);
       this.user = this.userService.userValue;
-      //this.chatService.clear();
-      //this.chatService.getContacts(this.accountService.accountValue.id);
+      
+    }
+    if(this.chatService.contactsValue)
+    {
+      //this.activeContact = this.chatService.contactsValue[0];
+      //this.chatService.getMessages(this.activeContact.id);
     }
   }
 
@@ -79,9 +83,14 @@ export class ProfileComponent implements OnInit {
     {
       this.user = this.userService.userValue;
       this.user.address = {id: 0, name: ""};
-      
+    }
+
+    if(this.chatService.contactsValue)
+    {
       this.activeContact = this.chatService.contactsValue[0];
-      this.chatService.getMessages(this.activeContact.id);
+      console.log(this.chatService.contactsValue);
+      if(this.chatService.contactsValue[0])
+        this.chatService.getMessages(this.activeContact.id);
     }
 
     this.form = this.formBuilder.group({

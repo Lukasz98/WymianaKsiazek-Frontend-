@@ -6,6 +6,7 @@ import { Contact } from '@app/_models/contact';
 import { Message } from '@app/_models/message';
 import * as signalR from '@aspnet/signalr';
 import { environment } from '@environments/environment';
+import { Angular2TinymceLibService } from 'angular2-tinymce';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AccountService } from './account.service';
 
@@ -86,17 +87,17 @@ export class ChatService {
 
    clear()
    {
-    this.messagesSentSubject = new BehaviorSubject<Array<Message>>([]);
-    this.messagesRecvSubject = new BehaviorSubject<Array<Message>>([]);
-    this.messagesSubject = new BehaviorSubject<Array<Message>>([]);
+     this.messagesSentSubject.next([]);
+     this.messagesRecvSubject.next([]);
+     this.messagesSubject.next([]);
    }
 
    getRecvMes(userId:string)
    {
     return this.http.get<any>(`${baseUrl}chat/recv/${userId}`)
     .subscribe(messages => {
-      m:Array<Message>();
       this.messagesRecvSubject.next(messages);
+      this.messagesRecvValue.forEach(item => item.sent = false);
       return messages;
     });
    }
@@ -106,7 +107,8 @@ export class ChatService {
     return this.http.get<any>(`${baseUrl}chat/sent/${userId}`)
     .subscribe(messages => {
       this.messagesSentSubject.next(messages);
-      console.log(messages);
+      this.messagesSentValue.forEach(item => item.sent = true);
+      //console.log(messages);
       return messages;
     });
    }
@@ -122,26 +124,13 @@ export class ChatService {
 
    getMessages(userId:string)
    {
-     let m:Array<Message>;
-     for(let i = 0; i < this.messagesSentValue.length; i++)
-     {
-       let ms:Message;
-       ms = this.messagesSentValue[i];
-       ms.sent = true;
-       m.push(ms);
-     }
-     let k:Array<Message>;
-     for(let i = 0; i < this.messagesRecvValue.length; i++)
-     {
-       let ms:Message;
-       ms = this.messagesSentValue[i];
-       ms.sent = true;
-       m.push(ms);
-     }
-     this.getSentMes(userId);
-     this.getRecvMes(userId);
-     var msg = m.concat(this.messagesRecvValue);
+    this.getSentMes(userId);
+    this.getRecvMes(userId);
+     var msg = this.messagesSentValue.concat(this.messagesRecvValue);
+      msg.sort((a, b) => {
+        return <any>new Date(a.sentOn) - <any>new Date(b.sentOn);
+      });
      this.messagesSubject.next(msg);
-     return msg;
+     //return msg;
    }
 }
