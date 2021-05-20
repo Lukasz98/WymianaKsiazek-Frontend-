@@ -41,7 +41,7 @@ export class UserService {
   }
 
   delete() {
-    return this.http.delete(`${baseUrl}user/delete/${this.userValue.id}`)
+    return this.http.delete(`${baseUrl}user/delete`)
         .pipe(finalize(() => {
             this.accountService.logout(this.accountService.accountValue.refreshToken);
         }));
