@@ -145,7 +145,7 @@ export class AddBookComponent implements OnInit {
                 private guard: AuthGuard, private route: ActivatedRoute
                 ) {
     this.initForm();
-
+console.log(this.accountService.refreshTokenTimeout);
     this.imgForm1 = this.fb.group({ fileSource: [null] });
     this.imgForm2 = this.fb.group({ fileSource: [null] });
     this.imgForm3 = this.fb.group({ fileSource: [null] });

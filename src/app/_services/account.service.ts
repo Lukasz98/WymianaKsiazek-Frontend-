@@ -24,29 +24,35 @@ export class AccountService {
     this.accountSubject = new BehaviorSubject<Account>(JSON.parse(localStorage.getItem('account')));
     this.account =this.accountSubject.asObservable();
     //this.account = this.accountSubject.asObservable();
+       console.log(this.refreshTokenTimeout);
    }
 
    public get accountValue(): Account {
      return  this.accountSubject.value;
    }
 
-   private refreshTokenTimeout;
+   public refreshTokenTimeout;
 
    private startRefreshTokenTimer() {
 
        // set a timeout to refresh the token a minute before it expires
-       var exp = new Date(this.accountValue.expires);
-       const timeout = exp.getTime() - Date.now() - (60 * 1000);
-       this.refreshTokenTimeout = setTimeout(() => this.refreshToken(this.accountValue.refreshToken).subscribe(() => {console.log("refreshed" + Date.now())}), timeout);
+       //var exp = new Date(this.accountValue.expires);
+       //console.log(exp);
+       //const timeout = exp.getTime() - Date.now() - (14 * 60 * 1000);
+       //console.log(new Date(Date.now() + timeout));
+       //console.log(this.refreshTokenTimeout);
+       //this.refreshTokenTimeout = setTimeout(() => this.refreshToken(this.accountValue.refreshToken).subscribe(), timeout);
+       setInterval(()=>{this.refreshToken(this.accountValue.refreshToken).subscribe()}, 14 * 60 * 1000);
+       //console.log(this.refreshTokenTimeout);
    }
 
    refreshToken(token: string) {
-    return this.http.post<any>(`${baseUrl}users/token/refresh`, {token})
+      return this.http.post<any>(`${baseUrl}users/token/refresh`, {token})
         .pipe(map((account) => {
             this.accountSubject.next(account);
             console.log(this.accountValue.expires);
             localStorage.setItem('account', JSON.stringify(account));
-            this.startRefreshTokenTimer();
+            //this.startRefreshTokenTimer();
             return account;
         }));
     }
