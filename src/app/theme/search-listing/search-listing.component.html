@@ -115,17 +115,20 @@ margin-left: 5px;
     <h4  class="txt-highlight text-left m-t-20">
       Wyniki dla: <i>{{ title }}</i>
     </h4>
-    <p class="txt-highlight text-left m-t-20">
+    <p *ngIf="loaded && !noResults" class="txt-highlight text-left m-t-20">
       Strona {{ this.currPage + 1 }} z {{ this.pageCount - 1 + 1 }}
     </p>
   </div>
 
 
- <div class="row" style="max-width: 1000px; margin: auto;" >
+ <div class="row" style="max-width: 1000px; margin: auto; " >
   <div  class="col-12 " style="margin-top: 50px;">
     <svg  *ngIf="!loaded" id="loader2" viewBox="0 0 100 100" style="width:120px; height:120px;">
       <circle id="circle-loader2" cx="50" cy="50" r="45"></circle>
     </svg>
+    <h6 *ngIf="noResults" style="">
+      Brak wyników.
+    </h6>
   </div>
 
   <div *ngFor="let item of booksPage " class="col-xl-3 col-md-6" style="">
@@ -151,7 +154,7 @@ margin-left: 5px;
 </div>
 
 
-<div class="row">
+<div *ngIf="loaded && !noResults" class="row">
 
   <div class="" style="margin: auto;">
     <div class="dataTables_paginate paging_simple_numbers" id="simpletable_paginate" style="margin: auto;">

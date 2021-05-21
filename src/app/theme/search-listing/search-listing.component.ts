@@ -137,6 +137,7 @@ export class SearchListingComponent implements OnInit {
 apiUrl : string;
   url = 'https://localhost:5001/'; 
   loaded: boolean;
+  noResults: boolean;
 
   constructor(private router:Router, private route: ActivatedRoute, private fb:FormBuilder, private http : HttpClient,  public selectCityService: SelectCityService) {
     this.loaded = false;
@@ -194,7 +195,7 @@ apiUrl : string;
     this.itemLast = this.itemsOnPage;
     this.itemFirst = 0;
     this.title = "";
-
+    this.noResults = false;
     this.route.params.subscribe(params => {
         this.searchString = params['title'];
         this.cityId= params['city'];
@@ -210,6 +211,7 @@ apiUrl : string;
     this.pageCount = 0;
     this.title = "";
     this.title = "";
+    this.noResults = false;
         if (this.searchString && this.searchString !== "null")
             this.title = this.searchString + ", ";
         if (params['cityName'] && params['cityName'] !== 'null' && params['cityName'].length > 1)
@@ -225,6 +227,7 @@ apiUrl : string;
         this.http.get<Offer[]>(environment.apiUrl + 'offers/search3?Address=' + this.cityId + '&Title='+ this.searchString + '&Category='+ this.categoryId).subscribe(
           (response) => {
             this.loaded = true;
+            this.noResults = false;
             console.log("response categories recv");
             console.log(response)
             this.books = response
@@ -233,6 +236,8 @@ apiUrl : string;
           },
           (error) => {
             this.loaded = true;
+            this.noResults = true;
+
           }
         );
 
