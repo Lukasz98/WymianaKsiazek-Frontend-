@@ -16,6 +16,7 @@ import {Message} from "@app/_models/message";
 import {AddressService} from "@app/_services/address.service";
 import { ChatService } from '@app/_services/chat.service';
 import {AuthGuard} from '@app/_helpers/auth.guard';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -46,6 +47,7 @@ export class ProfileComponent implements OnInit {
   form2: FormGroup;
   showCities = false;
   states = [];
+  apiUrl : string;
 
   constructor(
     private alertService: AlertService,
@@ -59,6 +61,7 @@ export class ProfileComponent implements OnInit {
     private guard: AuthGuard
   ) {
 
+    this.apiUrl = environment.apiUrl;
     this.guard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
 
     if(this.accountService.accountValue)
